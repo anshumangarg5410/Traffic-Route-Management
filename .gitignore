@@ -1,0 +1,29 @@
+# Environment and local configs
+.env.local
+.env.*.local
+*.local
+frontend/.env.local
+frontend/.env.*.local
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+cache/
+.pytest_cache/
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.log
+
+# OS
+.DS_Store

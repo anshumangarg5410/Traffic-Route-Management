@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+pydantic
+numpy
+pandas
+scikit-learn
+joblib
+sqlalchemy>=2.0.0
+aiosqlite
+alembic
+argon2-cffi>=23.1.0
+pyjwt>=2.8.0
+email-validator>=2.0.0
+
+
