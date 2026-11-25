@@ -11,8 +11,11 @@ import {
   LogOut,
   Shield,
   LogIn,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import { getHealthStatus } from "../../services/api";
 
 const pageTitles = {
   "/": "User Workspace Overview",
@@ -37,7 +40,11 @@ export default function Header({ onToggleSidebar }) {
   const { user, isAuthenticated, logout } = useAuth();
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isStatusOpen, setIsStatusOpen] = useState(false);
+  const [healthInfo, setHealthInfo] = useState(null);
+  const [corridorQuery, setCorridorQuery] = useState("");
   const dropdownRef = useRef(null);
+  const statusRef = useRef(null);
 
   const title = pageTitles[location.pathname] || "Traffic Management";
 
@@ -47,18 +54,48 @@ export default function Header({ onToggleSidebar }) {
     year: "numeric",
   });
 
-  // Close dropdown on outside click
+  // Close dropdowns on outside click or Escape
   useEffect(() => {
     function handleClickOutside(event) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
+      if (statusRef.current && !statusRef.current.contains(event.target)) {
+        setIsStatusOpen(false);
+      }
+    }
+    function handleKeyDown(event) {
+      if (event.key === "Escape") {
+        setIsDropdownOpen(false);
+        setIsStatusOpen(false);
+      }
     }
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
+  const handleSearchCorridors = (e) => {
+    e.preventDefault();
+    const q = corridorQuery.trim();
+    navigate(q ? `/saved-routes?q=${encodeURIComponent(q)}` : "/saved-routes");
+  };
+
+  const handleToggleStatus = async () => {
+    const next = !isStatusOpen;
+    setIsStatusOpen(next);
+    if (next) {
+      try {
+        const res = await getHealthStatus();
+        setHealthInfo({ ok: res?.status === "healthy", detail: res?.service || "API online" });
+      } catch {
+        setHealthInfo({ ok: false, detail: "Unable to reach backend health endpoint" });
+      }
+    }
+  };
 
   const handleSignOut = async () => {
     setIsDropdownOpen(false);
@@ -89,21 +126,54 @@ export default function Header({ onToggleSidebar }) {
         </div>
       </div>
 
-      {/* Right: Search, Notifications & User Profile */}
+      {/* Right: Search, System Status & User Profile */}
       <div className="flex items-center gap-3 md:gap-4">
-        <div className="hidden lg:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-1.5 text-slate-400">
-          <Search size={15} className="text-slate-500" />
-          <span className="text-xs">Search corridors...</span>
-        </div>
-
-        <button
-          type="button"
-          className="relative rounded-xl border border-slate-800 bg-slate-900/60 p-2.5 text-slate-400 hover:bg-slate-800 hover:text-white transition"
-          aria-label="View notifications"
+        <form
+          onSubmit={handleSearchCorridors}
+          role="search"
+          aria-label="Search saved corridors"
+          className="hidden lg:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-1.5 text-slate-300 focus-within:border-emerald-500/60"
         >
-          <Bell size={17} />
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-slate-950" />
-        </button>
+          <Search size={15} className="text-slate-500 shrink-0" />
+          <input
+            type="search"
+            value={corridorQuery}
+            onChange={(e) => setCorridorQuery(e.target.value)}
+            placeholder="Search saved corridors..."
+            aria-label="Search saved corridors"
+            className="w-40 bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
+          />
+        </form>
+
+        <div className="relative" ref={statusRef}>
+          <button
+            type="button"
+            onClick={handleToggleStatus}
+            aria-expanded={isStatusOpen}
+            aria-haspopup="true"
+            className="relative rounded-xl border border-slate-800 bg-slate-900/60 p-2.5 text-slate-400 hover:bg-slate-800 hover:text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+            aria-label="Check system status"
+          >
+            <Bell size={17} />
+          </button>
+
+          {isStatusOpen && (
+            <div
+              role="status"
+              className="absolute right-0 mt-2 w-64 rounded-2xl border border-slate-800 bg-slate-900 p-3.5 shadow-2xl"
+            >
+              <p className="text-xs font-semibold text-white">System Status</p>
+              <div className="mt-2 flex items-center gap-2 text-xs text-slate-300">
+                {healthInfo?.ok ? (
+                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                ) : (
+                  <AlertCircle size={15} className="text-amber-400 shrink-0" />
+                )}
+                <span>{healthInfo ? healthInfo.detail : "Checking backend health..."}</span>
+              </div>
+            </div>
+          )}
+        </div>
 
         {/* User Auth Section */}
         {isAuthenticated && user ? (

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { getSavedRoutes, deleteSavedRoute, updateSavedRoute } from "../services/api";
 import ConfirmDialog from "../components/common/ConfirmDialog";
 import {
@@ -22,11 +22,12 @@ import {
 } from "lucide-react";
 
 export default function SavedRoutes() {
+  const [searchParams] = useSearchParams();
   const [routes, setRoutes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [statusMessage, setStatusMessage] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(() => searchParams.get("q") || "");
   const [deletingId, setDeletingId] = useState(null);
   const [routeToDelete, setRouteToDelete] = useState(null);
 

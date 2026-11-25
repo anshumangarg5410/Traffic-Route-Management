@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavLink, Link } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -52,6 +53,15 @@ export default function Sidebar({ isOpen = false, onClose }) {
     }
   };
 
+  useEffect(() => {
+    if (!isOpen || !onClose) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <>
       {/* Mobile Backdrop Overlay */}
@@ -65,19 +75,24 @@ export default function Sidebar({ isOpen = false, onClose }) {
 
       {/* Sidebar Drawer */}
       <aside
+        aria-label="Workspace navigation"
         className={`fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-slate-800 bg-slate-950 text-slate-300 transition-transform duration-200 lg:translate-x-0 ${
           isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         }`}
       >
         {/* Brand Header */}
         <div className="flex h-20 items-center justify-between border-b border-slate-800 px-6">
-          <Link to="/workspace" onClick={handleNavClick} className="flex items-center gap-3">
+          <Link
+            to="/workspace"
+            onClick={handleNavClick}
+            className="flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+          >
             <div className="rounded-xl bg-emerald-500 p-2 text-slate-950 shadow-md shadow-emerald-500/20">
               <Network size={22} />
             </div>
             <div>
               <h1 className="text-sm font-bold tracking-wide text-white">
-                TRAFFIC AI
+                ITMS
               </h1>
               <p className="text-[11px] text-slate-400">
                 Chandigarh Tricity
@@ -89,7 +104,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-900 hover:text-white lg:hidden"
+            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-900 hover:text-white lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             aria-label="Close sidebar"
           >
             <X size={18} />

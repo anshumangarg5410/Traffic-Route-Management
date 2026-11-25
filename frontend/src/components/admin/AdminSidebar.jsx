@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard,
@@ -38,6 +39,15 @@ export default function AdminSidebar({ isOpen = false, onClose }) {
     navigate("/login");
   };
 
+  useEffect(() => {
+    if (!isOpen || !onClose) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   return (
     <>
       {/* Mobile Drawer Backdrop Overlay */}
@@ -51,6 +61,7 @@ export default function AdminSidebar({ isOpen = false, onClose }) {
 
       {/* Admin Sidebar Navigation */}
       <aside
+        aria-label="Admin navigation"
         className={`fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-slate-800 bg-[#0B1120] text-slate-300 transition-transform duration-200 lg:translate-x-0 ${
           isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         }`}
