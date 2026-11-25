@@ -109,6 +109,62 @@ class TrafficInput(BaseModel):
     day_of_week: int
     is_weekend: int
 
+    @field_validator("temp")
+    @classmethod
+    def validate_temp_range(cls, v: float) -> float:
+        if math.isnan(v) or math.isinf(v) or v < 180.0 or v > 340.0:
+            raise ValueError("Temperature must be a finite Kelvin value between 180.0 and 340.0.")
+        return v
+
+    @field_validator("rain_1h", "snow_1h")
+    @classmethod
+    def validate_precip(cls, v: float, info) -> float:
+        if math.isnan(v) or math.isinf(v) or v < 0.0:
+            raise ValueError(f"{info.field_name} cannot be negative, NaN, or infinite.")
+        return v
+
+    @field_validator("clouds_all")
+    @classmethod
+    def validate_clouds(cls, v: int) -> int:
+        if v < 0 or v > 100:
+            raise ValueError("clouds_all must be between 0 and 100.")
+        return v
+
+    @field_validator("hour")
+    @classmethod
+    def validate_hour_range(cls, v: int) -> int:
+        if v < 0 or v > 23:
+            raise ValueError("hour must be between 0 and 23.")
+        return v
+
+    @field_validator("day")
+    @classmethod
+    def validate_day_range(cls, v: int) -> int:
+        if v < 1 or v > 31:
+            raise ValueError("day must be between 1 and 31.")
+        return v
+
+    @field_validator("month")
+    @classmethod
+    def validate_month_range(cls, v: int) -> int:
+        if v < 1 or v > 12:
+            raise ValueError("month must be between 1 and 12.")
+        return v
+
+    @field_validator("day_of_week")
+    @classmethod
+    def validate_dow_range(cls, v: int) -> int:
+        if v < 0 or v > 6:
+            raise ValueError("day_of_week must be between 0 and 6.")
+        return v
+
+    @field_validator("is_weekend")
+    @classmethod
+    def validate_weekend_flag(cls, v: int) -> int:
+        if v not in (0, 1):
+            raise ValueError("is_weekend must be 0 or 1.")
+        return v
+
 
 class TrafficCounts(BaseModel):
     north: int
@@ -613,8 +669,14 @@ def health_check():
 
 @app.post("/predict")
 def predict(input_data: TrafficInput):
-    result = predict_traffic(input_data.model_dump())
-    return result
+    try:
+        result = predict_traffic(input_data.model_dump())
+        return result
+    except Exception:
+        raise HTTPException(
+            status_code=503,
+            detail="Traffic prediction service is temporarily unavailable.",
+        )
 
 
 @app.post("/optimize-signal")
