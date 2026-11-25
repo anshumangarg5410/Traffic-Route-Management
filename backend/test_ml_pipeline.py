@@ -120,3 +120,31 @@ def test_compute_dataset_statistics_returns_expected_summary():
     assert stats["numeric_summary"]["traffic_volume"]["min"] == 3542.0
     assert stats["numeric_summary"]["traffic_volume"]["max"] == 5210.0
     assert stats["date_range"]["start"].startswith("2018-09-30")
+
+
+def test_preprocess_dataframe_and_cli_error_handling(tmp_path):
+    from backend.ml.preprocess_data import main as preprocess_main, preprocess_traffic_dataframe
+
+    raw = _sample_raw_df()
+    # Add duplicate row to verify deduplication
+    raw_with_dup = pd.concat([raw, raw.iloc[[0]]], ignore_index=True)
+    cleaned = preprocess_traffic_dataframe(raw_with_dup)
+    assert len(cleaned) == 2
+    assert pd.isna(cleaned.loc[1, "temp"])
+    assert cleaned.loc[0, "holiday"] == "None"
+    assert set(["hour", "day", "month", "day_of_week", "is_weekend"]).issubset(cleaned.columns)
+
+    # Missing file -> CLI returns non-zero exit code
+    assert preprocess_main(["--input", str(tmp_path / "missing.csv")]) == 1
+
+    # Empty file -> CLI returns non-zero exit code
+    empty_file = tmp_path / "empty.csv"
+    empty_file.write_text("", encoding="utf-8")
+    assert preprocess_main(["--input", str(empty_file)]) == 1
+
+    # Valid file -> CLI writes cleaned output and returns 0
+    in_file = tmp_path / "raw.csv"
+    out_file = tmp_path / "cleaned.csv"
+    raw.to_csv(in_file, index=False)
+    assert preprocess_main(["--input", str(in_file), "--output", str(out_file)]) == 0
+    assert out_file.exists()
