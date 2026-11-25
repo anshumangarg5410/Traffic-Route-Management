@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getRouteHistory } from "../services/api";
+import { getRouteHistory, deleteRouteHistoryEntry } from "../services/api";
+import ConfirmDialog from "../components/common/ConfirmDialog";
+import { removeHistoryEntryById } from "../utils/userWorkspaceUtils";
 import {
   History,
   MapPin,
@@ -8,28 +10,68 @@ import {
   Loader2,
   AlertCircle,
   RefreshCw,
+  Trash2,
+  CheckCircle2,
 } from "lucide-react";
 
 export default function RouteHistory() {
   const [history, setHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [statusMessage, setStatusMessage] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
+  const [entryToDelete, setEntryToDelete] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    let active = true;
     async function loadHistory() {
       try {
         const data = await getRouteHistory({ limit: 50 });
-        setHistory(data);
+        if (active) {
+          setHistory(data);
+          setError(null);
+        }
       } catch (err) {
-        setError(err.message || "Failed to load route history.");
+        if (active) {
+          setError(err.message || "Failed to load route history.");
+        }
       } finally {
-        setIsLoading(false);
+        if (active) {
+          setIsLoading(false);
+        }
       }
     }
     loadHistory();
-  }, []);
+    return () => {
+      active = false;
+    };
+  }, [refreshKey]);
+
+  const handleRetryLoad = () => {
+    setIsLoading(true);
+    setError(null);
+    setRefreshKey((k) => k + 1);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!entryToDelete) return;
+    setDeletingId(entryToDelete.id);
+    setError(null);
+    setStatusMessage(null);
+    try {
+      await deleteRouteHistoryEntry(entryToDelete.id);
+      setHistory((prev) => removeHistoryEntryById(prev, entryToDelete.id));
+      setStatusMessage("Search history entry removed.");
+      setEntryToDelete(null);
+    } catch (err) {
+      setError(err.message || "Failed to delete route history entry.");
+    } finally {
+      setDeletingId(null);
+    }
+  };
 
   const handleReplan = (item) => {
     navigate("/routes", {
@@ -68,10 +110,33 @@ export default function RouteHistory() {
         </Link>
       </div>
 
+      {statusMessage && (
+        <div
+          role="status"
+          className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-400"
+        >
+          <CheckCircle2 size={18} className="shrink-0" />
+          <span>{statusMessage}</span>
+        </div>
+      )}
+
       {error && (
-        <div className="flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400">
-          <AlertCircle size={18} className="shrink-0" />
-          <span>{error}</span>
+        <div
+          role="alert"
+          className="flex items-center justify-between gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400"
+        >
+          <div className="flex items-center gap-3">
+            <AlertCircle size={18} className="shrink-0" />
+            <span>{error}</span>
+          </div>
+          <button
+            type="button"
+            onClick={handleRetryLoad}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-200 hover:bg-red-500/20"
+          >
+            <RefreshCw size={12} />
+            <span>Retry</span>
+          </button>
         </div>
       )}
 
@@ -115,13 +180,30 @@ export default function RouteHistory() {
                       {item.estimated_duration_min ? `${item.estimated_duration_min.toFixed(0)} min` : "--"}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4 text-right">
-                      <button
-                        onClick={() => handleReplan(item)}
-                        className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-emerald-500 hover:text-slate-950 hover:border-emerald-500"
-                      >
-                        <RefreshCw size={12} />
-                        <span>Re-evaluate</span>
-                      </button>
+                      <div className="inline-flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleReplan(item)}
+                          className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs font-medium text-slate-300 transition hover:bg-emerald-500 hover:text-slate-950 hover:border-emerald-500"
+                        >
+                          <RefreshCw size={12} />
+                          <span>Re-evaluate</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setEntryToDelete(item)}
+                          disabled={deletingId === item.id}
+                          aria-label={`Delete history entry from ${item.origin_query} to ${item.destination_query}`}
+                          title="Delete history entry"
+                          className="inline-flex items-center justify-center rounded-lg border border-slate-800 bg-slate-900 p-1.5 text-slate-400 transition hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
+                        >
+                          {deletingId === item.id ? (
+                            <Loader2 size={14} className="animate-spin" />
+                          ) : (
+                            <Trash2 size={14} />
+                          )}
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 ))}
@@ -147,6 +229,15 @@ export default function RouteHistory() {
           </Link>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={Boolean(entryToDelete)}
+        title="Delete History Entry"
+        message={`Remove the route search from "${entryToDelete?.origin_query || ""}" to "${entryToDelete?.destination_query || ""}" from your history?`}
+        confirmLabel="Delete Entry"
+        isProcessing={Boolean(deletingId)}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setEntryToDelete(null)}
+      />
     </div>
   );
 }
