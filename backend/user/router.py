@@ -16,6 +16,7 @@ from backend.user.schemas import (
     RouteHistoryResponse,
     SavedRouteCreateRequest,
     SavedRouteResponse,
+    SavedRouteUpdateRequest,
 )
 
 user_router = APIRouter()
@@ -112,6 +113,39 @@ async def delete_saved_route(
     return MessageResponse(detail="Saved route deleted successfully.")
 
 
+@user_router.patch(
+    "/saved-routes/{route_id}",
+    response_model=SavedRouteResponse,
+    summary="Update a saved route owned by authenticated user",
+)
+async def update_saved_route(
+    route_id: str,
+    req: SavedRouteUpdateRequest,
+    current_user: Annotated[User, Depends(require_authenticated_user)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+) -> SavedRouteResponse:
+    """Update title or preferred criteria for a saved route owned by the current user."""
+    stmt = select(SavedRoute).where(
+        SavedRoute.id == route_id,
+        SavedRoute.user_id == current_user.id,
+    )
+    route_record = (await db.execute(stmt)).scalar_one_or_none()
+    if not route_record:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Saved route not found.",
+        )
+
+    if req.title is not None:
+        route_record.title = req.title
+    if req.preferred_criteria is not None:
+        route_record.preferred_criteria = req.preferred_criteria
+
+    await db.commit()
+    await db.refresh(route_record)
+    return SavedRouteResponse.model_validate(route_record)
+
+
 # ============================================================================
 # Route Search History (Scoped strictly to authenticated user)
 # ============================================================================
@@ -166,6 +200,33 @@ async def record_route_search(
     await db.commit()
     await db.refresh(history_record)
     return RouteHistoryResponse.model_validate(history_record)
+
+
+@user_router.delete(
+    "/route-history/{history_id}",
+    response_model=MessageResponse,
+    summary="Delete a route search history entry owned by authenticated user",
+)
+async def delete_route_history_entry(
+    history_id: str,
+    current_user: Annotated[User, Depends(require_authenticated_user)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+) -> MessageResponse:
+    """Delete a route search history record owned by the current user."""
+    stmt = select(RouteSearchHistory).where(
+        RouteSearchHistory.id == history_id,
+        RouteSearchHistory.user_id == current_user.id,
+    )
+    record = (await db.execute(stmt)).scalar_one_or_none()
+    if not record:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Route history entry not found.",
+        )
+
+    await db.delete(record)
+    await db.commit()
+    return MessageResponse(detail="Route history entry deleted successfully.")
 
 
 # ============================================================================

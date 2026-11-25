@@ -41,6 +41,21 @@ class SavedRouteCreateRequest(BaseModel):
         return cleaned
 
 
+class SavedRouteUpdateRequest(BaseModel):
+    title: Optional[str] = Field(None, min_length=1, max_length=100)
+    preferred_criteria: Optional[str] = Field(None, max_length=50)
+
+    @field_validator("title")
+    @classmethod
+    def clean_optional_title(cls, v: Optional[str]) -> Optional[str]:
+        if v is None:
+            return None
+        cleaned = v.strip()
+        if not cleaned:
+            raise ValueError("Route title cannot be blank.")
+        return cleaned
+
+
 class SavedRouteResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 

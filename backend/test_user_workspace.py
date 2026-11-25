@@ -325,3 +325,63 @@ class TestUserWorkspaceBackend:
                 assert user.token_version == 1
 
         run_async(_check_db())
+
+    def test_update_saved_route_and_delete_history_with_ownership(self, workspace_db_setup):
+        client = workspace_db_setup["client"]
+        factory = workspace_db_setup["std_factory"]
+
+        _, token_a = create_user_and_token(factory, "owner_a@test.com", "Owner A")
+        _, token_b = create_user_and_token(factory, "owner_b@test.com", "Owner B")
+
+        create_res = client.post(
+            "/api/v1/user/saved-routes",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={
+                "title": "Morning Commute",
+                "origin_name": "Chandigarh",
+                "origin_lat": 30.7333,
+                "origin_lon": 76.7794,
+                "destination_name": "Mohali",
+                "destination_lat": 30.7046,
+                "destination_lon": 76.7179,
+            },
+        )
+        assert create_res.status_code == 201
+        route_id = create_res.json()["id"]
+
+        # Cross-user update blocked (404)
+        assert client.patch(
+            f"/api/v1/user/saved-routes/{route_id}",
+            headers={"Authorization": f"Bearer {token_b}"},
+            json={"title": "Hijacked"},
+        ).status_code == 404
+
+        # Owner rename succeeds
+        patch_res = client.patch(
+            f"/api/v1/user/saved-routes/{route_id}",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={"title": "Updated Commute", "preferred_criteria": "fastest"},
+        )
+        assert patch_res.status_code == 200
+        assert patch_res.json()["title"] == "Updated Commute"
+        assert patch_res.json()["preferred_criteria"] == "fastest"
+
+        # History create + cross-user delete blocked + owner delete succeeds
+        hist_res = client.post(
+            "/api/v1/user/route-history",
+            headers={"Authorization": f"Bearer {token_a}"},
+            json={"origin_query": "Chandigarh", "destination_query": "Mohali"},
+        )
+        assert hist_res.status_code == 201
+        hist_id = hist_res.json()["id"]
+
+        assert client.delete(
+            f"/api/v1/user/route-history/{hist_id}",
+            headers={"Authorization": f"Bearer {token_b}"},
+        ).status_code == 404
+
+        del_res = client.delete(
+            f"/api/v1/user/route-history/{hist_id}",
+            headers={"Authorization": f"Bearer {token_a}"},
+        )
+        assert del_res.status_code == 200
