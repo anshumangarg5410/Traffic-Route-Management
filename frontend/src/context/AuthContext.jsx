@@ -7,6 +7,7 @@ import {
   logoutAllApi,
   refreshApi,
   updateProfileApi,
+  changePasswordApi,
   setAuthTokens,
 } from "../services/api";
 
@@ -115,6 +116,20 @@ export function AuthProvider({ children }) {
     return updatedUser;
   }, []);
 
+  // Change Password (revokes existing sessions on backend)
+  const changePassword = useCallback(
+    async (currentPassword, newPassword) => {
+      const res = await changePasswordApi({
+        current_password: currentPassword,
+        new_password: newPassword,
+      });
+      applyTokens(null);
+      setUser(null);
+      return res;
+    },
+    [applyTokens]
+  );
+
   const value = useMemo(
     () => ({
       user,
@@ -127,9 +142,22 @@ export function AuthProvider({ children }) {
       logout,
       logoutAll,
       updateProfile,
+      changePassword,
       refreshSession: restoreSession,
     }),
-    [user, accessToken, csrfToken, isLoading, login, register, logout, logoutAll, updateProfile, restoreSession]
+    [
+      user,
+      accessToken,
+      csrfToken,
+      isLoading,
+      login,
+      register,
+      logout,
+      logoutAll,
+      updateProfile,
+      changePassword,
+      restoreSession,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

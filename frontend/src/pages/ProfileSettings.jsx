@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { validatePasswordChangeInput } from "../utils/userWorkspaceUtils";
 import {
   User,
   Mail,
@@ -11,15 +13,24 @@ import {
   AlertCircle,
   Loader2,
   Smartphone,
+  KeyRound,
 } from "lucide-react";
 
 export default function ProfileSettings() {
-  const { user, updateProfile, logout, logoutAll } = useAuth();
+  const { user, updateProfile, changePassword, logout, logoutAll } = useAuth();
+  const navigate = useNavigate();
 
   const [fullName, setFullName] = useState(user?.full_name || "");
   const [isUpdating, setIsUpdating] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState(null);
+  const [passwordSuccess, setPasswordSuccess] = useState(null);
 
   // Adjust form state when user profile loads or changes asynchronously
   const [prevUserFullName, setPrevUserFullName] = useState(user?.full_name || "");
@@ -74,6 +85,41 @@ export default function ProfileSettings() {
       await logoutAll();
     } finally {
       setIsLoggingOutAll(false);
+    }
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    setPasswordError(null);
+    setPasswordSuccess(null);
+
+    const validationError = validatePasswordChangeInput({
+      currentPassword,
+      newPassword,
+      confirmPassword,
+    });
+    if (validationError) {
+      setPasswordError(validationError);
+      return;
+    }
+
+    setIsChangingPassword(true);
+    try {
+      const res = await changePassword(currentPassword, newPassword);
+      setPasswordSuccess(res?.detail || "Password updated successfully. Please sign in again.");
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      navigate("/login", {
+        replace: true,
+        state: {
+          statusMessage: res?.detail || "Password updated successfully. Please sign in again.",
+        },
+      });
+    } catch (err) {
+      setPasswordError(err.message || "Failed to change password.");
+    } finally {
+      setIsChangingPassword(false);
     }
   };
 
@@ -206,6 +252,110 @@ export default function ProfileSettings() {
               <>
                 <Save size={14} />
                 <span>Save Changes</span>
+              </>
+            )}
+          </button>
+        </form>
+      </div>
+
+      {/* Change Password Form */}
+      <div className="rounded-2xl border border-slate-800 bg-slate-900/40 p-6 backdrop-blur">
+        <h2 className="text-base font-semibold text-white">Change Password</h2>
+        <p className="mt-1 text-xs text-slate-400">
+          Update your account password. All active sessions will be signed out for security.
+        </p>
+
+        {passwordSuccess && (
+          <div
+            role="status"
+            className="mt-4 flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3.5 text-xs text-emerald-400"
+          >
+            <CheckCircle2 size={16} className="shrink-0" />
+            <span>{passwordSuccess}</span>
+          </div>
+        )}
+
+        {passwordError && (
+          <div
+            role="alert"
+            className="mt-4 flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-3.5 text-xs text-red-400"
+          >
+            <AlertCircle size={16} className="shrink-0" />
+            <span>{passwordError}</span>
+          </div>
+        )}
+
+        <form onSubmit={handlePasswordChange} className="mt-6 max-w-lg space-y-4">
+          <div>
+            <label
+              htmlFor="current-password"
+              className="block text-xs font-semibold uppercase tracking-wider text-slate-400"
+            >
+              Current Password
+            </label>
+            <input
+              id="current-password"
+              type="password"
+              autoComplete="current-password"
+              required
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="mt-1.5 block w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="new-password"
+              className="block text-xs font-semibold uppercase tracking-wider text-slate-400"
+            >
+              New Password
+            </label>
+            <input
+              id="new-password"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="mt-1.5 block w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="confirm-password"
+              className="block text-xs font-semibold uppercase tracking-wider text-slate-400"
+            >
+              Confirm New Password
+            </label>
+            <input
+              id="confirm-password"
+              type="password"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="mt-1.5 block w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder-slate-600 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={isChangingPassword}
+            className="flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2.5 text-xs font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:opacity-50"
+          >
+            {isChangingPassword ? (
+              <>
+                <Loader2 size={14} className="animate-spin" />
+                <span>Updating Password...</span>
+              </>
+            ) : (
+              <>
+                <KeyRound size={14} />
+                <span>Update Password</span>
               </>
             )}
           </button>

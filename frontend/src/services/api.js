@@ -173,6 +173,13 @@ export const updateProfileApi = (data) => {
   });
 };
 
+export const changePasswordApi = (data) => {
+  return apiRequest("/auth/password", {
+    method: "PUT",
+    body: JSON.stringify(data),
+  });
+};
+
 // ============================================================================
 // User Workspace Services (Phase 11.4)
 // ============================================================================
