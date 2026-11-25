@@ -294,6 +294,40 @@ async def logout_all_sessions(
     await session.commit()
 
 
+async def change_user_password(
+    session: AsyncSession,
+    user: User,
+    current_password: str,
+    new_password: str,
+) -> None:
+    """
+    Verify current password, update password_hash, revoke active refresh tokens,
+    and increment token_version to invalidate existing sessions.
+    """
+    if not verify_password(current_password, user.password_hash):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Current password is incorrect.",
+        )
+
+    if current_password == new_password:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="New password must be different from your current password.",
+        )
+
+    user.password_hash = hash_password(new_password)
+    user.token_version += 1
+    user.updated_at = datetime.now(timezone.utc)
+
+    await session.execute(
+        update(RefreshToken)
+        .where(RefreshToken.user_id == user.id, RefreshToken.is_revoked == 0)
+        .values(is_revoked=1)
+    )
+    await session.commit()
+
+
 async def demote_or_suspend_admin(
     admin_id: str,
     new_role: str | None = None,

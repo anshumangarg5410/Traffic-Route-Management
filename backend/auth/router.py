@@ -21,6 +21,7 @@ from backend.auth.jwt import create_access_token
 from backend.auth.schemas import (
     LoginRequest,
     MessageResponse,
+    PasswordChangeRequest,
     ProfileUpdateRequest,
     RefreshRequest,
     RegisterRequest,
@@ -29,6 +30,7 @@ from backend.auth.schemas import (
 )
 from backend.auth.service import (
     authenticate_user_credentials,
+    change_user_password,
     create_refresh_token_session,
     create_user_account,
     hash_refresh_token,
@@ -423,3 +425,25 @@ async def update_profile(
     await db.commit()
     await db.refresh(current_user)
     return UserResponse.model_validate(current_user)
+
+
+@auth_router.put(
+    "/password",
+    response_model=MessageResponse,
+    summary="Change password for current authenticated user",
+)
+async def change_password(
+    req: PasswordChangeRequest,
+    response: Response,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+) -> MessageResponse:
+    """Verify current password, update password, and revoke existing sessions."""
+    await change_user_password(
+        session=db,
+        user=current_user,
+        current_password=req.current_password,
+        new_password=req.new_password,
+    )
+    _clear_auth_cookies(response)
+    return MessageResponse(detail="Password updated successfully. Please sign in again.")

@@ -1165,3 +1165,57 @@ class TestAdminCLIAndSecurityConfig:
         t2 = generate_csrf_token()
         assert len(t1) >= 32
         assert t1 != t2
+
+    def test_change_password_and_session_invalidation(self, test_db_setup):
+        client = test_db_setup["client"]
+        email = "pwdchange@example.com"
+        old_pass = "OldPassword123!"
+        new_pass = "NewPassword456!"
+
+        res = client.post("/auth/register", json={
+            "email": email,
+            "full_name": "Pwd User",
+            "password": old_pass,
+        })
+        assert res.status_code == 201
+
+        login_res = client.post("/auth/login", json={
+            "email": email,
+            "password": old_pass,
+            "token_transport": "body",
+        })
+        assert login_res.status_code == 200
+        old_access = login_res.json()["access_token"]
+        old_refresh = login_res.json()["refresh_token"]
+
+        # Wrong current password -> 401
+        bad_res = client.put(
+            "/auth/password",
+            headers={"Authorization": f"Bearer {old_access}"},
+            json={"current_password": "WrongPassword1!", "new_password": new_pass},
+        )
+        assert bad_res.status_code == 401
+
+        # Same password -> 400
+        same_res = client.put(
+            "/auth/password",
+            headers={"Authorization": f"Bearer {old_access}"},
+            json={"current_password": old_pass, "new_password": old_pass},
+        )
+        assert same_res.status_code == 400
+
+        # Valid change -> 200 and revokes old access/refresh tokens
+        ok_res = client.put(
+            "/auth/password",
+            headers={"Authorization": f"Bearer {old_access}"},
+            json={"current_password": old_pass, "new_password": new_pass},
+        )
+        assert ok_res.status_code == 200
+
+        assert client.get("/auth/me", headers={"Authorization": f"Bearer {old_access}"}).status_code == 401
+        assert client.post("/auth/refresh", json={"refresh_token": old_refresh}).status_code == 401
+
+        # Old password rejected, new password succeeds
+        assert client.post("/auth/login", json={"email": email, "password": old_pass}).status_code == 401
+        new_login = client.post("/auth/login", json={"email": email, "password": new_pass, "token_transport": "body"})
+        assert new_login.status_code == 200
