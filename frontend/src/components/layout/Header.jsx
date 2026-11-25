@@ -1,0 +1,233 @@
+import { useState, useRef, useEffect } from "react";
+import { useLocation, Link, useNavigate } from "react-router-dom";
+import {
+  Bell,
+  Search,
+  Menu,
+  ChevronDown,
+  User,
+  Bookmark,
+  History,
+  LogOut,
+  Shield,
+  LogIn,
+} from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
+
+const pageTitles = {
+  "/": "User Workspace Overview",
+  "/traffic-dashboard": "Traffic System Overview",
+  "/routes": "Smart Route Planner",
+  "/route-planner": "Smart Route Planner",
+  "/saved-routes": "Saved Corridors",
+  "/route-history": "Route Search History",
+  "/profile": "Profile & Settings",
+  "/prediction": "Traffic Prediction",
+  "/optimization": "Signal Optimization",
+  "/simulation": "Traffic Simulation",
+  "/comparison": "Strategy Comparison",
+  "/validation": "Validation & Sensitivity Analysis",
+  "/login": "Sign In",
+  "/register": "Create Account",
+};
+
+export default function Header({ onToggleSidebar }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const title = pageTitles[location.pathname] || "Traffic Management";
+
+  const today = new Date().toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const handleSignOut = async () => {
+    setIsDropdownOpen(false);
+    await logout();
+    navigate("/login");
+  };
+
+  return (
+    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-slate-800 bg-slate-950/90 px-4 md:px-8 backdrop-blur">
+      {/* Left: Mobile hamburger toggle & page heading */}
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={onToggleSidebar}
+          className="rounded-xl border border-slate-800 bg-slate-900/80 p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition lg:hidden"
+          aria-label="Toggle navigation menu"
+        >
+          <Menu size={20} />
+        </button>
+
+        <div>
+          <h2 className="text-lg md:text-xl font-semibold text-white tracking-tight">
+            {title}
+          </h2>
+          <p className="hidden sm:block mt-0.5 text-xs text-slate-500">
+            Intelligent Traffic Management System • Tricity
+          </p>
+        </div>
+      </div>
+
+      {/* Right: Search, Notifications & User Profile */}
+      <div className="flex items-center gap-3 md:gap-4">
+        <div className="hidden lg:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-1.5 text-slate-400">
+          <Search size={15} className="text-slate-500" />
+          <span className="text-xs">Search corridors...</span>
+        </div>
+
+        <button
+          type="button"
+          className="relative rounded-xl border border-slate-800 bg-slate-900/60 p-2.5 text-slate-400 hover:bg-slate-800 hover:text-white transition"
+          aria-label="View notifications"
+        >
+          <Bell size={17} />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-emerald-400 ring-2 ring-slate-950" />
+        </button>
+
+        {/* User Auth Section */}
+        {isAuthenticated && user ? (
+          <div className="relative" ref={dropdownRef}>
+            <button
+              type="button"
+              onClick={() => setIsDropdownOpen((prev) => !prev)}
+              className="flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/60 py-1.5 pl-2 pr-3 text-left transition hover:border-slate-700 hover:bg-slate-900 focus:outline-none"
+              aria-expanded={isDropdownOpen}
+              aria-haspopup="true"
+            >
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/20 text-xs font-bold text-emerald-400">
+                {user.full_name ? user.full_name[0].toUpperCase() : user.email[0].toUpperCase()}
+              </div>
+              <div className="hidden sm:block text-left">
+                <p className="text-xs font-semibold text-white truncate max-w-[120px]">
+                  {user.full_name || "User"}
+                </p>
+                <p className="text-[10px] text-slate-400 capitalize">
+                  {user.role}
+                </p>
+              </div>
+              <ChevronDown size={14} className="text-slate-400 transition" />
+            </button>
+
+            {/* Profile Dropdown Menu */}
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-slate-800 bg-slate-900 p-2 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+                <div className="border-b border-slate-800 px-3 py-2.5">
+                  <p className="text-xs font-bold text-white truncate">
+                    {user.full_name || "Driver Account"}
+                  </p>
+                  <p className="text-[11px] text-slate-400 truncate">
+                    {user.email}
+                  </p>
+                  <div className="mt-1 flex items-center gap-1.5">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                      <Shield size={10} />
+                      <span className="capitalize">{user.role}</span>
+                    </span>
+                    <span className="text-[10px] text-slate-500">{today}</span>
+                  </div>
+                </div>
+
+                <div className="py-1">
+                  <Link
+                    to="/workspace"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                  >
+                    <User size={14} className="text-slate-400" />
+                    <span>Workspace Overview</span>
+                  </Link>
+
+                  <Link
+                    to="/saved-routes"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                  >
+                    <Bookmark size={14} className="text-emerald-400" />
+                    <span>Saved Corridors</span>
+                  </Link>
+
+                  <Link
+                    to="/route-history"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                  >
+                    <History size={14} className="text-sky-400" />
+                    <span>Route History</span>
+                  </Link>
+
+                  <Link
+                    to="/profile"
+                    onClick={() => setIsDropdownOpen(false)}
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                  >
+                    <User size={14} className="text-purple-400" />
+                    <span>Profile & Security</span>
+                  </Link>
+
+                  {user?.role === "admin" && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-indigo-400 hover:bg-indigo-500/10 transition"
+                    >
+                      <Shield size={14} className="text-indigo-400" />
+                      <span>Admin Control Center</span>
+                    </Link>
+                  )}
+                </div>
+
+                <div className="border-t border-slate-800 pt-1">
+                  <button
+                    type="button"
+                    onClick={handleSignOut}
+                    className="flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/10 transition"
+                  >
+                    <LogOut size={14} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Link
+              to="/login"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition"
+            >
+              <LogIn size={13} />
+              <span>Sign In</span>
+            </Link>
+            <Link
+              to="/register"
+              className="hidden sm:inline-flex rounded-xl bg-emerald-500 px-3.5 py-2 text-xs font-semibold text-slate-950 hover:bg-emerald-400 transition"
+            >
+              Register
+            </Link>
+          </div>
+        )}
+      </div>
+    </header>
+  );
+}
