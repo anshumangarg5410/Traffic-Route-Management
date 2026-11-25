@@ -1,0 +1,373 @@
+{
+  "extraction_date_utc": "2026-11-23T12:08:41.294577+00:00",
+  "audit_date_utc": "2026-11-23T12:25:08.810031+00:00",
+  "region_name": "Chandigarh Tricity and Surrounds",
+  "target_areas_included": [
+    "Chandigarh",
+    "Mohali (SAS Nagar)",
+    "Panchkula",
+    "Zirakpur",
+    "Kharar",
+    "New Chandigarh (Mullanpur)",
+    "Dera Bassi"
+  ],
+  "bounding_box_configured": {
+    "west": 76.59,
+    "south": 30.54,
+    "east": 76.93,
+    "north": 30.85
+  },
+  "bounding_box_actual": {
+    "min_lat": 30.540009,
+    "max_lat": 30.849987,
+    "min_lon": 76.590009,
+    "max_lon": 76.929996
+  },
+  "osmnx_version": "2.1.0",
+  "networkx_version": "3.5",
+  "network_type": "drive",
+  "simplified": true,
+  "retain_all": true,
+  "graph_statistics": {
+    "node_count": 56254,
+    "directed_edge_count": 144015,
+    "edge_count": 144015,
+    "directed_edge_length_km": 13092.88,
+    "total_road_length_km": 13092.88,
+    "estimated_unique_physical_road_length_km": 7290.71,
+    "weakly_connected_component_count": 88,
+    "weakly_connected_components": 88,
+    "largest_component_percentage": 99.59,
+    "largest_wcc_percentage": 99.59,
+    "intersection_count": 45148,
+    "topological_intersections": 45148,
+    "dead_end_count": 10204,
+    "intermediate_node_count": 895,
+    "isolated_node_count": 7,
+    "mapped_traffic_signal_count": 26,
+    "mapped_traffic_signals": 26,
+    "signalized_intersections": 26,
+    "unsignalized_intersections": 45122
+  },
+  "validation_report": {
+    "is_valid": true,
+    "node_count": 56254,
+    "edge_count": 144015,
+    "bounding_box_actual": {
+      "min_lat": 30.540009,
+      "max_lat": 30.849987,
+      "min_lon": 76.590009,
+      "max_lon": 76.929996
+    },
+    "edge_metrics": {
+      "valid_length_edges": 144015,
+      "zero_length_edges": 0,
+      "negative_length_edges": 0,
+      "invalid_length_edges": 0,
+      "min_length_meters": 0.51,
+      "max_length_meters": 8215.7,
+      "mean_length_meters": 90.91,
+      "total_road_length_km": 13092.88,
+      "directed_edge_length_km": 13092.88,
+      "estimated_unique_physical_road_length_km": 7290.71,
+      "reciprocal_centerline_length_km": 5802.17,
+      "unpaired_road_length_km": 1488.55,
+      "reciprocal_pairs_count": 67317,
+      "unpaired_directed_edges_count": 9381,
+      "length_estimation_methodology": "Pairwise reciprocal edge matching using endpoint node pairs, OSM IDs, and length proximity.",
+      "length_estimation_limitation": "Dual-carriageway boulevards and divided highways are mapped in OSM as separate directional ways, so each carriageway is counted in unique physical road length. Micro-level asphalt vs corridor width cannot be further disambiguated without cadastral survey data."
+    },
+    "oneway_distribution": {
+      "oneway_true": 9319,
+      "oneway_false": 134696,
+      "unspecified": 0
+    },
+    "road_classifications": {
+      "residential": 119097,
+      "tertiary": 12562,
+      "unclassified": 5099,
+      "secondary": 3022,
+      "tertiary_link": 1403,
+      "trunk": 881,
+      "primary": 679,
+      "living_street": 464,
+      "secondary_link": 410,
+      "trunk_link": 195,
+      "primary_link": 105,
+      "unclassified/residential": 40,
+      "living_street/residential": 24,
+      "tertiary/residential": 24,
+      "tertiary/secondary": 3,
+      "tertiary_link/tertiary": 2,
+      "trunk/primary": 2,
+      "tertiary_link/residential": 2,
+      "tertiary/tertiary_link": 1
+    },
+    "connected_components": {
+      "weakly_connected_components": 88,
+      "weakly_connected_component_count": 88,
+      "largest_wcc_node_count": 56026,
+      "largest_wcc_percentage": 99.59,
+      "largest_component_percentage": 99.59,
+      "strongly_connected_components": 128,
+      "largest_scc_node_count": 55900,
+      "largest_scc_percentage": 99.37,
+      "disconnected_components_explanation": "87 disconnected sub-islands in the Chandigarh Tricity driving network represent isolated residential gated developments, private parking loops, campus perimeters, or highway stubs clipped at the geographic bounding box boundary (e.g. at west boundary 76.59\u00b0)."
+    },
+    "target_area_coverage": {
+      "total_targets": 7,
+      "covered_targets": 7,
+      "all_targets_covered": true,
+      "areas": {
+        "chandigarh": {
+          "name": "Chandigarh",
+          "target_coordinates": [
+            30.7333,
+            76.7794
+          ],
+          "distance_to_nearest_node_km": 0.089,
+          "covered": true,
+          "description": "Union Territory capital & central planned grid"
+        },
+        "mohali": {
+          "name": "Mohali (SAS Nagar)",
+          "target_coordinates": [
+            30.7046,
+            76.7179
+          ],
+          "distance_to_nearest_node_km": 0.196,
+          "covered": true,
+          "description": "Major urban center & IT corridor southwest of Chandigarh"
+        },
+        "panchkula": {
+          "name": "Panchkula",
+          "target_coordinates": [
+            30.6942,
+            76.8606
+          ],
+          "distance_to_nearest_node_km": 0.18,
+          "covered": true,
+          "description": "Planned city southeast of Chandigarh at the Shivalik foothills"
+        },
+        "zirakpur": {
+          "name": "Zirakpur",
+          "target_coordinates": [
+            30.6425,
+            76.8173
+          ],
+          "distance_to_nearest_node_km": 0.013,
+          "covered": true,
+          "description": "Key transportation hub & arterial corridor south of Chandigarh"
+        },
+        "kharar": {
+          "name": "Kharar",
+          "target_coordinates": [
+            30.7499,
+            76.6411
+          ],
+          "distance_to_nearest_node_km": 0.078,
+          "covered": true,
+          "description": "High-growth residential & educational hub northwest of Mohali on NH-5"
+        },
+        "new_chandigarh": {
+          "name": "New Chandigarh (Mullanpur)",
+          "target_coordinates": [
+            30.805,
+            76.715
+          ],
+          "distance_to_nearest_node_km": 0.124,
+          "covered": true,
+          "description": "Planned eco-city & medicity development north of Chandigarh"
+        },
+        "dera_bassi": {
+          "name": "Dera Bassi",
+          "target_coordinates": [
+            30.5833,
+            76.8444
+          ],
+          "distance_to_nearest_node_km": 0.093,
+          "covered": true,
+          "description": "Industrial & logistics center on NH-152 southeast of Zirakpur"
+        }
+      }
+    },
+    "junction_and_signal_metrics": {
+      "total_nodes": 56254,
+      "traffic_signals_count": 26,
+      "topological_intersections_count": 45148,
+      "signalized_intersections_count": 26,
+      "unsignalized_intersections_count": 45122,
+      "midblock_signals_count": 0,
+      "dead_end_nodes_count": 10204,
+      "intermediate_nodes_count": 895,
+      "isolated_nodes_count": 7,
+      "ambiguous_nodes_count": 0,
+      "sample_signals": [
+        {
+          "node_id": 1424395831,
+          "lat": 30.710639,
+          "lon": 76.712898,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1424396192,
+          "lat": 30.70325,
+          "lon": 76.70114,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1424396544,
+          "lat": 30.70918,
+          "lon": 76.696228,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1424480490,
+          "lat": 30.722347,
+          "lon": 76.702956,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1832757083,
+          "lat": 30.709071,
+          "lon": 76.696056,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1832757091,
+          "lat": 30.703154,
+          "lon": 76.701009,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1832906027,
+          "lat": 30.710511,
+          "lon": 76.712875,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1835400765,
+          "lat": 30.722403,
+          "lon": 76.703041,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 1835405429,
+          "lat": 30.71058,
+          "lon": 76.712813,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        },
+        {
+          "node_id": 3421866939,
+          "lat": 30.703187,
+          "lon": 76.701228,
+          "physical_degree": 4,
+          "street_count": 4,
+          "is_intersection": true
+        }
+      ],
+      "sample_intersections": [
+        {
+          "node_id": 426748309,
+          "lat": 30.694684,
+          "lon": 76.689453,
+          "physical_degree": 3,
+          "street_count": 3,
+          "has_signal": false
+        },
+        {
+          "node_id": 426748382,
+          "lat": 30.690973,
+          "lon": 76.664335,
+          "physical_degree": 4,
+          "street_count": 4,
+          "has_signal": false
+        },
+        {
+          "node_id": 426748384,
+          "lat": 30.690213,
+          "lon": 76.664629,
+          "physical_degree": 3,
+          "street_count": 3,
+          "has_signal": false
+        },
+        {
+          "node_id": 426807718,
+          "lat": 30.689415,
+          "lon": 76.660285,
+          "physical_degree": 3,
+          "street_count": 3,
+          "has_signal": false
+        },
+        {
+          "node_id": 426807728,
+          "lat": 30.685148,
+          "lon": 76.645219,
+          "physical_degree": 4,
+          "street_count": 4,
+          "has_signal": false
+        },
+        {
+          "node_id": 426816915,
+          "lat": 30.690599,
+          "lon": 76.694164,
+          "physical_degree": 3,
+          "street_count": 3,
+          "has_signal": false
+        },
+        {
+          "node_id": 426816916,
+          "lat": 30.691336,
+          "lon": 76.695351,
+          "physical_degree": 4,
+          "street_count": 4,
+          "has_signal": false
+        },
+        {
+          "node_id": 426816921,
+          "lat": 30.690208,
+          "lon": 76.69349,
+          "physical_degree": 4,
+          "street_count": 4,
+          "has_signal": false
+        },
+        {
+          "node_id": 443353278,
+          "lat": 30.74284,
+          "lon": 76.643841,
+          "physical_degree": 4,
+          "street_count": 4,
+          "has_signal": false
+        },
+        {
+          "node_id": 566572315,
+          "lat": 30.831799,
+          "lon": 76.612713,
+          "physical_degree": 3,
+          "street_count": 3,
+          "has_signal": false
+        }
+      ]
+    },
+    "errors": [],
+    "warnings": []
+  }
+}
