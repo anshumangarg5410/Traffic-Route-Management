@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ConfirmDialog from "../components/common/ConfirmDialog";
 import { validatePasswordChangeInput } from "../utils/userWorkspaceUtils";
 import {
   User,
@@ -41,6 +42,7 @@ export default function ProfileSettings() {
 
   const [isLoggingOutCurrent, setIsLoggingOutCurrent] = useState(false);
   const [isLoggingOutAll, setIsLoggingOutAll] = useState(false);
+  const [showLogoutAllConfirm, setShowLogoutAllConfirm] = useState(false);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -73,16 +75,10 @@ export default function ProfileSettings() {
   };
 
   const handleLogoutAll = async () => {
-    if (
-      !window.confirm(
-        "Are you sure you want to sign out from all devices? All active mobile, web, and CLI sessions will be revoked immediately."
-      )
-    ) {
-      return;
-    }
     setIsLoggingOutAll(true);
     try {
       await logoutAll();
+      setShowLogoutAllConfirm(false);
     } finally {
       setIsLoggingOutAll(false);
     }
@@ -380,7 +376,8 @@ export default function ProfileSettings() {
           </button>
 
           <button
-            onClick={handleLogoutAll}
+            type="button"
+            onClick={() => setShowLogoutAllConfirm(true)}
             disabled={isLoggingOutAll}
             className="flex items-center justify-center gap-2 rounded-xl border border-red-500/20 bg-red-500/10 px-5 py-3 text-xs font-semibold text-red-400 transition hover:bg-red-500/20 disabled:opacity-50"
           >
@@ -389,6 +386,16 @@ export default function ProfileSettings() {
           </button>
         </div>
       </div>
+
+      <ConfirmDialog
+        isOpen={showLogoutAllConfirm}
+        title="Sign Out of All Devices"
+        message="Are you sure you want to sign out from all devices? All active mobile, web, and CLI sessions will be revoked immediately."
+        confirmLabel="Sign Out Everywhere"
+        isProcessing={isLoggingOutAll}
+        onConfirm={handleLogoutAll}
+        onCancel={() => setShowLogoutAllConfirm(false)}
+      />
     </div>
   );
 }

@@ -1,6 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { getSavedRoutes, deleteSavedRoute } from "../services/api";
+import { getSavedRoutes, deleteSavedRoute, updateSavedRoute } from "../services/api";
+import ConfirmDialog from "../components/common/ConfirmDialog";
+import {
+  filterSavedRoutes,
+  validateSavedRouteTitle,
+} from "../utils/userWorkspaceUtils";
 import {
   Bookmark,
   Navigation,
@@ -9,43 +14,104 @@ import {
   Loader2,
   AlertCircle,
   ArrowRight,
+  Pencil,
+  Check,
+  X,
+  CheckCircle2,
+  RefreshCw,
 } from "lucide-react";
 
 export default function SavedRoutes() {
   const [routes, setRoutes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [statusMessage, setStatusMessage] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [deletingId, setDeletingId] = useState(null);
+  const [routeToDelete, setRouteToDelete] = useState(null);
+
+  const [editingId, setEditingId] = useState(null);
+  const [editingTitle, setEditingTitle] = useState("");
+  const [isSavingRename, setIsSavingRename] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
+    let active = true;
     async function loadRoutes() {
       try {
         const data = await getSavedRoutes();
-        setRoutes(data);
+        if (active) {
+          setRoutes(data);
+          setError(null);
+        }
       } catch (err) {
-        setError(err.message || "Failed to load saved routes.");
+        if (active) {
+          setError(err.message || "Failed to load saved routes.");
+        }
       } finally {
-        setIsLoading(false);
+        if (active) {
+          setIsLoading(false);
+        }
       }
     }
     loadRoutes();
-  }, []);
+    return () => {
+      active = false;
+    };
+  }, [refreshKey]);
 
-  const handleDelete = async (routeId) => {
-    if (!window.confirm("Are you sure you want to remove this saved corridor?")) {
-      return;
-    }
-    setDeletingId(routeId);
+  const handleRetryLoad = () => {
+    setIsLoading(true);
+    setError(null);
+    setRefreshKey((k) => k + 1);
+  };
+
+  const handleConfirmDelete = async () => {
+    if (!routeToDelete) return;
+    setDeletingId(routeToDelete.id);
+    setError(null);
+    setStatusMessage(null);
     try {
-      await deleteSavedRoute(routeId);
-      setRoutes((prev) => prev.filter((r) => r.id !== routeId));
+      await deleteSavedRoute(routeToDelete.id);
+      setRoutes((prev) => prev.filter((r) => r.id !== routeToDelete.id));
+      setStatusMessage(`Removed "${routeToDelete.title}" from saved corridors.`);
+      setRouteToDelete(null);
     } catch (err) {
-      alert(err.message || "Failed to delete saved route.");
+      setError(err.message || "Failed to delete saved route.");
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  const handleStartRename = (route) => {
+    setError(null);
+    setStatusMessage(null);
+    setEditingId(route.id);
+    setEditingTitle(route.title || "");
+  };
+
+  const handleSaveRename = async (routeId) => {
+    const check = validateSavedRouteTitle(editingTitle);
+    if (!check.valid) {
+      setError(check.error);
+      return;
+    }
+
+    setIsSavingRename(true);
+    setError(null);
+    setStatusMessage(null);
+    try {
+      const updated = await updateSavedRoute(routeId, { title: check.value });
+      setRoutes((prev) => prev.map((r) => (r.id === routeId ? updated : r)));
+      setEditingId(null);
+      setEditingTitle("");
+      setStatusMessage(`Renamed corridor to "${updated.title}".`);
+    } catch (err) {
+      setError(err.message || "Failed to rename saved route.");
+    } finally {
+      setIsSavingRename(false);
     }
   };
 
@@ -65,17 +131,10 @@ export default function SavedRoutes() {
     });
   };
 
-  const filteredRoutes = useMemo(() => {
-    if (!searchQuery.trim()) return routes;
-    const q = searchQuery.toLowerCase();
-    return routes.filter(
-      (r) =>
-        r.title?.toLowerCase().includes(q) ||
-        r.origin_name?.toLowerCase().includes(q) ||
-        r.destination_name?.toLowerCase().includes(q) ||
-        r.preferred_criteria?.toLowerCase().includes(q)
-    );
-  }, [routes, searchQuery]);
+  const filteredRoutes = useMemo(
+    () => filterSavedRoutes(routes, searchQuery),
+    [routes, searchQuery]
+  );
 
   if (isLoading) {
     return (
@@ -105,10 +164,33 @@ export default function SavedRoutes() {
         </Link>
       </div>
 
+      {statusMessage && (
+        <div
+          role="status"
+          className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-400"
+        >
+          <CheckCircle2 size={18} className="shrink-0" />
+          <span>{statusMessage}</span>
+        </div>
+      )}
+
       {error && (
-        <div className="flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400">
-          <AlertCircle size={18} className="shrink-0" />
-          <span>{error}</span>
+        <div
+          role="alert"
+          className="flex items-center justify-between gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400"
+        >
+          <div className="flex items-center gap-3">
+            <AlertCircle size={18} className="shrink-0" />
+            <span>{error}</span>
+          </div>
+          <button
+            type="button"
+            onClick={handleRetryLoad}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-200 hover:bg-red-500/20"
+          >
+            <RefreshCw size={12} />
+            <span>Retry</span>
+          </button>
         </div>
       )}
 
@@ -138,14 +220,54 @@ export default function SavedRoutes() {
             >
               <div>
                 {/* Title & Criteria Badge */}
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="font-bold text-white text-base truncate">
-                    {route.title}
-                  </h3>
-                  <span className="shrink-0 rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-semibold text-slate-300 uppercase tracking-wider">
-                    {route.preferred_criteria || "balanced"}
-                  </span>
-                </div>
+                {editingId === route.id ? (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      handleSaveRename(route.id);
+                    }}
+                    className="flex items-center gap-2"
+                  >
+                    <input
+                      type="text"
+                      aria-label="Edit saved corridor title"
+                      value={editingTitle}
+                      onChange={(e) => setEditingTitle(e.target.value)}
+                      maxLength={100}
+                      autoFocus
+                      className="min-w-0 flex-1 rounded-lg border border-emerald-500/50 bg-slate-950 px-2.5 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isSavingRename}
+                      aria-label="Save corridor title"
+                      className="rounded-lg bg-emerald-500 p-1.5 text-slate-950 hover:bg-emerald-400 disabled:opacity-50"
+                    >
+                      {isSavingRename ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setEditingId(null);
+                        setEditingTitle("");
+                      }}
+                      disabled={isSavingRename}
+                      aria-label="Cancel rename"
+                      className="rounded-lg border border-slate-700 bg-slate-800 p-1.5 text-slate-300 hover:bg-slate-700"
+                    >
+                      <X size={14} />
+                    </button>
+                  </form>
+                ) : (
+                  <div className="flex items-start justify-between gap-3">
+                    <h3 className="font-bold text-white text-base truncate">
+                      {route.title}
+                    </h3>
+                    <span className="shrink-0 rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-semibold text-slate-300 uppercase tracking-wider">
+                      {route.preferred_criteria || "balanced"}
+                    </span>
+                  </div>
+                )}
 
                 {/* Waypoints */}
                 <div className="mt-4 space-y-2 text-xs">
@@ -196,8 +318,21 @@ export default function SavedRoutes() {
 
                 <div className="flex items-center gap-2">
                   <button
-                    onClick={() => handleDelete(route.id)}
+                    type="button"
+                    onClick={() => handleStartRename(route)}
                     disabled={deletingId === route.id}
+                    aria-label={`Rename ${route.title}`}
+                    title="Rename corridor"
+                    className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white disabled:opacity-50"
+                  >
+                    <Pencil size={15} />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setRouteToDelete(route)}
+                    disabled={deletingId === route.id}
+                    aria-label={`Delete ${route.title}`}
                     title="Delete route"
                     className="rounded-lg p-2 text-slate-500 transition hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
                   >
@@ -247,6 +382,15 @@ export default function SavedRoutes() {
           </div>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={Boolean(routeToDelete)}
+        title="Delete Saved Corridor"
+        message={`Are you sure you want to remove "${routeToDelete?.title || "this corridor"}" from your saved routes?`}
+        confirmLabel="Delete Corridor"
+        isProcessing={Boolean(deletingId)}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setRouteToDelete(null)}
+      />
     </div>
   );
 }

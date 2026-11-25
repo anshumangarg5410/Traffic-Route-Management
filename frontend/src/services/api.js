@@ -200,9 +200,22 @@ export const deleteSavedRoute = (routeId) => {
   });
 };
 
+export const updateSavedRoute = (routeId, data) => {
+  return apiRequest(`/api/v1/user/saved-routes/${routeId}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+};
+
 export const getRouteHistory = (params = {}) => {
   const query = new URLSearchParams(params).toString();
   return apiRequest(`/api/v1/user/route-history${query ? `?${query}` : ""}`);
+};
+
+export const deleteRouteHistoryEntry = (entryId) => {
+  return apiRequest(`/api/v1/user/route-history/${entryId}`, {
+    method: "DELETE",
+  });
 };
 
 export const recordRouteHistory = (data) => {
