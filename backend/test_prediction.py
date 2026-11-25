@@ -46,3 +46,57 @@ def test_predict_endpoint_validation_and_error_handling():
         err = client.post("/predict", json=sample)
     assert err.status_code == 503
     assert "unavailable" in err.json()["detail"].lower()
+
+
+def test_predict_boundary_and_invalid_inputs():
+    """Verify valid boundary values succeed and out-of-range weather/time inputs return 400."""
+    from fastapi.testclient import TestClient
+    from backend.api.main import app
+
+    client = TestClient(app)
+
+    # Valid lower & upper boundaries
+    low_boundary = {
+        **sample,
+        "temp": 180.0,
+        "rain_1h": 0.0,
+        "snow_1h": 0.0,
+        "clouds_all": 0,
+        "hour": 0,
+        "day": 1,
+        "month": 1,
+        "day_of_week": 0,
+        "is_weekend": 0,
+    }
+    assert client.post("/predict", json=low_boundary).status_code == 200
+
+    high_boundary = {
+        **sample,
+        "temp": 340.0,
+        "clouds_all": 100,
+        "hour": 23,
+        "day": 31,
+        "month": 12,
+        "day_of_week": 6,
+        "is_weekend": 1,
+    }
+    assert client.post("/predict", json=high_boundary).status_code == 200
+
+    invalid_cases = [
+        {"temp": 179.9},
+        {"temp": 340.1},
+        {"snow_1h": -0.1},
+        {"clouds_all": -1},
+        {"clouds_all": 101},
+        {"hour": -1},
+        {"day": 0},
+        {"day": 32},
+        {"month": 0},
+        {"month": 13},
+        {"day_of_week": -1},
+        {"day_of_week": 7},
+        {"is_weekend": 2},
+    ]
+    for override in invalid_cases:
+        resp = client.post("/predict", json={**sample, **override})
+        assert resp.status_code == 400, f"Expected 400 for {override}, got {resp.status_code}"
