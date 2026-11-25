@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "test": "node --test src/tests/routePlanner.test.mjs src/tests/adminRouting.test.mjs src/tests/adminOverview.test.mjs src/tests/adminUsers.test.mjs src/tests/adminAuditLogs.test.mjs src/tests/adminSystem.test.mjs src/tests/adminModels.test.mjs src/tests/adminTrafficData.test.mjs",
+    "test": "node --test src/tests/routePlanner.test.mjs src/tests/adminRouting.test.mjs src/tests/adminOverview.test.mjs src/tests/adminUsers.test.mjs src/tests/adminAuditLogs.test.mjs src/tests/adminSystem.test.mjs src/tests/adminModels.test.mjs src/tests/adminTrafficData.test.mjs src/tests/userWorkspace.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
