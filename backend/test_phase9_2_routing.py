@@ -791,3 +791,62 @@ def test_osrm_provider_retries_transient_timeout_and_succeeds():
     assert mock_get.call_count == 2
     assert res.routes_count == 1
 
+
+def test_nominatim_geocoder_normalizes_and_evicts_lru_cache():
+    """Verify NominatimGeocoder normalizes whitespace/casing and evicts least-recently-used entries."""
+    from unittest.mock import MagicMock, patch
+    from backend.routing.geocoding import NominatimGeocoder
+
+    def make_resp(lat: str, lon: str, name: str):
+        resp = MagicMock()
+        resp.status_code = 200
+        resp.raise_for_status.return_value = None
+        resp.json.return_value = [{"lat": lat, "lon": lon, "display_name": name}]
+        return resp
+
+    geocoder = NominatimGeocoder(base_url="https://mock-nominatim.org", cache_size=2)
+    with patch("backend.routing.geocoding.time.sleep", return_value=None), patch(
+        "backend.routing.geocoding.requests.get",
+        side_effect=[
+            make_resp("30.7415", "76.7681", "Sector 17, Chandigarh"),
+            make_resp("30.7046", "76.7179", "Mohali Phase 7"),
+            make_resp("30.6942", "76.8606", "Panchkula Sector 5"),
+        ],
+    ) as mock_get:
+        r1 = geocoder.geocode("  Sector 17  ")
+        r1_cached = geocoder.geocode("sector   17")
+        assert r1_cached.display_name == r1.display_name
+        assert mock_get.call_count == 1
+
+        geocoder.geocode("Mohali")
+        # Touch Sector 17 again so Mohali becomes least recently used
+        geocoder.geocode("SECTOR 17")
+        geocoder.geocode("Panchkula")
+
+    assert mock_get.call_count == 3
+    assert "sector 17" in geocoder._cache
+    assert "panchkula" in geocoder._cache
+    assert "mohali" not in geocoder._cache
+
+
+def test_geocode_endpoint_error_status_mapping():
+    """Verify POST /routing/geocode maps ValueError, TimeoutError, and ConnectionError to 400, 504, and 502."""
+    from unittest.mock import patch
+    from fastapi.testclient import TestClient
+    from backend.api.main import app
+
+    client = TestClient(app)
+
+    with patch("backend.api.main.geocode_location", side_effect=ValueError("Location outside region")):
+        resp_400 = client.post("/routing/geocode", json={"query": "New Delhi"})
+    assert resp_400.status_code == 400
+    assert "outside region" in resp_400.json()["detail"].lower()
+
+    with patch("backend.api.main.geocode_location", side_effect=TimeoutError("Geocoder timed out")):
+        resp_504 = client.post("/routing/geocode", json={"query": "Sector 17"})
+    assert resp_504.status_code == 504
+
+    with patch("backend.api.main.geocode_location", side_effect=ConnectionError("Upstream unreachable")):
+        resp_502 = client.post("/routing/geocode", json={"query": "Sector 17"})
+    assert resp_502.status_code == 502
+
