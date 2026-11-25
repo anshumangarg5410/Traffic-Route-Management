@@ -1,3 +1,4 @@
+import logging
 import math
 from typing import Any, Dict, List, Optional
 import numpy as np
@@ -25,6 +26,7 @@ from backend.routing.config import (
     NOMINATIM_BASE_URL,
     ROUTING_PROVIDER,
     OSRM_BASE_URL,
+    SIGNAL_TIMING_PROFILES,
     WEST_LON,
     SOUTH_LAT,
     EAST_LON,
@@ -928,8 +930,16 @@ def post_routing_routes(request: RouteSearchRequest):
         G = None
         try:
             G = load_network_graph()
-        except Exception:
-            pass
+        except Exception as exc:
+            logging.getLogger("itms.routing").warning(
+                "Road network graph could not be loaded (%s); continuing with degraded analysis.",
+                type(exc).__name__,
+            )
+
+        timing_cfg = SIGNAL_TIMING_PROFILES.get(
+            request.signal_timing_profile or "default",
+            SIGNAL_TIMING_PROFILES["default"],
+        )
 
         for r in routes_response.routes:
             r.intersection_analysis = analyze_route_intersections(
@@ -939,6 +949,8 @@ def post_routing_routes(request: RouteSearchRequest):
             r.signal_delay_summary = estimate_route_signal_delay(
                 route=r,
                 intersection_analysis=r.intersection_analysis,
+                cycle_length_s=timing_cfg["cycle_length_s"],
+                effective_red_s=timing_cfg["effective_red_s"],
             )
 
         # 4. Score and rank candidate routes to identify the recommended option

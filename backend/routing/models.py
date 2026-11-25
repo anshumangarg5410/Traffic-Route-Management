@@ -14,7 +14,7 @@ Defines schemas for:
 
 from datetime import datetime
 import math
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Literal, Optional, Union
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -77,6 +77,10 @@ class RouteSearchRequest(BaseModel):
     departure_time: Optional[datetime] = Field(
         default=None,
         description="Optional departure date and time for ML temporal traffic prediction"
+    )
+    signal_timing_profile: Optional[Literal["default", "major_arterial", "minor_collector"]] = Field(
+        default="default",
+        description="Signal timing baseline profile ('default', 'major_arterial', or 'minor_collector')"
     )
 
 

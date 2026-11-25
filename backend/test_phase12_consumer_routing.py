@@ -182,3 +182,33 @@ def test_post_routing_routes_handles_osrm_provider_failure():
             },
         )
     assert res.status_code == 502
+
+
+def test_post_routing_routes_signal_timing_profile_and_graph_error_handling(caplog):
+    mock_resp = _make_mock_routes_response()
+    with (
+        patch("backend.api.main.validate_and_snap_coordinate"),
+        patch("backend.api.main.generate_routes", return_value=mock_resp),
+        patch("backend.api.main.load_network_graph", side_effect=RuntimeError("graph missing")),
+    ):
+        res = client.post(
+            "/routing/routes",
+            json={
+                "source": {"latitude": 30.7333, "longitude": 76.7794},
+                "destination": {"latitude": 30.7046, "longitude": 76.7179},
+                "alternatives": True,
+                "signal_timing_profile": "major_arterial",
+            },
+        )
+    assert res.status_code == 200
+    assert "Road network graph could not be loaded (RuntimeError)" in caplog.text
+
+    bad = client.post(
+        "/routing/routes",
+        json={
+            "source": {"latitude": 30.7333, "longitude": 76.7794},
+            "destination": {"latitude": 30.7046, "longitude": 76.7179},
+            "signal_timing_profile": "unknown_profile",
+        },
+    )
+    assert bad.status_code == 400
