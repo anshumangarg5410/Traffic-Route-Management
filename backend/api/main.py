@@ -653,15 +653,17 @@ class SensitivityInput(BaseModel):
         return self
 
 
-@app.get("/")
+@app.get("/", tags=["System"], summary="API root status")
 def home():
+    """Return a basic welcome message confirming the API is running."""
     return {
         "message": "Traffic Management API is running!"
     }
 
 
-@app.get("/health")
+@app.get("/health", tags=["System"], summary="Service health check")
 def health_check():
+    """Return service health status and API version metadata."""
     return {
         "status": "healthy",
         "service": "Intelligent Traffic Management System",
@@ -669,8 +671,9 @@ def health_check():
     }
 
 
-@app.post("/predict")
+@app.post("/predict", tags=["Traffic ML"], summary="Predict traffic congestion level")
 def predict(input_data: TrafficInput):
+    """Classify traffic congestion level from weather and time-of-day features."""
     try:
         result = predict_traffic(input_data.model_dump())
         return result
@@ -681,14 +684,16 @@ def predict(input_data: TrafficInput):
         )
 
 
-@app.post("/optimize-signal")
+@app.post("/optimize-signal", tags=["Signal Control"], summary="Compute Webster signal timings")
 def optimize_traffic_signal(traffic: TrafficCounts):
+    """Calculate optimal cycle length and directional green splits from intersection counts."""
     result = optimize_signal(traffic.model_dump())
     return result
 
 
-@app.post("/simulate")
+@app.post("/simulate", tags=["Simulation"], summary="Run single intersection simulation")
 def simulate_traffic(input_data: SimulationInput):
+    """Simulate intersection queues and delays for a single fixed or adaptive run."""
     result = simulate_intersection(
         initial_queues=input_data.initial_queues,
         arrival_rates=input_data.arrival_rates,
@@ -703,8 +708,9 @@ def simulate_traffic(input_data: SimulationInput):
     return result
 
 
-@app.post("/compare-strategies")
+@app.post("/compare-strategies", tags=["Simulation"], summary="Compare fixed vs adaptive strategies")
 def compare_strategies(input_data: SimulationInput):
+    """Run paired Monte Carlo simulations comparing fixed and adaptive signal strategies."""
     result = compare_strategies_multi_run(
         initial_queues=input_data.initial_queues,
         arrival_rates=input_data.arrival_rates,
@@ -719,8 +725,9 @@ def compare_strategies(input_data: SimulationInput):
     return result
 
 
-@app.post("/integrated-prediction")
+@app.post("/integrated-prediction", tags=["Workflow"], summary="Run integrated ML and signal prediction")
 def integrated_prediction(input_data: IntegratedPredictionInput):
+    """Combine ML traffic classification with directional signal timing optimization."""
     # 1. Run ML prediction pipeline for overall traffic category
     ml_features = {
         "holiday": input_data.holiday,
@@ -787,7 +794,7 @@ def integrated_prediction(input_data: IntegratedPredictionInput):
     }
 
 
-@app.post("/unified-workflow")
+@app.post("/unified-workflow", tags=["Workflow"], summary="Run unified end-to-end workflow")
 def unified_workflow_endpoint(input_data: UnifiedWorkflowInput):
     """
     Unified end-to-end traffic management workflow:
@@ -827,13 +834,13 @@ def unified_workflow_endpoint(input_data: UnifiedWorkflowInput):
     )
 
 
-@app.get("/validation-scenarios")
+@app.get("/validation-scenarios", tags=["Validation"], summary="Run validation scenarios")
 def get_validation_scenarios():
     """Run all deterministic validation scenarios and return audit report."""
     return run_all_validation_scenarios()
 
 
-@app.post("/sensitivity-analysis")
+@app.post("/sensitivity-analysis", tags=["Validation"], summary="Run parameter sensitivity sweep")
 def post_sensitivity_analysis(input_data: SensitivityInput):
     """Run controlled one-at-a-time (OAT) parameter sensitivity sweep."""
     return run_parameter_sensitivity_sweep(
@@ -850,7 +857,7 @@ class NetworkBuildInput(BaseModel):
     force: bool = False
 
 
-@app.get("/routing/network/status")
+@app.get("/routing/network/status", tags=["Routing"], summary="Check road network availability")
 def get_routing_network_status():
     """
     Check if the Chandigarh Tricity road network graph is available locally.
@@ -859,7 +866,7 @@ def get_routing_network_status():
     return get_network_status()
 
 
-@app.post("/routing/network/build")
+@app.post("/routing/network/build", tags=["Routing"], summary="Build local road network graph")
 def post_routing_network_build(input_data: Optional[NetworkBuildInput] = None):
     """
     Explicitly initiate extraction and local persistence of the Chandigarh Tricity road network.
@@ -873,7 +880,7 @@ def post_routing_network_build(input_data: Optional[NetworkBuildInput] = None):
         raise HTTPException(status_code=500, detail=f"Failed to build road network: {str(e)}")
 
 
-@app.get("/routing/network/summary")
+@app.get("/routing/network/summary", tags=["Routing"], summary="Get road network graph summary")
 def get_routing_network_summary():
     """
     Return node count, edge count, connected components, road classifications,
@@ -888,7 +895,7 @@ def get_routing_network_summary():
     return summary
 
 
-@app.post("/routing/geocode", response_model=GeocodeResult)
+@app.post("/routing/geocode", response_model=GeocodeResult, tags=["Routing"], summary="Geocode a Tricity location")
 def post_routing_geocode(request: GeocodeRequest):
     """
     Geocode a natural-language location query into geographic coordinates
@@ -905,7 +912,7 @@ def post_routing_geocode(request: GeocodeRequest):
         raise HTTPException(status_code=502, detail=str(e))
 
 
-@app.post("/routing/routes", response_model=RouteSearchResponse)
+@app.post("/routing/routes", response_model=RouteSearchResponse, tags=["Routing"], summary="Search and rank driving routes")
 def post_routing_routes(request: RouteSearchRequest):
     """
     Generate driving route options (primary and candidate alternatives) between
@@ -973,7 +980,7 @@ def post_routing_routes(request: RouteSearchRequest):
         raise HTTPException(status_code=502, detail=str(e))
 
 
-@app.get("/routing/provider/status", response_model=ProviderStatusResponse)
+@app.get("/routing/provider/status", response_model=ProviderStatusResponse, tags=["Routing"], summary="Check geocoding and routing provider status")
 def get_routing_provider_status():
     """
     Inspect the configuration and readiness status of geocoding and routing providers
