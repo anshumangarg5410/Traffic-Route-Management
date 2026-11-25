@@ -13,7 +13,18 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/workspace";
+  const fromPath = location.state?.from?.pathname;
+
+  const resolvePostLoginPath = (loggedInUser) => {
+    const defaultTarget = loggedInUser?.role === "admin" ? "/admin" : "/workspace";
+    if (!fromPath || fromPath === "/login" || fromPath === "/register") {
+      return defaultTarget;
+    }
+    if (fromPath.startsWith("/admin") && loggedInUser?.role !== "admin") {
+      return "/workspace";
+    }
+    return fromPath;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,8 +32,8 @@ export default function Login() {
     setIsSubmitting(true);
 
     try {
-      await login(email, password);
-      navigate(from, { replace: true });
+      const loggedInUser = await login(email, password);
+      navigate(resolvePostLoginPath(loggedInUser), { replace: true });
     } catch (err) {
       setError(err.message || "Invalid email or password.");
     } finally {

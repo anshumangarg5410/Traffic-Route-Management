@@ -14,7 +14,12 @@ export default function PublicRoute({ children }) {
   }
 
   if (user) {
-    return <Navigate to="/workspace" replace />;
+    return (
+      <Navigate
+        to={user.role === "admin" ? "/admin" : "/workspace"}
+        replace
+      />
+    );
   }
 
   return children;
