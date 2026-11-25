@@ -14,6 +14,7 @@ Integrates Open Source Routing Machine (OSRM) driving route service:
 """
 
 from abc import ABC, abstractmethod
+import time
 from typing import Dict, Any, List, Optional
 import requests
 
@@ -63,10 +64,14 @@ class OSRMRouteProvider(BaseRouteProvider):
         base_url: str = OSRM_BASE_URL,
         timeout: float = OSRM_TIMEOUT,
         user_agent: str = NOMINATIM_USER_AGENT,
+        max_retries: int = 2,
+        backoff_s: float = 0.25,
     ):
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         self.user_agent = user_agent
+        self.max_retries = max(0, int(max_retries))
+        self.backoff_s = max(0.0, float(backoff_s))
 
     def find_routes(
         self,
@@ -94,16 +99,36 @@ class OSRMRouteProvider(BaseRouteProvider):
             "Accept": "application/json",
         }
 
-        try:
-            response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
-            response.raise_for_status()
-            data = response.json()
-        except requests.exceptions.Timeout as e:
-            raise TimeoutError(f"Routing service timed out after {self.timeout}s: {str(e)}") from e
-        except requests.exceptions.RequestException as e:
-            raise ConnectionError(f"Routing service request failed: {str(e)}") from e
-        except ValueError as e:
-            raise ValueError(f"Invalid JSON received from routing service: {str(e)}") from e
+        last_timeout_err: Optional[Exception] = None
+        last_conn_err: Optional[Exception] = None
+        data: Optional[Dict[str, Any]] = None
+
+        for attempt in range(self.max_retries + 1):
+            try:
+                response = requests.get(url, params=params, headers=headers, timeout=self.timeout)
+                response.raise_for_status()
+                data = response.json()
+                break
+            except requests.exceptions.Timeout as e:
+                last_timeout_err = e
+                last_conn_err = None
+            except requests.exceptions.RequestException as e:
+                last_conn_err = e
+                last_timeout_err = None
+            except ValueError as e:
+                raise ValueError(f"Invalid JSON received from routing service: {str(e)}") from e
+
+            if attempt < self.max_retries and self.backoff_s > 0:
+                time.sleep(self.backoff_s * (2 ** attempt))
+
+        if data is None:
+            if last_timeout_err is not None:
+                raise TimeoutError(
+                    f"Routing service timed out after {self.timeout}s: {str(last_timeout_err)}"
+                ) from last_timeout_err
+            raise ConnectionError(
+                f"Routing service request failed: {str(last_conn_err)}"
+            ) from last_conn_err
 
         code = data.get("code")
         if code != "Ok":

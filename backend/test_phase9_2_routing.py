@@ -759,3 +759,35 @@ def test_geojson_geometry_coordinate_validation():
     geom = GeoJSONGeometry(coordinates=[[76.7681, 30.7415], [76.8173, 30.6425]])
     assert len(geom.coordinates) == 2
 
+
+def test_osrm_provider_retries_transient_timeout_and_succeeds():
+    """Verify OSRMRouteProvider retries transient timeouts and recovers when a subsequent attempt succeeds."""
+    from unittest.mock import MagicMock, patch
+    import requests
+    from backend.routing.models import Coordinate
+    from backend.routing.route_provider import OSRMRouteProvider
+
+    ok_resp = MagicMock()
+    ok_resp.raise_for_status.return_value = None
+    ok_resp.json.return_value = {
+        "code": "Ok",
+        "routes": [
+            {
+                "distance": 5000.0,
+                "duration": 420.0,
+                "geometry": {"type": "LineString", "coordinates": [[76.7794, 30.7333], [76.7179, 30.7046]]},
+                "legs": [{"steps": []}],
+            }
+        ],
+    }
+
+    provider = OSRMRouteProvider(max_retries=2, backoff_s=0.0)
+    src = Coordinate(latitude=30.7333, longitude=76.7794)
+    dst = Coordinate(latitude=30.7046, longitude=76.7179)
+
+    with patch("backend.routing.route_provider.requests.get", side_effect=[requests.exceptions.Timeout("t1"), ok_resp]) as mock_get:
+        res = provider.find_routes(src, dst)
+
+    assert mock_get.call_count == 2
+    assert res.routes_count == 1
+
