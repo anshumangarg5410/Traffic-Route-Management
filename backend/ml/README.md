@@ -54,3 +54,26 @@ The traffic classification model is trained on the **UCI Metro Interstate Traffi
 - **Geographic Domain Shift:** Trained on a single Minnesota interstate corridor rather than multi-corridor Chandigarh Tricity loop/camera telemetry.
 - **Static Quantile Thresholds:** `Low`/`Medium`/`High` boundaries are derived from historical training percentiles rather than road-capacity-specific LOS standards.
 - **No Incident/Event Context:** Predictions depend solely on calendar and weather features; live roadwork, accidents, or special local events are not modeled.
+
+## 6. Machine Learning Laboratory (`backend/ml_lab/` & `/ml-lab`)
+
+An interactive **Machine Learning Laboratory** is available at `/ml-lab` in the frontend (and `/ml-lab/*` in FastAPI) to demonstrate all syllabus topics independently of production prediction:
+
+### Running Experiments
+1. Start the backend: `uvicorn backend.api.main:app --reload`
+2. Start the frontend: `npm --prefix frontend run dev`
+3. Open **Traffic AI Suite -> ML Laboratory** (`/ml-lab`) in the browser, pick a tab, select an algorithm/parameters, and click **Run Experiment**.
+
+### Syllabus-to-Implementation Mapping
+
+| Syllabus Topic | Backend Implementation | API Endpoint |
+| :--- | :--- | :--- |
+| **Regression** *(Linear, Multiple Linear, Polynomial; MAE, MSE, RMSE, R²)* | `backend/ml_lab/supervised.py` (`run_regression_experiment`) | `POST /ml-lab/regression` |
+| **Classification** *(Logistic Regression, KNN, Decision Tree, Random Forest, Naive Bayes, SVM)* | `backend/ml_lab/supervised.py` (`run_classification_experiment`) | `POST /ml-lab/classification` |
+| **Model Evaluation & Validation** *(Train-Test Split, K-Fold CV, Overfitting/Underfitting, Bias-Variance, Confusion Matrix, Accuracy/Precision/Recall/F1)* | `backend/ml_lab/supervised.py` (`run_evaluation_experiment`) & `backend/ml/evaluate.py` | `POST /ml-lab/evaluation` |
+| **Unsupervised Learning** *(K-Means, Hierarchical, DBSCAN, Silhouette Score)* | `backend/ml_lab/unsupervised.py` (`run_clustering_experiment`) | `POST /ml-lab/clustering` |
+| **Association Rule Learning** *(Frequent Itemset Mining, Apriori, FP-Growth, Market Basket Analysis)* | `backend/ml_lab/patterns_and_rl.py` (`run_association_rules_experiment`) | `POST /ml-lab/association-rules` |
+| **Recommendation Systems** *(Content-Based Departure Window Recommender)* | `backend/ml_lab/patterns_and_rl.py` (`run_recommendation_experiment`) | `POST /ml-lab/recommendation` |
+| **Dimensionality Reduction** *(PCA & Explained Variance)* | `backend/ml_lab/unsupervised.py` (`run_pca_experiment`) | `POST /ml-lab/pca` |
+| **Reinforcement Learning** *(Q-Learning Adaptive Signal Control vs Fixed/Webster Adaptive)* | `backend/ml_lab/patterns_and_rl.py` (`run_rl_signal_experiment`) | `POST /ml-lab/reinforcement-learning` |
+| **AI Ethics & Future Trends** *(Bias, Fairness, Privacy, Explainability, Domain Shift)* | `backend/ml_lab/patterns_and_rl.py` (`get_ai_ethics_content`) | `GET /ml-lab/ethics` |
