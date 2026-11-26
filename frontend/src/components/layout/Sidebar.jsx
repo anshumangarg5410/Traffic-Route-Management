@@ -17,6 +17,7 @@ import {
   X,
   Cpu,
   LogIn,
+  FlaskConical,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -40,6 +41,7 @@ const navigation = [
       { name: "Traffic Simulation", path: "/simulation", icon: CarFront },
       { name: "Strategy Comparison", path: "/comparison", icon: GitCompareArrows },
       { name: "Validation & Sensitivity", path: "/validation", icon: ShieldCheck },
+      { name: "ML Laboratory", path: "/ml-lab", icon: FlaskConical },
     ],
   },
 ];

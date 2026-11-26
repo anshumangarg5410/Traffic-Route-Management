@@ -35,6 +35,7 @@ const SignalOptimization = lazy(() => import("./pages/SignalOptimization"));
 const Simulation = lazy(() => import("./pages/Simulation"));
 const Comparison = lazy(() => import("./pages/Comparison"));
 const Validation = lazy(() => import("./pages/Validation"));
+const MlLaboratory = lazy(() => import("./pages/MlLaboratory"));
 
 const AdminOverview = lazy(() => import("./pages/admin/AdminOverview"));
 const AdminUsers = lazy(() => import("./pages/admin/AdminUsers"));
@@ -185,6 +186,7 @@ function AppContent() {
               <Route path="/simulation" element={<Simulation />} />
               <Route path="/comparison" element={<Comparison />} />
               <Route path="/validation" element={<Validation />} />
+              <Route path="/ml-lab" element={<MlLaboratory />} />
 
               {/* Fallback to public landing page */}
               <Route path="*" element={<Navigate to="/" replace />} />

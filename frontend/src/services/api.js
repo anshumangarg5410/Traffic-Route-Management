@@ -473,3 +473,32 @@ export const getDrivingRoutes = (data, options = {}) => {
     ...options,
   });
 };
+
+// ============================================================================
+// Machine Learning Laboratory Services
+// ============================================================================
+export const runMlLabRegression = (data) =>
+  apiRequest("/ml-lab/regression", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabClassification = (data) =>
+  apiRequest("/ml-lab/classification", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabEvaluation = (data) =>
+  apiRequest("/ml-lab/evaluation", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabClustering = (data) =>
+  apiRequest("/ml-lab/clustering", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabAssociationRules = (data) =>
+  apiRequest("/ml-lab/association-rules", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabRecommendation = (data) =>
+  apiRequest("/ml-lab/recommendation", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabPCA = (data) =>
+  apiRequest("/ml-lab/pca", { method: "POST", body: JSON.stringify(data) });
+
+export const runMlLabRL = (data) =>
+  apiRequest("/ml-lab/reinforcement-learning", { method: "POST", body: JSON.stringify(data) });
+
+export const getMlLabEthics = () => apiRequest("/ml-lab/ethics");

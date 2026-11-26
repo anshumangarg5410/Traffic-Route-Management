@@ -30,6 +30,7 @@ const pageTitles = {
   "/simulation": "Traffic Simulation",
   "/comparison": "Strategy Comparison",
   "/validation": "Validation & Sensitivity Analysis",
+  "/ml-lab": "Machine Learning Laboratory",
   "/login": "Sign In",
   "/register": "Create Account",
 };
