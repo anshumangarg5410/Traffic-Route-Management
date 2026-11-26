@@ -30,7 +30,7 @@ const CORE_FEATURES = [
     description:
       "Dynamic Nominatim geocoding bounded to Chandigarh Tricity with instant coordinate validation and map-click selection.",
     icon: Route,
-    accent: "text-emerald-400 bg-emerald-500/10 border-emerald-500/25",
+    accent: "text-emerald-600 bg-emerald-500/10 border-emerald-500/25",
   },
   {
     title: "Alternative Route Comparison",
@@ -44,7 +44,7 @@ const CORE_FEATURES = [
     description:
       "Supplies departure-time traffic tier context (Low, Medium, High) from a Random Forest classifier trained on historical interstate data.",
     icon: Cpu,
-    accent: "text-amber-400 bg-amber-500/10 border-amber-500/25",
+    accent: "text-amber-600 bg-amber-500/10 border-amber-500/25",
   },
   {
     title: "Intersection & Signal Analysis",
@@ -148,22 +148,22 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="bg-slate-950 text-slate-100">
+    <div className="bg-slate-50 text-slate-900">
       {/* 1. Hero Section */}
-      <section className="border-b border-slate-800/80 bg-gradient-to-b from-slate-900/60 to-slate-950 py-12 md:py-20">
+      <section className="border-b border-slate-200 bg-gradient-to-b from-slate-900/60 to-slate-950 py-12 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-300">
+              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700">
                 <Compass size={13} />
                 <span>Chandigarh Tricity • Urban Mobility Platform</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
                 Navigate Smarter. Move Better.
               </h1>
 
-              <p className="text-base text-slate-300 leading-relaxed max-w-xl">
+              <p className="text-base text-slate-700 leading-relaxed max-w-xl">
                 Plan smarter journeys across Chandigarh Tricity with intelligent
                 route optimization, interactive maps and ML-informed traffic
                 insights.
@@ -179,7 +179,7 @@ export default function LandingPage() {
                 </Link>
                 <Link
                   to="/features"
-                  className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/70 px-5 py-3 text-sm font-medium text-slate-200 hover:border-slate-600 hover:bg-slate-800 transition"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-800 hover:border-slate-600 hover:bg-slate-100 transition"
                 >
                   <span>Explore Features</span>
                 </Link>
@@ -190,18 +190,18 @@ export default function LandingPage() {
             <div className="lg:col-span-6">
               <form
                 onSubmit={handleSubmitPlan}
-                className="rounded-2xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 shadow-2xl space-y-4"
+                className="rounded-2xl border border-slate-200 bg-white/95 p-5 sm:p-6 shadow-2xl space-y-4"
               >
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-3">
                   <div>
-                    <h2 className="text-base font-semibold text-white">
+                    <h2 className="text-base font-semibold text-slate-900">
                       Plan a Tricity Journey
                     </h2>
-                    <p className="text-xs text-slate-400">
+                    <p className="text-xs text-slate-600">
                       Enter origin, destination, and departure time
                     </p>
                   </div>
-                  <span className="rounded-lg border border-slate-700 bg-slate-950 px-2.5 py-1 text-[11px] font-mono text-slate-300">
+                  <span className="rounded-lg border border-slate-300 bg-slate-50 px-2.5 py-1 text-[11px] font-mono text-slate-700">
                     Tricity BBox
                   </span>
                 </div>
@@ -253,7 +253,7 @@ export default function LandingPage() {
                     <button
                       type="button"
                       onClick={handleSwap}
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-950 px-2.5 py-1 text-xs font-medium text-slate-400 hover:border-slate-700 hover:text-white transition"
+                      className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-600 hover:border-slate-300 hover:text-slate-900 transition"
                     >
                       <ArrowUpDown size={13} />
                       <span>Swap</span>
@@ -295,7 +295,7 @@ export default function LandingPage() {
                   <div className="space-y-1.5 pt-1">
                     <label
                       htmlFor="landing-departure-time"
-                      className="flex items-center gap-1.5 text-xs font-semibold text-slate-300"
+                      className="flex items-center gap-1.5 text-xs font-semibold text-slate-700"
                     >
                       <Clock size={13} className="text-cyan-400" />
                       <span>Departure Date &amp; Time</span>
@@ -305,19 +305,19 @@ export default function LandingPage() {
                       type="datetime-local"
                       value={departureTime}
                       onChange={(e) => setDepartureTime(e.target.value)}
-                      className="w-full rounded-xl border border-slate-700/80 bg-slate-950/90 px-3.5 py-2.5 text-sm text-white focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
+                      className="w-full rounded-xl border border-slate-300/80 bg-white/95 px-3.5 py-2.5 text-sm text-slate-900 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/30"
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-1.5 pt-1 text-[11px]">
-                  <span className="text-slate-400 mr-1">Quick corridors:</span>
+                  <span className="text-slate-600 mr-1">Quick corridors:</span>
                   <button
                     type="button"
                     onClick={() =>
                       handleQuickCorridor(TRICITY_LANDMARKS[0], TRICITY_LANDMARKS[1])
                     }
-                    className="rounded-md border border-slate-800 bg-slate-950 px-2 py-1 text-slate-300 hover:border-slate-700 hover:text-white transition"
+                    className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-slate-700 hover:border-slate-300 hover:text-slate-900 transition"
                   >
                     Chandigarh → Mohali
                   </button>
@@ -326,7 +326,7 @@ export default function LandingPage() {
                     onClick={() =>
                       handleQuickCorridor(TRICITY_LANDMARKS[0], TRICITY_LANDMARKS[2])
                     }
-                    className="rounded-md border border-slate-800 bg-slate-950 px-2 py-1 text-slate-300 hover:border-slate-700 hover:text-white transition"
+                    className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-slate-700 hover:border-slate-300 hover:text-slate-900 transition"
                   >
                     Chandigarh → Panchkula
                   </button>
@@ -335,7 +335,7 @@ export default function LandingPage() {
                     onClick={() =>
                       handleQuickCorridor(TRICITY_LANDMARKS[3], TRICITY_LANDMARKS[4])
                     }
-                    className="rounded-md border border-slate-800 bg-slate-950 px-2 py-1 text-slate-300 hover:border-slate-700 hover:text-white transition"
+                    className="rounded-md border border-slate-200 bg-slate-50 px-2 py-1 text-slate-700 hover:border-slate-300 hover:text-slate-900 transition"
                   >
                     Zirakpur → Kharar
                   </button>
@@ -355,17 +355,17 @@ export default function LandingPage() {
       </section>
 
       {/* 2. Geographic Coverage Section */}
-      <section className="border-b border-slate-800/80 py-12 bg-slate-950">
+      <section className="border-b border-slate-200 py-12 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div className="max-w-xl">
-              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+              <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
                 Regional Road Network Scope
               </p>
-              <h2 className="mt-1 text-xl font-bold text-white">
+              <h2 className="mt-1 text-xl font-bold text-slate-900">
                 Built Specifically for Chandigarh Tricity
               </h2>
-              <p className="mt-1.5 text-sm text-slate-400">
+              <p className="mt-1.5 text-sm text-slate-600">
                 All geocoding, road-network topology, and route analysis operate
                 within the 35×35 km Tricity bounding box covering seven urban
                 centers.
@@ -375,10 +375,10 @@ export default function LandingPage() {
               {TRICITY_LANDMARKS.map((area) => (
                 <div
                   key={area.id}
-                  className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900/60 px-3.5 py-2"
+                  className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2"
                 >
-                  <MapPin size={13} className="text-emerald-400 shrink-0" />
-                  <p className="text-xs font-semibold text-white whitespace-nowrap">
+                  <MapPin size={13} className="text-emerald-600 shrink-0" />
+                  <p className="text-xs font-semibold text-slate-900 whitespace-nowrap">
                     {area.name.replace(" (SAS Nagar)", "")}
                   </p>
                 </div>
@@ -389,21 +389,21 @@ export default function LandingPage() {
       </section>
 
       {/* 3. Core Features Section */}
-      <section className="border-b border-slate-800/80 py-16">
+      <section className="border-b border-slate-200 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-10">
             <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-2xl font-bold text-slate-900">
                 Core Platform Capabilities
               </h2>
-              <p className="mt-2 text-sm text-slate-400">
+              <p className="mt-2 text-sm text-slate-600">
                 Every capability in ITMS is backed by implemented routing,
                 graph-analysis, signal-optimization, and ML modules.
               </p>
             </div>
             <Link
               to="/features"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 hover:text-emerald-700 transition"
             >
               <span>View all features</span>
               <ArrowRight size={14} />
@@ -416,17 +416,17 @@ export default function LandingPage() {
               return (
                 <div
                   key={feature.title}
-                  className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-3 hover:border-slate-700 transition"
+                  className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3 hover:border-slate-300 transition"
                 >
                   <div
                     className={`flex h-10 w-10 items-center justify-center rounded-xl border ${feature.accent}`}
                   >
                     <Icon size={20} />
                   </div>
-                  <h3 className="text-base font-semibold text-white">
+                  <h3 className="text-base font-semibold text-slate-900">
                     {feature.title}
                   </h3>
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-sm text-slate-600 leading-relaxed">
                     {feature.description}
                   </p>
                 </div>
@@ -437,19 +437,19 @@ export default function LandingPage() {
       </section>
 
       {/* 4. How It Works Preview */}
-      <section className="border-b border-slate-800/80 py-16 bg-slate-900/20">
+      <section className="border-b border-slate-200 py-16 bg-slate-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between mb-10">
             <div>
-              <h2 className="text-2xl font-bold text-white">How It Works</h2>
-              <p className="mt-2 text-sm text-slate-400">
+              <h2 className="text-2xl font-bold text-slate-900">How It Works</h2>
+              <p className="mt-2 text-sm text-slate-600">
                 From address lookup to multi-criteria corridor ranking in three
                 steps.
               </p>
             </div>
             <Link
               to="/how-it-works"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-xs font-semibold text-white hover:bg-slate-800 transition"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-4 py-2 text-xs font-semibold text-slate-900 hover:bg-slate-100 transition"
             >
               <span>See Full Architecture</span>
               <ArrowRight size={14} />
@@ -457,40 +457,40 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-6 space-y-2">
-              <span className="text-xs font-mono font-bold text-emerald-400">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-2">
+              <span className="text-xs font-mono font-bold text-emerald-600">
                 STEP 01
               </span>
-              <h3 className="text-base font-semibold text-white">
+              <h3 className="text-base font-semibold text-slate-900">
                 Enter your journey
               </h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 Search origin and destination across Chandigarh Tricity using
                 Nominatim geocoding or click directly on the map, then choose
                 your departure time.
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-6 space-y-2">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-2">
               <span className="text-xs font-mono font-bold text-cyan-400">
                 STEP 02
               </span>
-              <h3 className="text-base font-semibold text-white">
+              <h3 className="text-base font-semibold text-slate-900">
                 Analyze alternative routes
               </h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 OSRM retrieves alternative driving paths while our OSMnx graph
                 counts mapped signals and intersections and our ML model supplies
                 departure-time context.
               </p>
             </div>
-            <div className="rounded-2xl border border-slate-800 bg-slate-950/80 p-6 space-y-2">
-              <span className="text-xs font-mono font-bold text-amber-400">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 space-y-2">
+              <span className="text-xs font-mono font-bold text-amber-600">
                 STEP 03
               </span>
-              <h3 className="text-base font-semibold text-white">
+              <h3 className="text-base font-semibold text-slate-900">
                 Compare and select your preferred route
               </h3>
-              <p className="text-sm text-slate-400 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 Review ranked route cards, inspect signal breakdowns on the
                 interactive map, and optionally bookmark corridors in your
                 workspace.
@@ -501,37 +501,37 @@ export default function LandingPage() {
       </section>
 
       {/* 5. ML Transparency Section */}
-      <section className="border-b border-slate-800/80 py-16">
+      <section className="border-b border-slate-200 py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl border border-blue-500/25 bg-blue-500/5 p-6 sm:p-8">
             <div className="flex items-start gap-3">
               <Info size={20} className="shrink-0 mt-0.5 text-blue-400" />
               <div className="space-y-3">
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-xl font-bold text-slate-900">
                   ML Model &amp; Routing Transparency
                 </h2>
-                <p className="text-sm text-slate-300 leading-relaxed max-w-3xl">
+                <p className="text-sm text-slate-700 leading-relaxed max-w-3xl">
                   ITMS integrates a Random Forest classifier trained on the
                   historical{" "}
-                  <strong className="text-white">
+                  <strong className="text-slate-900">
                     UCI Minnesota Metro Interstate Traffic Volume
                   </strong>{" "}
                   dataset. We present predictions honestly without fabricating
                   local sensor feeds:
                 </p>
-                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs text-slate-300 pt-1">
-                  <li className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                    • Predicts <strong className="text-white">departure-time traffic context</strong> (Low / Medium / High) from temporal &amp; nominal weather inputs.
+                <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs text-slate-700 pt-1">
+                  <li className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    • Predicts <strong className="text-slate-900">departure-time traffic context</strong> (Low / Medium / High) from temporal &amp; nominal weather inputs.
                   </li>
-                  <li className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                    • <strong className="text-white">Does not use live Chandigarh sensor data</strong> or claim corridor-specific ML validation.
+                  <li className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    • <strong className="text-slate-900">Does not use live Chandigarh sensor data</strong> or claim corridor-specific ML validation.
                   </li>
-                  <li className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
-                    • <strong className="text-white">OSRM route duration is a baseline estimate</strong>, augmented by modeled uniform signal delay.
+                  <li className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                    • <strong className="text-slate-900">OSRM route duration is a baseline estimate</strong>, augmented by modeled uniform signal delay.
                   </li>
-                  <li className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
+                  <li className="rounded-xl border border-slate-200 bg-slate-50 p-3">
                     • Route recommendation uses{" "}
-                    <strong className="text-white">
+                    <strong className="text-slate-900">
                       multi-criteria optimization
                     </strong>{" "}
                     (60% duration, 20% distance, 10% signals, 10% density).
@@ -546,10 +546,10 @@ export default function LandingPage() {
       {/* 6. Final CTA */}
       <section className="py-16">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center space-y-5">
-          <h2 className="text-2xl sm:text-3xl font-bold text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-900">
             Your next journey starts here.
           </h2>
-          <p className="text-sm text-slate-400 max-w-xl mx-auto">
+          <p className="text-sm text-slate-600 max-w-xl mx-auto">
             Compare Chandigarh Tricity driving routes on an interactive map with
             signal topology and departure-time traffic context—no account
             required.
@@ -564,7 +564,7 @@ export default function LandingPage() {
             </Link>
             <Link
               to="/register"
-              className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900 px-6 py-3 text-sm font-medium text-slate-200 hover:bg-slate-800 transition"
+              className="inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-medium text-slate-800 hover:bg-slate-100 transition"
             >
               <span>Create Free Account</span>
             </Link>

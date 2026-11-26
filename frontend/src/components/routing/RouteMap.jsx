@@ -510,20 +510,20 @@ export default function RouteMap({
   return (
     <div
       ref={containerRef}
-      className={`relative h-full w-full min-h-[480px] sm:min-h-[540px] md:min-h-[580px] lg:min-h-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950 shadow-2xl ${
+      className={`relative h-full w-full min-h-[480px] sm:min-h-[540px] md:min-h-[580px] lg:min-h-full overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 shadow-2xl ${
         selectionMode ? "cursor-crosshair [&_.leaflet-container]:!cursor-crosshair" : ""
       } ${className}`}
     >
       {/* Floating Selection Mode Indicator Banner */}
       {selectionMode && (
-        <div className="absolute top-4 left-1/2 z-[1000] -translate-x-1/2 flex items-center gap-2.5 rounded-full border border-purple-500/50 bg-slate-900/95 px-4 py-2 shadow-2xl backdrop-blur-md">
+        <div className="absolute top-4 left-1/2 z-[1000] -translate-x-1/2 flex items-center gap-2.5 rounded-full border border-purple-500/50 bg-white/95 px-4 py-2 shadow-2xl backdrop-blur-md">
           <span className="relative flex h-2.5 w-2.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-75" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-purple-500" />
           </span>
-          <span className="text-xs font-medium text-white">
+          <span className="text-xs font-medium text-slate-900">
             Click map to set{" "}
-            <strong className={selectionMode === "source" ? "text-emerald-400" : "text-rose-400"}>
+            <strong className={selectionMode === "source" ? "text-emerald-600" : "text-rose-400"}>
               {selectionMode === "source" ? "Origin (A)" : "Destination (B)"}
             </strong>
           </span>
@@ -531,7 +531,7 @@ export default function RouteMap({
             <button
               type="button"
               onClick={onCancelSelectionMode}
-              className="ml-1.5 flex items-center gap-1 rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-semibold text-slate-300 transition hover:bg-slate-700 hover:text-white focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none"
+              className="ml-1.5 flex items-center gap-1 rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-700 transition hover:bg-slate-200 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none"
               aria-label="Cancel map-click selection mode"
             >
               <X size={10} />
@@ -543,10 +543,10 @@ export default function RouteMap({
 
       {/* Loading Shimmer Overlay */}
       {!isMapReady && (
-        <div className="absolute inset-0 z-[1100] flex flex-col items-center justify-center bg-slate-950/90 backdrop-blur-sm">
-          <div className="flex items-center gap-3 rounded-xl border border-slate-700 bg-slate-900 px-5 py-3 shadow-xl">
-            <RefreshCw size={18} className="animate-spin text-emerald-400" />
-            <span className="text-xs font-medium text-slate-200">
+        <div className="absolute inset-0 z-[1100] flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm">
+          <div className="flex items-center gap-3 rounded-xl border border-slate-300 bg-white px-5 py-3 shadow-xl">
+            <RefreshCw size={18} className="animate-spin text-emerald-600" />
+            <span className="text-xs font-medium text-slate-800">
               Initializing Chandigarh Tricity Map...
             </span>
           </div>
@@ -555,18 +555,18 @@ export default function RouteMap({
 
       {/* Tile Error Warning Banner */}
       {hasTileError && (
-        <div className="absolute top-4 left-4 z-[1000] flex max-w-md items-center gap-2.5 rounded-xl border border-amber-500/40 bg-slate-900/95 p-3 shadow-xl backdrop-blur-md">
-          <AlertTriangle size={18} className="shrink-0 text-amber-400" />
+        <div className="absolute top-4 left-4 z-[1000] flex max-w-md items-center gap-2.5 rounded-xl border border-amber-500/40 bg-white/95 p-3 shadow-xl backdrop-blur-md">
+          <AlertTriangle size={18} className="shrink-0 text-amber-600" />
           <div className="text-xs">
-            <p className="font-semibold text-white">Tile Stream Notice</p>
-            <p className="text-slate-400">
+            <p className="font-semibold text-slate-900">Tile Stream Notice</p>
+            <p className="text-slate-600">
               Some map tiles could not be fetched. Switch tile provider in layer controls or check internet connection.
             </p>
           </div>
           <button
             type="button"
             onClick={() => setHasTileError(false)}
-            className="ml-auto rounded px-2 py-1 text-[11px] text-slate-400 hover:bg-slate-800 hover:text-white focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
+            className="ml-auto rounded px-2 py-1 text-[11px] text-slate-600 hover:bg-slate-100 hover:text-slate-900 focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none"
             aria-label="Dismiss tile stream notice"
           >
             Dismiss
@@ -714,21 +714,21 @@ export default function RouteMap({
                   </div>
                   <div className="mt-1.5 grid grid-cols-2 gap-1 text-[11px] text-slate-600">
                     <div>
-                      <span className="text-slate-400">Dist:</span>{" "}
+                      <span className="text-slate-600">Dist:</span>{" "}
                       <strong className="text-slate-800">{route.distance_km} km</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400">Est. Time:</span>{" "}
+                      <span className="text-slate-600">Est. Time:</span>{" "}
                       <strong className="text-slate-800">
                         {displayDurationMin.toFixed(1)} min
                       </strong>
                     </div>
                     <div>
-                      <span className="text-slate-400">Signals:</span>{" "}
+                      <span className="text-slate-600">Signals:</span>{" "}
                       <strong className="text-slate-800">{signalCount}</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400">Rank:</span>{" "}
+                      <span className="text-slate-600">Rank:</span>{" "}
                       <strong className="text-slate-800">#{route.rank ?? (idx + 1)}</strong>
                     </div>
                   </div>
@@ -791,24 +791,24 @@ export default function RouteMap({
                         <span className="text-indigo-600">🔀 Topological Node (No Signal Tag)</span>
                       )}
                     </div>
-                    <span className="font-mono text-[10px] text-slate-400">
+                    <span className="font-mono text-[10px] text-slate-600">
                       #{inter.osm_node_id}
                     </span>
                   </div>
 
                   <div className="mt-1.5 space-y-1 text-[11px] text-slate-600">
                     <div>
-                      <span className="text-slate-400">Route Dist:</span>{" "}
+                      <span className="text-slate-600">Route Dist:</span>{" "}
                       <strong className="text-slate-800">{distDisplay} from start</strong>
                     </div>
                     <div>
-                      <span className="text-slate-400">Offset:</span>{" "}
+                      <span className="text-slate-600">Offset:</span>{" "}
                       <strong className="text-slate-800">
                         {inter.distance_from_route_m.toFixed(1)} m
                       </strong>
                     </div>
                     <div>
-                      <span className="text-slate-400">Coordinates:</span>{" "}
+                      <span className="text-slate-600">Coordinates:</span>{" "}
                       <span className="font-mono text-[10px] text-slate-700">
                         {formatCoordinate(inter.latitude, inter.longitude)}
                       </span>
@@ -864,7 +864,7 @@ export default function RouteMap({
                   <p className="text-[11px] text-slate-600 mt-0.5">
                     {landmark.subtitle}
                   </p>
-                  <p className="text-[10px] font-mono text-slate-400 mt-1">
+                  <p className="text-[10px] font-mono text-slate-600 mt-1">
                     {landmark.coordinates[0].toFixed(4)}°N, {landmark.coordinates[1].toFixed(4)}°E
                   </p>
                 </div>
@@ -943,7 +943,7 @@ export default function RouteMap({
       )}
 
       {/* Bottom Coordinates & Scope Indicator */}
-      <div className="absolute bottom-2 right-4 z-[900] hidden sm:flex items-center gap-3 rounded-lg border border-slate-800/80 bg-slate-950/80 px-2.5 py-1 text-[10px] font-mono text-slate-400 backdrop-blur-md pointer-events-none">
+      <div className="absolute bottom-2 right-4 z-[900] hidden sm:flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1 text-[10px] font-mono text-slate-600 backdrop-blur-md pointer-events-none">
         <span>Tricity Regional Scope: 35×35 km</span>
         <span className="text-slate-600">|</span>
         <span>Tile: {activeTile.name}</span>

@@ -105,20 +105,20 @@ export default function Header({ onToggleSidebar }) {
   };
 
   return (
-    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-slate-800 bg-slate-950/90 px-4 md:px-8 backdrop-blur">
+    <header className="sticky top-0 z-40 flex h-20 items-center justify-between border-b border-slate-200 bg-white/95 px-4 md:px-8 backdrop-blur">
       {/* Left: Mobile hamburger toggle & page heading */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={onToggleSidebar}
-          className="rounded-xl border border-slate-800 bg-slate-900/80 p-2 text-slate-400 hover:bg-slate-800 hover:text-white transition lg:hidden"
+          className="rounded-xl border border-slate-200 bg-white p-2 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition lg:hidden"
           aria-label="Toggle navigation menu"
         >
           <Menu size={20} />
         </button>
 
         <div>
-          <h2 className="text-lg md:text-xl font-semibold text-white tracking-tight">
+          <h2 className="text-lg md:text-xl font-semibold text-slate-900 tracking-tight">
             {title}
           </h2>
           <p className="hidden sm:block mt-0.5 text-xs text-slate-500">
@@ -133,7 +133,7 @@ export default function Header({ onToggleSidebar }) {
           onSubmit={handleSearchCorridors}
           role="search"
           aria-label="Search saved corridors"
-          className="hidden lg:flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-900/60 px-3 py-1.5 text-slate-300 focus-within:border-emerald-500/60"
+          className="hidden lg:flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-slate-700 focus-within:border-emerald-500/60"
         >
           <Search size={15} className="text-slate-500 shrink-0" />
           <input
@@ -142,7 +142,7 @@ export default function Header({ onToggleSidebar }) {
             onChange={(e) => setCorridorQuery(e.target.value)}
             placeholder="Search saved corridors..."
             aria-label="Search saved corridors"
-            className="w-40 bg-transparent text-xs text-white placeholder-slate-500 focus:outline-none"
+            className="w-40 bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none"
           />
         </form>
 
@@ -152,7 +152,7 @@ export default function Header({ onToggleSidebar }) {
             onClick={handleToggleStatus}
             aria-expanded={isStatusOpen}
             aria-haspopup="true"
-            className="relative rounded-xl border border-slate-800 bg-slate-900/60 p-2.5 text-slate-400 hover:bg-slate-800 hover:text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+            className="relative rounded-xl border border-slate-200 bg-white p-2.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             aria-label="Check system status"
           >
             <Bell size={17} />
@@ -161,14 +161,14 @@ export default function Header({ onToggleSidebar }) {
           {isStatusOpen && (
             <div
               role="status"
-              className="absolute right-0 mt-2 w-64 rounded-2xl border border-slate-800 bg-slate-900 p-3.5 shadow-2xl"
+              className="absolute right-0 mt-2 w-64 rounded-2xl border border-slate-200 bg-white p-3.5 shadow-2xl"
             >
-              <p className="text-xs font-semibold text-white">System Status</p>
-              <div className="mt-2 flex items-center gap-2 text-xs text-slate-300">
+              <p className="text-xs font-semibold text-slate-900">System Status</p>
+              <div className="mt-2 flex items-center gap-2 text-xs text-slate-700">
                 {healthInfo?.ok ? (
-                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0" />
+                  <CheckCircle2 size={15} className="text-emerald-600 shrink-0" />
                 ) : (
-                  <AlertCircle size={15} className="text-amber-400 shrink-0" />
+                  <AlertCircle size={15} className="text-amber-600 shrink-0" />
                 )}
                 <span>{healthInfo ? healthInfo.detail : "Checking backend health..."}</span>
               </div>
@@ -182,36 +182,36 @@ export default function Header({ onToggleSidebar }) {
             <button
               type="button"
               onClick={() => setIsDropdownOpen((prev) => !prev)}
-              className="flex items-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/60 py-1.5 pl-2 pr-3 text-left transition hover:border-slate-700 hover:bg-slate-900 focus:outline-none"
+              className="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white py-1.5 pl-2 pr-3 text-left transition hover:border-slate-300 hover:bg-white focus:outline-none"
               aria-expanded={isDropdownOpen}
               aria-haspopup="true"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/20 text-xs font-bold text-emerald-400">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/20 text-xs font-bold text-emerald-600">
                 {user.full_name ? user.full_name[0].toUpperCase() : user.email[0].toUpperCase()}
               </div>
               <div className="hidden sm:block text-left">
-                <p className="text-xs font-semibold text-white truncate max-w-[120px]">
+                <p className="text-xs font-semibold text-slate-900 truncate max-w-[120px]">
                   {user.full_name || "User"}
                 </p>
-                <p className="text-[10px] text-slate-400 capitalize">
+                <p className="text-[10px] text-slate-600 capitalize">
                   {user.role}
                 </p>
               </div>
-              <ChevronDown size={14} className="text-slate-400 transition" />
+              <ChevronDown size={14} className="text-slate-600 transition" />
             </button>
 
             {/* Profile Dropdown Menu */}
             {isDropdownOpen && (
-              <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-slate-800 bg-slate-900 p-2 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
-                <div className="border-b border-slate-800 px-3 py-2.5">
-                  <p className="text-xs font-bold text-white truncate">
+              <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+                <div className="border-b border-slate-200 px-3 py-2.5">
+                  <p className="text-xs font-bold text-slate-900 truncate">
                     {user.full_name || "Driver Account"}
                   </p>
-                  <p className="text-[11px] text-slate-400 truncate">
+                  <p className="text-[11px] text-slate-600 truncate">
                     {user.email}
                   </p>
                   <div className="mt-1 flex items-center gap-1.5">
-                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-400">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold text-emerald-600">
                       <Shield size={10} />
                       <span className="capitalize">{user.role}</span>
                     </span>
@@ -223,34 +223,34 @@ export default function Header({ onToggleSidebar }) {
                   <Link
                     to="/workspace"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
                   >
-                    <User size={14} className="text-slate-400" />
+                    <User size={14} className="text-slate-600" />
                     <span>Workspace Overview</span>
                   </Link>
 
                   <Link
                     to="/saved-routes"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
                   >
-                    <Bookmark size={14} className="text-emerald-400" />
+                    <Bookmark size={14} className="text-emerald-600" />
                     <span>Saved Corridors</span>
                   </Link>
 
                   <Link
                     to="/route-history"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
                   >
-                    <History size={14} className="text-sky-400" />
+                    <History size={14} className="text-sky-600" />
                     <span>Route History</span>
                   </Link>
 
                   <Link
                     to="/profile"
                     onClick={() => setIsDropdownOpen(false)}
-                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-300 hover:bg-slate-800 hover:text-white transition"
+                    className="flex items-center gap-2.5 rounded-xl px-3 py-2 text-xs text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
                   >
                     <User size={14} className="text-purple-400" />
                     <span>Profile & Security</span>
@@ -268,7 +268,7 @@ export default function Header({ onToggleSidebar }) {
                   )}
                 </div>
 
-                <div className="border-t border-slate-800 pt-1">
+                <div className="border-t border-slate-200 pt-1">
                   <button
                     type="button"
                     onClick={handleSignOut}
@@ -285,14 +285,14 @@ export default function Header({ onToggleSidebar }) {
           <div className="flex items-center gap-2">
             <Link
               to="/login"
-              className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-900 px-3.5 py-2 text-xs font-semibold text-slate-300 hover:bg-slate-800 hover:text-white transition"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
             >
               <LogIn size={13} />
               <span>Sign In</span>
             </Link>
             <Link
               to="/register"
-              className="hidden sm:inline-flex rounded-xl bg-emerald-500 px-3.5 py-2 text-xs font-semibold text-slate-950 hover:bg-emerald-400 transition"
+              className="hidden sm:inline-flex rounded-xl bg-emerald-600 px-3.5 py-2 text-xs font-semibold text-white hover:bg-emerald-400 transition"
             >
               Register
             </Link>

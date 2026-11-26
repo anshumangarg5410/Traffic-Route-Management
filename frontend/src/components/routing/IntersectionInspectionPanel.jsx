@@ -165,9 +165,9 @@ export default function IntersectionInspectionPanel({
   // Empty State: No route selected
   if (!route) {
     return (
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 text-center shadow-xl backdrop-blur-sm">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-xl backdrop-blur-sm">
         <GitFork size={32} className="mx-auto text-slate-600 mb-3" />
-        <h4 className="text-sm font-semibold text-slate-300">No Route Selected</h4>
+        <h4 className="text-sm font-semibold text-slate-700">No Route Selected</h4>
         <p className="mt-1 text-xs text-slate-500 max-w-xs mx-auto">
           Generate routes between origin and destination to inspect intersections and signal delays along the chosen corridor.
         </p>
@@ -180,17 +180,17 @@ export default function IntersectionInspectionPanel({
     return (
       <div className="rounded-2xl border border-amber-500/30 bg-amber-500/5 p-5 shadow-xl backdrop-blur-sm">
         <div className="flex items-start gap-3">
-          <AlertTriangle size={20} className="shrink-0 text-amber-400 mt-0.5" />
+          <AlertTriangle size={20} className="shrink-0 text-amber-600 mt-0.5" />
           <div>
-            <h4 className="text-sm font-semibold text-amber-300">
+            <h4 className="text-sm font-semibold text-amber-700">
               Intersection Analysis Degraded
             </h4>
-            <p className="mt-1 text-xs text-slate-400 leading-relaxed">
+            <p className="mt-1 text-xs text-slate-600 leading-relaxed">
               Detailed intersection topology could not be extracted for this candidate route (Status:{" "}
-              <code className="text-amber-300 font-mono text-[11px]">{analysisStatus}</code>).
+              <code className="text-amber-700 font-mono text-[11px]">{analysisStatus}</code>).
             </p>
             {analysisWarnings.length > 0 && (
-              <ul className="mt-2 list-disc list-inside space-y-1 text-[11px] text-slate-400">
+              <ul className="mt-2 list-disc list-inside space-y-1 text-[11px] text-slate-600">
                 {analysisWarnings.map((w, idx) => (
                   <li key={idx}>{w}</li>
                 ))}
@@ -203,30 +203,30 @@ export default function IntersectionInspectionPanel({
   }
 
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-sm">
+    <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-xl backdrop-blur-sm">
       {/* Header and Summary Telemetry */}
-      <div className="border-b border-slate-800 pb-4">
+      <div className="border-b border-slate-200 pb-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span
-              className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white shadow ${
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-slate-900 shadow ${
                 route.is_recommended ? "bg-emerald-500" : "bg-cyan-500"
               }`}
             >
               {route.rank || "#"}
             </span>
             <div>
-              <h3 className="text-sm font-semibold text-white">
+              <h3 className="text-sm font-semibold text-slate-900">
                 {route.summary || `Route ${route.rank || route.route_id}`} Intersections
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 {route.distance_km} km total &bull; Encounter sequence in travel order
               </p>
             </div>
           </div>
 
           {route.is_recommended && (
-            <span className="flex items-center gap-1 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-400">
+            <span className="flex items-center gap-1 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-emerald-600">
               <CheckCircle2 size={12} />
               Recommended
             </span>
@@ -235,13 +235,13 @@ export default function IntersectionInspectionPanel({
 
         {/* Aggregate Counters */}
         <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-2.5">
-            <p className="text-base font-bold font-mono text-white">{totalCount}</p>
-            <p className="text-[10px] text-slate-400">Total Nodes</p>
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5">
+            <p className="text-base font-bold font-mono text-slate-900">{totalCount}</p>
+            <p className="text-[10px] text-slate-600">Total Nodes</p>
           </div>
           <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-2.5">
-            <p className="text-base font-bold font-mono text-amber-400">{signalCount}</p>
-            <p className="text-[10px] text-amber-300/80">Mapped Signals</p>
+            <p className="text-base font-bold font-mono text-amber-600">{signalCount}</p>
+            <p className="text-[10px] text-amber-700/80">Mapped Signals</p>
           </div>
           <div className="rounded-xl border border-indigo-500/30 bg-indigo-500/5 p-2.5">
             <p className="text-base font-bold font-mono text-indigo-400">{unsignalCount}</p>
@@ -250,9 +250,9 @@ export default function IntersectionInspectionPanel({
         </div>
 
         {densityPerKm != null && (
-          <div className="mt-2 flex items-center justify-between rounded-lg bg-slate-950/40 px-3 py-1.5 text-[11px] text-slate-400">
+          <div className="mt-2 flex items-center justify-between rounded-lg bg-slate-50/40 px-3 py-1.5 text-[11px] text-slate-600">
             <span>Intersection Density:</span>
-            <strong className="font-mono text-slate-200">
+            <strong className="font-mono text-slate-800">
               {densityPerKm.toFixed(2)} junctions / km
             </strong>
           </div>
@@ -261,19 +261,19 @@ export default function IntersectionInspectionPanel({
 
       {/* Filter and Search Controls */}
       <div className="space-y-2">
-        <div className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-950/80 p-1">
+        <div className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 p-1">
           <button
             type="button"
             aria-pressed={filterMode === "all"}
             onClick={() => setFilterMode("all")}
             className={`flex flex-1 items-center justify-center gap-1 rounded-lg py-1.5 text-[11px] font-medium transition focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none ${
               filterMode === "all"
-                ? "bg-slate-800 text-white shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-slate-100 text-slate-900 shadow-sm"
+                : "text-slate-600 hover:text-slate-800"
             }`}
           >
             <span>All</span>
-            <span className="rounded-full bg-slate-700/60 px-1.5 py-0.2 text-[10px] text-slate-300 font-mono">
+            <span className="rounded-full bg-slate-700/60 px-1.5 py-0.2 text-[10px] text-slate-700 font-mono">
               {totalCount}
             </span>
           </button>
@@ -284,13 +284,13 @@ export default function IntersectionInspectionPanel({
             onClick={() => setFilterMode("signalized")}
             className={`flex flex-1 items-center justify-center gap-1 rounded-lg py-1.5 text-[11px] font-medium transition focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
               filterMode === "signalized"
-                ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm"
-                : "text-slate-400 hover:text-amber-400"
+                ? "bg-amber-500/20 text-amber-700 border border-amber-500/40 shadow-sm"
+                : "text-slate-600 hover:text-amber-600"
             }`}
           >
             <span className="text-[10px]">🚦</span>
             <span>Signals</span>
-            <span className="rounded-full bg-amber-950/60 px-1.5 py-0.2 text-[10px] text-amber-300 font-mono">
+            <span className="rounded-full bg-amber-950/60 px-1.5 py-0.2 text-[10px] text-amber-700 font-mono">
               {signalCount}
             </span>
           </button>
@@ -302,7 +302,7 @@ export default function IntersectionInspectionPanel({
             className={`flex flex-1 items-center justify-center gap-1 rounded-lg py-1.5 text-[11px] font-medium transition focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:outline-none ${
               filterMode === "unsignalized"
                 ? "bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 shadow-sm"
-                : "text-slate-400 hover:text-indigo-400"
+                : "text-slate-600 hover:text-indigo-400"
             }`}
           >
             <GitFork size={12} />
@@ -321,13 +321,13 @@ export default function IntersectionInspectionPanel({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by Node ID or sequence #..."
-            className="w-full rounded-xl border border-slate-800 bg-slate-950/60 py-1.5 pl-8 pr-3 text-xs text-white placeholder-slate-500 focus:border-cyan-500 focus:outline-none"
+            className="w-full rounded-xl border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs text-slate-900 placeholder-slate-400 focus:border-cyan-500 focus:outline-none"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-2.5 top-2 text-[11px] text-slate-500 hover:text-white"
+              className="absolute right-2.5 top-2 text-[11px] text-slate-500 hover:text-slate-900"
             >
               Clear
             </button>
@@ -338,7 +338,7 @@ export default function IntersectionInspectionPanel({
       {/* Intersections Scrollable Sequence List */}
       <div className="space-y-2 max-h-[460px] overflow-y-auto pr-1">
         {filteredIntersections.length === 0 ? (
-          <div className="rounded-xl border border-slate-800/60 bg-slate-950/40 p-5 text-center text-xs text-slate-500">
+          <div className="rounded-xl border border-slate-200/60 bg-slate-50/40 p-5 text-center text-xs text-slate-500">
             <Filter size={18} className="mx-auto mb-1.5 opacity-40" />
             No intersections match the selected filter.
           </div>
@@ -371,7 +371,7 @@ export default function IntersectionInspectionPanel({
                 className={`group cursor-pointer rounded-xl border p-3 transition-all focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none ${
                   isSelected
                     ? "border-cyan-500 bg-cyan-950/30 shadow-lg shadow-cyan-950/50 ring-1 ring-cyan-500/50"
-                    : "border-slate-800 bg-slate-950/60 hover:border-slate-700 hover:bg-slate-900/60"
+                    : "border-slate-200 bg-slate-50 hover:border-slate-300 hover:bg-white"
                 }`}
               >
                 {/* Header Row: Sequence, Type Badge, and Map Jump Indicator */}
@@ -380,7 +380,7 @@ export default function IntersectionInspectionPanel({
                     <span
                       className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold font-mono ${
                         inter.is_signalized
-                          ? "bg-amber-500/20 text-amber-400 border border-amber-500/40"
+                          ? "bg-amber-500/20 text-amber-600 border border-amber-500/40"
                           : "bg-indigo-500/20 text-indigo-400 border border-indigo-500/40"
                       }`}
                     >
@@ -388,12 +388,12 @@ export default function IntersectionInspectionPanel({
                     </span>
 
                     {inter.is_signalized ? (
-                      <span className="flex items-center gap-1 rounded bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-amber-400 border border-amber-500/20">
+                      <span className="flex items-center gap-1 rounded bg-amber-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-amber-600 border border-amber-500/20">
                         <span>🚦</span>
                         <span>Mapped Signal</span>
                       </span>
                     ) : (
-                      <span className="flex items-center gap-1 rounded bg-slate-800 px-1.5 py-0.5 text-[10px] font-medium text-slate-300">
+                      <span className="flex items-center gap-1 rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-medium text-slate-700">
                         <GitFork size={10} className="text-indigo-400" />
                         <span>No Mapped Signal Tag</span>
                       </span>
@@ -401,7 +401,7 @@ export default function IntersectionInspectionPanel({
                   </div>
 
                   <div className="flex items-center gap-1">
-                    <span className="font-mono text-[11px] font-semibold text-slate-300">
+                    <span className="font-mono text-[11px] font-semibold text-slate-700">
                       {displayDist}
                     </span>
                     <ChevronRight
@@ -414,19 +414,19 @@ export default function IntersectionInspectionPanel({
                 </div>
 
                 {/* Details Row: Node ID, Coordinates, Offset */}
-                <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-slate-400 border-t border-slate-800/60 pt-2">
+                <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-slate-600 border-t border-slate-200/60 pt-2">
                   <div className="flex items-center gap-1 truncate">
                     <span className="text-slate-500">Node:</span>
-                    <span className="font-mono text-slate-200">#{inter.osm_node_id}</span>
+                    <span className="font-mono text-slate-800">#{inter.osm_node_id}</span>
                     <button
                       type="button"
                       onClick={(e) => handleCopyNodeId(e, inter.osm_node_id)}
-                      className="text-slate-500 hover:text-slate-200 ml-0.5 focus-visible:ring-1 focus-visible:ring-cyan-400 focus-visible:outline-none rounded"
+                      className="text-slate-500 hover:text-slate-800 ml-0.5 focus-visible:ring-1 focus-visible:ring-cyan-400 focus-visible:outline-none rounded"
                       title="Copy OSM Node ID"
                       aria-label={`Copy OSM Node ID ${inter.osm_node_id}`}
                     >
                       {copiedNodeId === inter.osm_node_id ? (
-                        <Check size={11} className="text-emerald-400" />
+                        <Check size={11} className="text-emerald-600" />
                       ) : (
                         <Copy size={11} />
                       )}
@@ -435,7 +435,7 @@ export default function IntersectionInspectionPanel({
 
                   <div className="truncate text-right">
                     <span className="text-slate-500">Offset:</span>{" "}
-                    <span className="font-mono text-slate-300">
+                    <span className="font-mono text-slate-700">
                       {inter.distance_from_route_m.toFixed(1)} m
                     </span>
                   </div>
@@ -450,7 +450,7 @@ export default function IntersectionInspectionPanel({
                 {/* Signal Attributes or Unmodeled Delay Notice */}
                 {inter.is_signalized ? (
                   <div className="mt-2 rounded-lg border border-amber-500/20 bg-amber-500/5 p-2 text-[11px]">
-                    <div className="flex items-center justify-between text-amber-300">
+                    <div className="flex items-center justify-between text-amber-700">
                       <span className="flex items-center gap-1 font-semibold">
                         <Clock size={11} />
                         Modeled Delay:
@@ -461,21 +461,21 @@ export default function IntersectionInspectionPanel({
                     </div>
 
                     {delayInfo && (
-                      <div className="mt-1 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                      <div className="mt-1 flex items-center justify-between text-[10px] text-slate-600 font-mono">
                         <span>Cycle: {delayInfo.cycle_length_s}s</span>
                         <span>Red: {delayInfo.effective_red_time_s}s</span>
-                        <span className="text-amber-400/80">d = R²/(2C)</span>
+                        <span className="text-amber-600/80">d = R²/(2C)</span>
                       </div>
                     )}
 
                     {inter.signal_tags && Object.keys(inter.signal_tags).length > 0 && (
-                      <div className="mt-1 text-[10px] text-slate-400 font-mono truncate">
+                      <div className="mt-1 text-[10px] text-slate-600 font-mono truncate">
                         Tags: {Object.entries(inter.signal_tags).map(([k, v]) => `${k}=${v}`).join(", ")}
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="mt-2 rounded-lg bg-slate-950/40 px-2 py-1 text-[10px] text-slate-500 italic">
+                  <div className="mt-2 rounded-lg bg-slate-50/40 px-2 py-1 text-[10px] text-slate-500 italic">
                     No mapped signal tag &bull; Individual delay not modeled
                   </div>
                 )}
@@ -486,20 +486,20 @@ export default function IntersectionInspectionPanel({
       </div>
 
       {/* Engineering Disclaimers and Caveats */}
-      <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3 text-[11px] text-slate-400 space-y-1.5">
-        <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-[11px] text-slate-600 space-y-1.5">
+        <div className="flex items-center gap-1.5 font-semibold text-slate-700">
           <Info size={13} className="text-cyan-400" />
           <span>Data Methodology &amp; Engineering Caveats:</span>
         </div>
-        <ul className="list-disc list-inside space-y-1 text-slate-400 leading-relaxed text-[10.5px]">
+        <ul className="list-disc list-inside space-y-1 text-slate-600 leading-relaxed text-[10.5px]">
           <li>
             <strong>Topological Intersections:</strong> Represent OpenStreetMap graph nodes with physical degree &ge; 3. Complex multi-arm or divided intersections may contain multiple adjacent graph nodes.
           </li>
           <li>
-            <strong>Signal Tag Completeness:</strong> Signal status reflects OpenStreetMap tags (<code className="text-amber-300">highway=traffic_signals</code>). The absence of an OSM signal tag does not establish the absence of a physical traffic signal on the ground.
+            <strong>Signal Tag Completeness:</strong> Signal status reflects OpenStreetMap tags (<code className="text-amber-700">highway=traffic_signals</code>). The absence of an OSM signal tag does not establish the absence of a physical traffic signal on the ground.
           </li>
           <li>
-            <strong>Signal Delay Formulation:</strong> Delays are calculated using uniform-random-arrival approximation (<code className="text-emerald-400">d = R² / 2C</code>); individual delay is not modeled for intersections without mapped signal data.
+            <strong>Signal Delay Formulation:</strong> Delays are calculated using uniform-random-arrival approximation (<code className="text-emerald-600">d = R² / 2C</code>); individual delay is not modeled for intersections without mapped signal data.
           </li>
         </ul>
       </div>

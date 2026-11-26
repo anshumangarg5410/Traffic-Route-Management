@@ -105,8 +105,8 @@ export default function RouteComparisonCard({
       ? "border-emerald-500 bg-emerald-500/10 shadow-lg shadow-emerald-500/10 ring-1 ring-emerald-500/40"
       : "border-cyan-500 bg-cyan-500/10 shadow-lg shadow-cyan-500/10 ring-1 ring-cyan-500/40"
     : isRecommended
-    ? "border-emerald-500/50 bg-slate-900/90 hover:border-emerald-500/80 hover:bg-slate-800/80"
-    : "border-slate-800 bg-slate-950/70 hover:border-slate-700 hover:bg-slate-900/70";
+    ? "border-emerald-500/50 bg-white/95 hover:border-emerald-500/80 hover:bg-slate-100"
+    : "border-slate-200 bg-slate-50 hover:border-slate-300 hover:bg-white";
 
   return (
     <div
@@ -130,16 +130,16 @@ export default function RouteComparisonCard({
                 ? "bg-emerald-500 text-white shadow-sm shadow-emerald-500/50"
                 : isSelected
                 ? "bg-cyan-500 text-white shadow-sm shadow-cyan-500/50"
-                : "bg-slate-800 text-slate-300"
+                : "bg-slate-100 text-slate-700"
             }`}
           >
             {rank || "#"}
           </span>
           <div className="min-w-0">
-            <h4 className="text-sm font-semibold text-white truncate leading-tight">
+            <h4 className="text-sm font-semibold text-slate-900 truncate leading-tight">
               {summary}
             </h4>
-            <p className="text-[10px] font-mono text-slate-400 mt-0.5">
+            <p className="text-[10px] font-mono text-slate-600 mt-0.5">
               ID: {route.route_id}
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function RouteComparisonCard({
         {/* Status Badges */}
         <div className="flex flex-col items-end gap-1 shrink-0">
           {isRecommended && (
-            <span className="flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
+            <span className="flex items-center gap-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 px-2 py-0.5 text-[10px] font-bold text-emerald-600">
               <Sparkles size={10} />
               <span>Recommended</span>
             </span>
@@ -162,14 +162,14 @@ export default function RouteComparisonCard({
       </div>
 
       {/* Primary Metrics Grid */}
-      <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-950/60 p-3 text-xs mb-3 border border-slate-800/80">
+      <div className="grid grid-cols-2 gap-2 rounded-xl bg-slate-50 p-3 text-xs mb-3 border border-slate-200">
         {/* Estimated Duration */}
         <div className="space-y-0.5">
-          <p className="text-[10px] font-medium text-slate-400 flex items-center gap-1">
+          <p className="text-[10px] font-medium text-slate-600 flex items-center gap-1">
             <Clock size={11} className="text-blue-400" />
             <span>Est. Journey Time</span>
           </p>
-          <p className="text-base font-bold text-white font-mono">
+          <p className="text-base font-bold text-slate-900 font-mono">
             {estimatedDurationMin != null ? `${estimatedDurationMin.toFixed(1)} min` : "Unavailable"}
           </p>
           <p className="text-[9px] text-slate-500">
@@ -181,56 +181,56 @@ export default function RouteComparisonCard({
 
         {/* Baseline Free-Flow Duration */}
         <div className="space-y-0.5">
-          <p className="text-[10px] font-medium text-slate-400 flex items-center gap-1">
-            <TrendingUp size={11} className="text-slate-400" />
+          <p className="text-[10px] font-medium text-slate-600 flex items-center gap-1">
+            <TrendingUp size={11} className="text-slate-600" />
             <span>Baseline Free-Flow</span>
           </p>
-          <p className="text-sm font-semibold text-slate-300 font-mono">
+          <p className="text-sm font-semibold text-slate-700 font-mono">
             {baselineDurationMin != null ? `${baselineDurationMin.toFixed(1)} min` : "Unavailable"}
           </p>
           <p className="text-[9px] text-slate-500">Nominal OSRM speed</p>
         </div>
 
         {/* Distance */}
-        <div className="space-y-0.5 pt-1.5 border-t border-slate-800/60">
-          <p className="text-[10px] font-medium text-slate-400 flex items-center gap-1">
+        <div className="space-y-0.5 pt-1.5 border-t border-slate-200/60">
+          <p className="text-[10px] font-medium text-slate-600 flex items-center gap-1">
             <MapPin size={11} className="text-purple-400" />
             <span>Route Distance</span>
           </p>
-          <p className="text-sm font-semibold text-white font-mono">
+          <p className="text-sm font-semibold text-slate-900 font-mono">
             {distanceKm != null ? `${distanceKm.toFixed(1)} km` : "Unavailable"}
           </p>
         </div>
 
         {/* Route Score */}
-        <div className="space-y-0.5 pt-1.5 border-t border-slate-800/60">
-          <p className="text-[10px] font-medium text-slate-400 flex items-center gap-1">
-            <Sparkles size={11} className="text-amber-400" />
+        <div className="space-y-0.5 pt-1.5 border-t border-slate-200/60">
+          <p className="text-[10px] font-medium text-slate-600 flex items-center gap-1">
+            <Sparkles size={11} className="text-amber-600" />
             <span>Composite Score</span>
           </p>
-          <p className="text-sm font-semibold text-amber-300 font-mono">
+          <p className="text-sm font-semibold text-amber-700 font-mono">
             {score != null ? `${(score * 100).toFixed(1)} / 100` : "Not Scored"}
           </p>
         </div>
       </div>
 
       {/* Secondary Metrics: Signals & Intersections */}
-      <div className="grid grid-cols-3 gap-2 rounded-xl bg-slate-900/60 p-2 text-center text-xs mb-3 border border-slate-800/50">
+      <div className="grid grid-cols-3 gap-2 rounded-xl bg-white p-2 text-center text-xs mb-3 border border-slate-200/50">
         <div>
-          <p className="text-[10px] text-slate-400">Mapped Signals</p>
-          <p className="font-mono font-semibold text-white mt-0.5">
+          <p className="text-[10px] text-slate-600">Mapped Signals</p>
+          <p className="font-mono font-semibold text-slate-900 mt-0.5">
             {signalCount != null ? signalCount : "N/A"}
           </p>
         </div>
         <div>
-          <p className="text-[10px] text-slate-400">Intersections</p>
-          <p className="font-mono font-semibold text-white mt-0.5">
+          <p className="text-[10px] text-slate-600">Intersections</p>
+          <p className="font-mono font-semibold text-slate-900 mt-0.5">
             {totalIntersections != null ? totalIntersections : "N/A"}
           </p>
         </div>
         <div>
-          <p className="text-[10px] text-slate-400">Density</p>
-          <p className="font-mono font-semibold text-white mt-0.5">
+          <p className="text-[10px] text-slate-600">Density</p>
+          <p className="font-mono font-semibold text-slate-900 mt-0.5">
             {intersectionDensity != null ? `${intersectionDensity.toFixed(2)}/km` : "N/A"}
           </p>
         </div>
@@ -238,15 +238,15 @@ export default function RouteComparisonCard({
 
       {/* ML Temporal Traffic Context (shared across departure time) */}
       {mlPrediction?.status === "available" && mlPrediction.predicted_traffic_level && (
-        <div className="mb-3 flex items-center justify-between rounded-lg border border-slate-800/80 bg-slate-950/60 px-2.5 py-1.5 text-[11px]">
-          <span className="text-slate-400">Departure Traffic Context (ML):</span>
+        <div className="mb-3 flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-[11px]">
+          <span className="text-slate-600">Departure Traffic Context (ML):</span>
           <span
             className={`font-semibold ${
               mlPrediction.predicted_traffic_level === "High"
                 ? "text-rose-400"
                 : mlPrediction.predicted_traffic_level === "Medium"
-                ? "text-amber-400"
-                : "text-emerald-400"
+                ? "text-amber-600"
+                : "text-emerald-600"
             }`}
           >
             {mlPrediction.predicted_traffic_level}
@@ -257,16 +257,16 @@ export default function RouteComparisonCard({
       {/* Recommendation Reasons / Alternative Trade-Offs */}
       {recommendationReasons.length > 0 && (
         <div className="space-y-1 mb-2">
-          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+          <p className="text-[10px] font-semibold text-slate-600 uppercase tracking-wider">
             {isRecommended ? "Recommendation Factors" : "Comparative Trade-offs"}
           </p>
           <ul className="space-y-1 text-xs">
             {recommendationReasons.map((reason, idx) => (
-              <li key={idx} className="flex items-start gap-1.5 text-slate-300 text-[11px] leading-tight">
+              <li key={idx} className="flex items-start gap-1.5 text-slate-700 text-[11px] leading-tight">
                 <CheckCircle2
                   size={12}
                   className={`mt-0.5 shrink-0 ${
-                    isRecommended ? "text-emerald-400" : "text-slate-400"
+                    isRecommended ? "text-emerald-600" : "text-slate-600"
                   }`}
                 />
                 <span>{reason}</span>
@@ -278,7 +278,7 @@ export default function RouteComparisonCard({
 
       {/* Data Notice if metrics were missing or imputed */}
       {(!hasSignalDelay || !hasIntersectionAnalysis) && (
-        <div className="mt-2 flex items-start gap-1.5 rounded-lg bg-amber-500/10 p-2 text-[10px] text-amber-400">
+        <div className="mt-2 flex items-start gap-1.5 rounded-lg bg-amber-500/10 p-2 text-[10px] text-amber-600">
           <AlertCircle size={12} className="shrink-0 mt-0.5" />
           <span>
             Intersection or signal metrics were partially unavailable for this candidate route.
@@ -287,7 +287,7 @@ export default function RouteComparisonCard({
       )}
 
       {/* Select Action Footer */}
-      <div className="mt-3 pt-2.5 border-t border-slate-800/80 flex items-center justify-between text-xs">
+      <div className="mt-3 pt-2.5 border-t border-slate-200 flex items-center justify-between text-xs">
         <span className="text-[11px] text-slate-500">
           {isSelected ? "Currently highlighted on map" : "Click card to highlight route"}
         </span>
@@ -300,7 +300,7 @@ export default function RouteComparisonCard({
           className={`rounded-lg px-2.5 py-1 text-[11px] font-semibold transition ${
             isSelected
               ? "bg-cyan-500 text-white shadow-sm shadow-cyan-500/20"
-              : "bg-slate-800 text-slate-300 hover:bg-slate-700 hover:text-white"
+              : "bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900"
           }`}
         >
           {isSelected ? "Selected" : "Select Route"}

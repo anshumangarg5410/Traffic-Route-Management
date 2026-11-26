@@ -23,7 +23,7 @@ export default function MapLegend({
 
   return (
     <div
-      className={`absolute bottom-6 left-6 z-[1000] overflow-hidden rounded-xl border border-slate-700/80 bg-slate-900/90 shadow-2xl backdrop-blur-md transition-all pointer-events-auto ${className} ${
+      className={`absolute bottom-6 left-6 z-[1000] overflow-hidden rounded-xl border border-slate-300/80 bg-white/95 shadow-2xl backdrop-blur-md transition-all pointer-events-auto ${className} ${
         isExpanded ? "w-64" : "w-auto"
       }`}
     >
@@ -31,28 +31,28 @@ export default function MapLegend({
       <button
         type="button"
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex w-full items-center justify-between gap-3 p-3 text-left transition hover:bg-slate-800/60"
+        className="flex w-full items-center justify-between gap-3 p-3 text-left transition hover:bg-slate-100"
         title={isExpanded ? "Collapse map legend" : "Expand map legend"}
       >
-        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-300 uppercase">
-          <Layers size={14} className="text-emerald-400" />
+        <div className="flex items-center gap-2 text-xs font-semibold tracking-wider text-slate-700 uppercase">
+          <Layers size={14} className="text-emerald-600" />
           {isExpanded && <span>Map Legend</span>}
         </div>
-        <div className="text-slate-400">
+        <div className="text-slate-600">
           {isExpanded ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
         </div>
       </button>
 
       {/* Legend Body */}
       {isExpanded && (
-        <div className="space-y-3 border-t border-slate-800 p-3 pt-2 text-xs">
+        <div className="space-y-3 border-t border-slate-200 p-3 pt-2 text-xs">
           {/* Geographical Coverage */}
           <div>
-            <div className="mb-1 flex items-center justify-between text-[11px] text-slate-400">
+            <div className="mb-1 flex items-center justify-between text-[11px] text-slate-600">
               <span>Geographic Boundary</span>
-              <span className="font-mono text-[10px] text-emerald-400">Tricity</span>
+              <span className="font-mono text-[10px] text-emerald-600">Tricity</span>
             </div>
-            <div className="flex items-center gap-2 rounded-lg bg-slate-950/60 p-1.5">
+            <div className="flex items-center gap-2 rounded-lg bg-slate-50 p-1.5">
               <span
                 className="inline-block h-2.5 w-6 rounded border border-blue-400/80"
                 style={{
@@ -60,7 +60,7 @@ export default function MapLegend({
                   borderStyle: "dashed",
                 }}
               />
-              <span className="text-[11px] text-slate-300">
+              <span className="text-[11px] text-slate-700">
                 Chandigarh Tricity (35×35 km)
               </span>
             </div>
@@ -68,17 +68,17 @@ export default function MapLegend({
 
           {/* Route Polylines */}
           <div>
-            <p className="mb-1 text-[11px] text-slate-400">Routing Representation</p>
-            <div className="space-y-1.5 rounded-lg bg-slate-950/60 p-2">
+            <p className="mb-1 text-[11px] text-slate-600">Routing Representation</p>
+            <div className="space-y-1.5 rounded-lg bg-slate-50 p-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <span
                     className="inline-block h-1.5 w-5 rounded-full"
                     style={{ backgroundColor: ROUTE_STYLES.recommended.color }}
                   />
-                  <span className="text-[11px] text-slate-300">Recommended Route</span>
+                  <span className="text-[11px] text-slate-700">Recommended Route</span>
                 </div>
-                <span className="rounded bg-emerald-500/10 px-1 py-0.2 text-[9px] font-semibold text-emerald-400">
+                <span className="rounded bg-emerald-500/10 px-1 py-0.2 text-[9px] font-semibold text-emerald-600">
                   Rank 1
                 </span>
               </div>
@@ -92,7 +92,7 @@ export default function MapLegend({
                       backgroundColor: "transparent",
                     }}
                   />
-                  <span className="text-[11px] text-slate-400">Alternative Options</span>
+                  <span className="text-[11px] text-slate-600">Alternative Options</span>
                 </div>
                 <span className="text-[9px] text-slate-500">OSRM</span>
               </div>
@@ -101,30 +101,30 @@ export default function MapLegend({
 
           {/* Markers / Nodes */}
           <div>
-            <p className="mb-1 text-[11px] text-slate-400">Waypoints & Route Intersections</p>
-            <div className="grid grid-cols-2 gap-1.5 rounded-lg bg-slate-950/60 p-2 text-[10px]">
-              <div className="flex items-center gap-1.5 text-slate-300">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+            <p className="mb-1 text-[11px] text-slate-600">Waypoints & Route Intersections</p>
+            <div className="grid grid-cols-2 gap-1.5 rounded-lg bg-slate-50 p-2 text-[10px]">
+              <div className="flex items-center gap-1.5 text-slate-700">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-600">
                   <MapPin size={10} />
                 </span>
                 <span>Origin / Dest</span>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-300">
-                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 font-bold text-[9px]">
+              <div className="flex items-center gap-1.5 text-slate-700">
+                <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-500/20 text-amber-600 font-bold text-[9px]">
                   🚦
                 </span>
                 <span>Mapped Signals</span>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-300">
+              <div className="flex items-center gap-1.5 text-slate-700">
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-purple-500/20 text-purple-400">
                   <Compass size={10} />
                 </span>
                 <span>{totalLandmarks} Urban Hubs</span>
               </div>
 
-              <div className="flex items-center gap-1.5 text-slate-300">
+              <div className="flex items-center gap-1.5 text-slate-700">
                 <span className="flex h-4 w-4 items-center justify-center rounded-full bg-indigo-500/20 text-indigo-400 font-mono text-[9px] font-bold">
                   #
                 </span>
@@ -134,7 +134,7 @@ export default function MapLegend({
           </div>
 
           {hasActiveRoute && (
-            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-2 text-[10px] text-emerald-300 leading-relaxed">
+            <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-2 text-[10px] text-emerald-700 leading-relaxed">
               Intersections along selected route are rendered as interactive markers. "Mapped Signal" indicates OSM signal tag presence; other topological intersections lack this tag in OSM (individual delay not modeled).
             </div>
           )}

@@ -476,21 +476,21 @@ export default function SmartRoutePlanner() {
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <div className="flex items-center gap-2">
-            <div className="rounded-lg bg-emerald-500/10 p-2 text-emerald-400">
+            <div className="rounded-lg bg-emerald-500/10 p-2 text-emerald-600">
               <Navigation size={22} />
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-white">
+            <h1 className="text-2xl font-bold tracking-tight text-slate-900">
               Smart Route Planner
             </h1>
           </div>
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-slate-600">
             Intelligent location search, multi-criteria route comparison, and modeled signal delay analysis across Chandigarh Tricity.
           </p>
         </div>
 
         {/* Status Badges */}
         <div className="flex flex-wrap items-center gap-2">
-          <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-mono text-emerald-400">
+          <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-mono text-emerald-600">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span>
               {routes.length > 0
@@ -511,9 +511,9 @@ export default function SmartRoutePlanner() {
         <div className="space-y-5 lg:col-span-5">
           {/* Loaded Corridor Banner */}
           {loadedCorridorTitle && (
-            <div className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-xs text-emerald-300 shadow-sm">
+            <div className="flex items-center justify-between rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-2.5 text-xs text-emerald-700 shadow-sm">
               <div className="flex items-center gap-2">
-                <Bookmark size={14} className="text-emerald-400 shrink-0" />
+                <Bookmark size={14} className="text-emerald-600 shrink-0" />
                 <span>
                   Loaded corridor: <strong>{loadedCorridorTitle}</strong>
                 </span>
@@ -521,7 +521,7 @@ export default function SmartRoutePlanner() {
               <button
                 type="button"
                 onClick={() => setLoadedCorridorTitle(null)}
-                className="text-emerald-400 hover:text-emerald-200 transition"
+                className="text-emerald-600 hover:text-emerald-200 transition"
                 aria-label="Dismiss loaded corridor notification"
               >
                 <X size={14} />
@@ -530,17 +530,17 @@ export default function SmartRoutePlanner() {
           )}
 
           {/* Journey Origin & Destination Input Card */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5 shadow-xl backdrop-blur-sm">
-            <div className="mb-4 flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl backdrop-blur-sm">
+            <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3">
               <div className="flex items-center gap-2">
                 <div className="rounded-lg bg-blue-500/10 p-1.5 text-blue-400">
                   <MapPin size={16} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className="text-sm font-semibold text-slate-900">
                     Journey Locations
                   </h3>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-slate-600">
                     Search address or click on map
                   </p>
                 </div>
@@ -551,7 +551,7 @@ export default function SmartRoutePlanner() {
                 type="button"
                 onClick={handleSwapLocations}
                 disabled={!sourceLocation && !destinationLocation}
-                className="flex items-center gap-1.5 rounded-xl border border-slate-800 bg-slate-950/60 px-2.5 py-1.5 text-xs text-slate-400 transition hover:border-slate-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="flex items-center gap-1.5 rounded-xl border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-xs text-slate-600 transition hover:border-slate-300 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-40"
                 title="Swap Origin and Destination"
               >
                 <ArrowUpDown size={13} className="text-blue-400" />
@@ -618,7 +618,7 @@ export default function SmartRoutePlanner() {
                   htmlFor="planner-departure-time"
                   className="flex items-center justify-between text-xs"
                 >
-                  <span className="flex items-center gap-1.5 font-semibold text-slate-300">
+                  <span className="flex items-center gap-1.5 font-semibold text-slate-700">
                     <Clock size={12} className="text-cyan-400" />
                     <span>Departure Date & Time</span>
                   </span>
@@ -631,15 +631,15 @@ export default function SmartRoutePlanner() {
                   type="datetime-local"
                   value={departureTime}
                   onChange={(e) => setDepartureTime(e.target.value)}
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-2 text-xs text-white focus:border-cyan-500/60 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
+                  className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 focus:border-cyan-500/60 focus:outline-none focus:ring-2 focus:ring-cyan-500/20"
                 />
               </div>
             </div>
 
             {/* Geographic Selection Error Notice */}
             {selectionError && (
-              <div className="mt-3 flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-300">
-                <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-400" />
+              <div className="mt-3 flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-700">
+                <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-600" />
                 <p>{selectionError}</p>
               </div>
             )}
@@ -666,11 +666,11 @@ export default function SmartRoutePlanner() {
 
             {/* Active Selection Summary Card */}
             {(sourceLocation || destinationLocation) && (
-              <div className="mt-4 rounded-xl border border-slate-800/90 bg-slate-950/70 p-3.5 space-y-2.5">
-                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <div className="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-3.5 space-y-2.5">
+                <div className="flex items-center justify-between text-[11px] font-semibold text-slate-600 uppercase tracking-wider">
                   <span>Selection Overview</span>
                   {sourceLocation && destinationLocation && (
-                    <span className="text-emerald-400 font-mono lowercase">
+                    <span className="text-emerald-600 font-mono lowercase">
                       ~{straightLineDistanceKm} km straight-line
                     </span>
                   )}
@@ -678,11 +678,11 @@ export default function SmartRoutePlanner() {
 
                 {sourceLocation && (
                   <div className="flex items-start gap-2 text-xs">
-                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-[10px] font-bold text-emerald-400">
+                    <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-[10px] font-bold text-emerald-600">
                       A
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium text-slate-200">
+                      <p className="truncate font-medium text-slate-800">
                         {sourceLocation.displayName}
                       </p>
                       <p className="font-mono text-[10px] text-slate-500">
@@ -701,7 +701,7 @@ export default function SmartRoutePlanner() {
                       B
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate font-medium text-slate-200">
+                      <p className="truncate font-medium text-slate-800">
                         {destinationLocation.displayName}
                       </p>
                       <p className="font-mono text-[10px] text-slate-500">
@@ -715,14 +715,14 @@ export default function SmartRoutePlanner() {
                 )}
 
                 {/* Find Driving Routes Action Button */}
-                <div className="pt-2 border-t border-slate-800/80 flex items-center gap-2">
+                <div className="pt-2 border-t border-slate-200 flex items-center gap-2">
                   <button
                     type="button"
                     onClick={() => handleFindRoutes()}
                     disabled={
                       !sourceLocation || !destinationLocation || isLoadingRoutes
                     }
-                    className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-xs font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-800 disabled:text-slate-500 disabled:shadow-none"
+                    className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 py-2.5 text-xs font-semibold text-white shadow-lg shadow-blue-500/20 transition hover:bg-blue-500 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:text-slate-500 disabled:shadow-none"
                   >
                     {isLoadingRoutes ? (
                       <>
@@ -740,7 +740,7 @@ export default function SmartRoutePlanner() {
                     <button
                       type="button"
                       onClick={invalidateRoutes}
-                      className="rounded-xl border border-slate-800 bg-slate-900/80 px-3 py-2.5 text-xs font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none"
+                      className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none"
                       title="Clear route calculations"
                       aria-label="Clear calculated routes"
                     >
@@ -756,10 +756,10 @@ export default function SmartRoutePlanner() {
           {routes.length > 0 && (
             <div className="space-y-4">
               {/* Save Corridor Action Bar */}
-              <div className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900/90 px-4 py-2.5 backdrop-blur-sm">
+              <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white/95 px-4 py-2.5 backdrop-blur-sm">
                 <div className="flex items-center gap-2">
-                  <Bookmark size={15} className="text-emerald-400" />
-                  <span className="text-xs font-medium text-slate-300">
+                  <Bookmark size={15} className="text-emerald-600" />
+                  <span className="text-xs font-medium text-slate-700">
                     {selectedRoute
                       ? `Selected Route ${selectedRoute.rank || selectedRoute.route_id}`
                       : "Route Calculated"}
@@ -769,7 +769,7 @@ export default function SmartRoutePlanner() {
                   <button
                     type="button"
                     onClick={handleOpenSaveModal}
-                    className="flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-400 transition hover:bg-emerald-500/20"
+                    className="flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-xs font-semibold text-emerald-600 transition hover:bg-emerald-500/20"
                   >
                     <Bookmark size={13} />
                     <span>Save Corridor</span>
@@ -777,7 +777,7 @@ export default function SmartRoutePlanner() {
                 ) : (
                   <Link
                     to="/login"
-                    className="text-xs text-slate-400 underline decoration-slate-600 transition hover:text-emerald-400"
+                    className="text-xs text-slate-600 underline decoration-slate-600 transition hover:text-emerald-600"
                     title="Sign in to save this corridor"
                   >
                     Sign in to bookmark
@@ -811,7 +811,7 @@ export default function SmartRoutePlanner() {
                       mlPrediction.confidence &&
                       mlPrediction.predicted_traffic_level &&
                       typeof mlPrediction.confidence[mlPrediction.predicted_traffic_level] === "number" && (
-                        <span className="rounded-full bg-slate-950/60 px-2 py-0.5 font-mono text-[10px]">
+                        <span className="rounded-full bg-slate-50 px-2 py-0.5 font-mono text-[10px]">
                           {(
                             mlPrediction.confidence[mlPrediction.predicted_traffic_level] * 100
                           ).toFixed(0)}
@@ -837,7 +837,7 @@ export default function SmartRoutePlanner() {
               <div
                 role="tablist"
                 aria-label="Route analysis tabs"
-                className="flex flex-wrap items-center justify-between gap-1 rounded-xl border border-slate-800 bg-slate-900/90 p-1 backdrop-blur-sm"
+                className="flex flex-wrap items-center justify-between gap-1 rounded-xl border border-slate-200 bg-white/95 p-1 backdrop-blur-sm"
               >
                 <button
                   type="button"
@@ -848,8 +848,8 @@ export default function SmartRoutePlanner() {
                   onClick={() => setActiveDetailsTab("comparison")}
                   className={`flex flex-1 min-w-[70px] items-center justify-center gap-1.5 rounded-lg py-2 px-1.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:outline-none ${
                     activeDetailsTab === "comparison"
-                      ? "bg-slate-800 text-white shadow-sm"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-slate-100 text-slate-900 shadow-sm"
+                      : "text-slate-600 hover:text-slate-800"
                   }`}
                 >
                   <BarChart3 size={13} className="text-cyan-400 shrink-0" />
@@ -865,11 +865,11 @@ export default function SmartRoutePlanner() {
                   onClick={() => setActiveDetailsTab("intersections")}
                   className={`flex flex-1 min-w-[70px] items-center justify-center gap-1.5 rounded-lg py-2 px-1.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:outline-none ${
                     activeDetailsTab === "intersections"
-                      ? "bg-slate-800 text-white shadow-sm"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-slate-100 text-slate-900 shadow-sm"
+                      : "text-slate-600 hover:text-slate-800"
                   }`}
                 >
-                  <GitFork size={13} className="text-amber-400 shrink-0" />
+                  <GitFork size={13} className="text-amber-600 shrink-0" />
                   <span>Nodes ({selectedRouteIntersectionsCount})</span>
                 </button>
 
@@ -882,11 +882,11 @@ export default function SmartRoutePlanner() {
                   onClick={() => setActiveDetailsTab("explanation")}
                   className={`flex flex-1 min-w-[70px] items-center justify-center gap-1.5 rounded-lg py-2 px-1.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:ring-emerald-400 focus-visible:outline-none ${
                     activeDetailsTab === "explanation"
-                      ? "bg-slate-800 text-white shadow-sm"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-slate-100 text-slate-900 shadow-sm"
+                      : "text-slate-600 hover:text-slate-800"
                   }`}
                 >
-                  <Sparkles size={13} className="text-emerald-400 shrink-0" />
+                  <Sparkles size={13} className="text-emerald-600 shrink-0" />
                   <span>Rank Analysis</span>
                 </button>
 
@@ -899,8 +899,8 @@ export default function SmartRoutePlanner() {
                   onClick={() => setActiveDetailsTab("telemetry")}
                   className={`flex flex-1 min-w-[70px] items-center justify-center gap-1.5 rounded-lg py-2 px-1.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none ${
                     activeDetailsTab === "telemetry"
-                      ? "bg-slate-800 text-white shadow-sm"
-                      : "text-slate-400 hover:text-slate-200"
+                      ? "bg-slate-100 text-slate-900 shadow-sm"
+                      : "text-slate-600 hover:text-slate-800"
                   }`}
                 >
                   <Sliders size={13} className="text-purple-400 shrink-0" />
@@ -910,7 +910,7 @@ export default function SmartRoutePlanner() {
                 <button
                   type="button"
                   onClick={invalidateRoutes}
-                  className="rounded-lg p-2 text-slate-500 hover:bg-slate-800 hover:text-slate-300 transition focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none"
+                  className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-700 transition focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none"
                   title="Reset and clear routes"
                   aria-label="Reset and clear routes"
                 >
@@ -927,7 +927,7 @@ export default function SmartRoutePlanner() {
                   className="space-y-3"
                 >
                   <div className="flex items-center justify-between px-1">
-                    <p className="text-xs font-semibold text-slate-300">
+                    <p className="text-xs font-semibold text-slate-700">
                       Ranked Driving Alternatives ({routes.length} Found)
                     </p>
                     <span className="text-[11px] text-slate-500">
@@ -1001,11 +1001,11 @@ export default function SmartRoutePlanner() {
           )}
 
           {/* Quick-Jump Urban Centers */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-xl backdrop-blur-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl backdrop-blur-sm">
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Compass size={16} className="text-purple-400" />
-                <h3 className="text-sm font-semibold text-white">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Tricity Urban Centers
                 </h3>
               </div>
@@ -1014,7 +1014,7 @@ export default function SmartRoutePlanner() {
               </span>
             </div>
 
-            <p className="mb-3 text-xs text-slate-400">
+            <p className="mb-3 text-xs text-slate-600">
               Select any regional center to pan, or quickly set as Origin or Destination:
             </p>
 
@@ -1027,7 +1027,7 @@ export default function SmartRoutePlanner() {
                     className={`flex items-center justify-between rounded-xl border p-2.5 transition ${
                       isSelected
                         ? "border-purple-500/50 bg-purple-500/10 text-white"
-                        : "border-slate-800 bg-slate-950/60 text-slate-300 hover:border-slate-700 hover:bg-slate-800/60"
+                        : "border-slate-200 bg-slate-50 text-slate-700 hover:border-slate-300 hover:bg-slate-100"
                     }`}
                   >
                     <button
@@ -1039,7 +1039,7 @@ export default function SmartRoutePlanner() {
                         className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
                           isSelected
                             ? "bg-purple-500 text-white"
-                            : "bg-slate-800 text-slate-400"
+                            : "bg-slate-100 text-slate-600"
                         }`}
                       >
                         <MapPin size={11} />
@@ -1059,7 +1059,7 @@ export default function SmartRoutePlanner() {
                       <button
                         type="button"
                         onClick={() => handleSetLandmarkAs(landmark, "source")}
-                        className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-400 hover:bg-emerald-500/20"
+                        className="rounded-md border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-600 hover:bg-emerald-500/20"
                         title={`Set ${landmark.name} as Origin (A)`}
                       >
                         +A
@@ -1075,7 +1075,7 @@ export default function SmartRoutePlanner() {
                       <button
                         type="button"
                         onClick={() => handleSelectUrbanCenter(landmark)}
-                        className="p-1 text-slate-500 hover:text-slate-300"
+                        className="p-1 text-slate-500 hover:text-slate-700"
                         title="Focus on map"
                       >
                         <ChevronRight size={13} />
@@ -1088,34 +1088,34 @@ export default function SmartRoutePlanner() {
           </div>
 
           {/* Regional Road Network Metrics */}
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 shadow-xl backdrop-blur-sm">
+          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xl backdrop-blur-sm">
             <div className="mb-3 flex items-center gap-2">
               <Layers size={16} className="text-blue-400" />
-              <h3 className="text-sm font-semibold text-white">
+              <h3 className="text-sm font-semibold text-slate-900">
                 Underlying Road Graph
               </h3>
             </div>
 
             <div className="grid grid-cols-2 gap-3 text-center">
-              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-                <p className="text-lg font-bold font-mono text-white">56,254</p>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-lg font-bold font-mono text-slate-900">56,254</p>
                 <p className="text-[11px] text-slate-500">OSM Graph Nodes</p>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-                <p className="text-lg font-bold font-mono text-white">144,015</p>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-lg font-bold font-mono text-slate-900">144,015</p>
                 <p className="text-[11px] text-slate-500">Directed Edges</p>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-                <p className="text-lg font-bold font-mono text-white">13,093 km</p>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-lg font-bold font-mono text-slate-900">13,093 km</p>
                 <p className="text-[11px] text-slate-500">Drivable Roads</p>
               </div>
-              <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-                <p className="text-lg font-bold font-mono text-white">26</p>
+              <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+                <p className="text-lg font-bold font-mono text-slate-900">26</p>
                 <p className="text-[11px] text-slate-500">Mapped Signals</p>
               </div>
             </div>
 
-            <div className="mt-3 flex items-start gap-2 rounded-xl bg-slate-950/40 p-2.5 text-[11px] text-slate-400">
+            <div className="mt-3 flex items-start gap-2 rounded-xl bg-slate-50/40 p-2.5 text-[11px] text-slate-600">
               <Info size={14} className="mt-0.5 shrink-0 text-blue-400" />
               <span>
                 Road network extracted and validated across Chandigarh, Mohali, Panchkula, Zirakpur, Kharar, New Chandigarh, and Dera Bassi.
@@ -1151,22 +1151,22 @@ export default function SmartRoutePlanner() {
 
       {/* Save Route Corridor Modal */}
       {isSaveModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-4">
               <div className="flex items-center gap-2">
-                <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-400">
+                <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-600">
                   <Bookmark size={20} />
                 </div>
                 <div>
-                  <h3 className="text-base font-semibold text-white">Save Route Corridor</h3>
-                  <p className="text-xs text-slate-400">Bookmark route telemetry to your workspace</p>
+                  <h3 className="text-base font-semibold text-slate-900">Save Route Corridor</h3>
+                  <p className="text-xs text-slate-600">Bookmark route telemetry to your workspace</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setIsSaveModalOpen(false)}
-                className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-white transition"
+                className="rounded-lg p-1.5 text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition"
               >
                 <X size={18} />
               </button>
@@ -1175,23 +1175,23 @@ export default function SmartRoutePlanner() {
             <form onSubmit={handleSaveRoute} className="mt-4 space-y-4">
               {/* Route Telemetry Preview Card */}
               {selectedRoute && (
-                <div className="rounded-xl border border-slate-800/80 bg-slate-950/50 p-3 text-xs space-y-2">
-                  <div className="flex items-center justify-between text-slate-400">
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-xs space-y-2">
+                  <div className="flex items-center justify-between text-slate-600">
                     <span>Rank & Corridor</span>
-                    <span className="font-semibold text-white">
+                    <span className="font-semibold text-slate-900">
                       Route {selectedRoute.rank || selectedRoute.route_id}
                     </span>
                   </div>
-                  <div className="grid grid-cols-3 gap-2 border-t border-slate-800/60 pt-2 text-center">
+                  <div className="grid grid-cols-3 gap-2 border-t border-slate-200/60 pt-2 text-center">
                     <div>
                       <p className="text-[10px] text-slate-500 uppercase">Distance</p>
-                      <p className="font-semibold text-slate-200">
+                      <p className="font-semibold text-slate-800">
                         {selectedRoute.distance_km ? `${selectedRoute.distance_km.toFixed(1)} km` : "--"}
                       </p>
                     </div>
                     <div>
                       <p className="text-[10px] text-slate-500 uppercase">Est. Duration</p>
-                      <p className="font-semibold text-emerald-400">
+                      <p className="font-semibold text-emerald-600">
                         {selectedRoute.signal_delay_summary?.estimated_duration_min
                           ? `${selectedRoute.signal_delay_summary.estimated_duration_min.toFixed(0)} min`
                           : selectedRoute.duration_min
@@ -1211,7 +1211,7 @@ export default function SmartRoutePlanner() {
 
               {/* Title Input */}
               <div>
-                <label className="block text-xs font-medium text-slate-300">
+                <label className="block text-xs font-medium text-slate-700">
                   Corridor Title <span className="text-rose-400">*</span>
                 </label>
                 <input
@@ -1220,13 +1220,13 @@ export default function SmartRoutePlanner() {
                   value={saveTitle}
                   onChange={(e) => setSaveTitle(e.target.value)}
                   placeholder="e.g. Sector 17 to IT Park via Madhya Marg"
-                  className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="mt-1 w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 />
               </div>
 
               {/* Preferred Criteria Input */}
               <div>
-                <label className="block text-xs font-medium text-slate-300">
+                <label className="block text-xs font-medium text-slate-700">
                   Preferences / Notes (Optional)
                 </label>
                 <input
@@ -1234,13 +1234,13 @@ export default function SmartRoutePlanner() {
                   value={saveCriteria}
                   onChange={(e) => setSaveCriteria(e.target.value)}
                   placeholder="e.g. Avoid peak signal delay"
-                  className="mt-1 w-full rounded-xl border border-slate-700 bg-slate-950 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="mt-1 w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 />
               </div>
 
               {/* Success Notification */}
               {saveSuccessMessage && (
-                <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3 text-xs text-emerald-400">
+                <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-3 text-xs text-emerald-600">
                   <Check size={16} className="shrink-0" />
                   <span>{saveSuccessMessage}</span>
                 </div>
@@ -1255,19 +1255,19 @@ export default function SmartRoutePlanner() {
               )}
 
               {/* Form Buttons */}
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setIsSaveModalOpen(false)}
                   disabled={isSavingRoute}
-                  className="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-medium text-slate-300 hover:bg-slate-700 hover:text-white transition disabled:opacity-50"
+                  className="rounded-xl border border-slate-300 bg-slate-100 px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-200 hover:text-slate-900 transition disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSavingRoute || Boolean(saveSuccessMessage)}
-                  className="flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 hover:bg-emerald-400 transition disabled:opacity-50 shadow-lg shadow-emerald-500/20"
+                  className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-semibold text-white hover:bg-emerald-400 transition disabled:opacity-50 shadow-lg shadow-emerald-500/20"
                 >
                   {isSavingRoute ? (
                     <>

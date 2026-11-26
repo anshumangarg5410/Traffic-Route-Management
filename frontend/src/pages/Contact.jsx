@@ -58,16 +58,16 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-slate-950 text-slate-100 py-14 md:py-20">
+    <div className="bg-slate-50 text-slate-900 py-14 md:py-20">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 space-y-10">
         <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
             Contact &amp; Inquiries
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
             Get in Touch with the ITMS Project
           </h1>
-          <p className="text-base text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed">
             Have questions about Chandigarh Tricity route coverage, signal delay
             assumptions, or the ML model methodology?
           </p>
@@ -75,7 +75,7 @@ export default function Contact() {
 
         {/* Honest Demo Notice */}
         <div className="flex items-start gap-3 rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4 text-xs text-amber-200">
-          <Info size={18} className="shrink-0 mt-0.5 text-amber-400" />
+          <Info size={18} className="shrink-0 mt-0.5 text-amber-600" />
           <div className="space-y-1">
             <p className="font-semibold text-amber-100">
               Demonstration Mode Notice
@@ -92,7 +92,7 @@ export default function Contact() {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 sm:p-8 space-y-5 shadow-xl"
+          className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 space-y-5 shadow-xl"
         >
           {error && (
             <div
@@ -109,7 +109,7 @@ export default function Contact() {
               role="status"
               className="flex items-start gap-2.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-xs text-emerald-200"
             >
-              <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-400" />
+              <CheckCircle2 size={16} className="shrink-0 mt-0.5 text-emerald-600" />
               <div>
                 <p className="font-semibold text-emerald-100">
                   Inquiry Validated (Frontend Demo Preview)
@@ -127,7 +127,7 @@ export default function Contact() {
             <div className="space-y-1.5">
               <label
                 htmlFor="contact-name"
-                className="block text-xs font-semibold text-slate-300"
+                className="block text-xs font-semibold text-slate-700"
               >
                 Full Name
               </label>
@@ -137,14 +137,14 @@ export default function Contact() {
                 value={form.name}
                 onChange={handleChange("name")}
                 placeholder="Your name"
-                className="w-full rounded-xl border border-slate-800 bg-slate-950/90 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-xl border border-slate-200 bg-white/95 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
 
             <div className="space-y-1.5">
               <label
                 htmlFor="contact-email"
-                className="block text-xs font-semibold text-slate-300"
+                className="block text-xs font-semibold text-slate-700"
               >
                 Email Address
               </label>
@@ -154,7 +154,7 @@ export default function Contact() {
                 value={form.email}
                 onChange={handleChange("email")}
                 placeholder="you@example.com"
-                className="w-full rounded-xl border border-slate-800 bg-slate-950/90 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+                className="w-full rounded-xl border border-slate-200 bg-white/95 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
               />
             </div>
           </div>
@@ -162,7 +162,7 @@ export default function Contact() {
           <div className="space-y-1.5">
             <label
               htmlFor="contact-subject"
-              className="block text-xs font-semibold text-slate-300"
+              className="block text-xs font-semibold text-slate-700"
             >
               Subject
             </label>
@@ -172,14 +172,14 @@ export default function Contact() {
               value={form.subject}
               onChange={handleChange("subject")}
               placeholder="e.g., Question about Tricity route scoring"
-              className="w-full rounded-xl border border-slate-800 bg-slate-950/90 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-xl border border-slate-200 bg-white/95 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
 
           <div className="space-y-1.5">
             <label
               htmlFor="contact-message"
-              className="block text-xs font-semibold text-slate-300"
+              className="block text-xs font-semibold text-slate-700"
             >
               Message
             </label>
@@ -189,12 +189,12 @@ export default function Contact() {
               value={form.message}
               onChange={handleChange("message")}
               placeholder="Write your question or feedback..."
-              className="w-full rounded-xl border border-slate-800 bg-slate-950/90 px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
+              className="w-full rounded-xl border border-slate-200 bg-white/95 px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500/60 focus:outline-none focus:ring-2 focus:ring-emerald-500/20"
             />
           </div>
 
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pt-2">
-            <div className="flex items-center gap-2 text-xs text-slate-400">
+            <div className="flex items-center gap-2 text-xs text-slate-600">
               <Mail size={14} className="text-slate-500" />
               <span>Client-side validation preview only</span>
             </div>
@@ -209,11 +209,11 @@ export default function Contact() {
           </div>
         </form>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900/40 p-5 text-xs text-slate-400">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 text-xs text-slate-600">
           <span>Looking to plan a route right now?</span>
           <Link
             to="/route-planner"
-            className="inline-flex items-center gap-1.5 font-semibold text-emerald-400 hover:text-emerald-300"
+            className="inline-flex items-center gap-1.5 font-semibold text-emerald-600 hover:text-emerald-700"
           >
             <span>Open Route Planner</span>
             <ArrowRight size={14} />

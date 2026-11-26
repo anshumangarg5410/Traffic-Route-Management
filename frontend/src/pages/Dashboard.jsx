@@ -45,7 +45,7 @@ function BackendStatusBadge({ status, latency, onRefresh }) {
   if (status === "connected") {
     return (
       <div
-        className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-mono text-emerald-400"
+        className="flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-mono text-emerald-600"
         title="Local FastAPI backend connectivity verified (127.0.0.1:8000). Research simulation environment; not field-connected to municipal physical signals."
       >
         <span className="relative flex h-2 w-2">
@@ -54,11 +54,11 @@ function BackendStatusBadge({ status, latency, onRefresh }) {
         </span>
         <Wifi size={13} />
         <span>API Gateway Connected</span>
-        {latency !== null && <span className="text-slate-400">({latency}ms)</span>}
+        {latency !== null && <span className="text-slate-600">({latency}ms)</span>}
         <button
           type="button"
           onClick={onRefresh}
-          className="ml-1 text-slate-400 hover:text-white"
+          className="ml-1 text-slate-600 hover:text-slate-900"
           title="Refresh Health Status"
         >
           <RefreshCw size={11} />
@@ -69,7 +69,7 @@ function BackendStatusBadge({ status, latency, onRefresh }) {
 
   if (status === "checking") {
     return (
-      <div className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-mono text-amber-400">
+      <div className="flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs font-mono text-amber-600">
         <RefreshCw size={12} className="animate-spin" />
         <span>Checking API...</span>
       </div>
@@ -83,7 +83,7 @@ function BackendStatusBadge({ status, latency, onRefresh }) {
       <button
         type="button"
         onClick={onRefresh}
-        className="ml-1 underline hover:text-white"
+        className="ml-1 underline hover:text-slate-900"
       >
         Retry
       </button>
@@ -93,19 +93,19 @@ function BackendStatusBadge({ status, latency, onRefresh }) {
 
 function StatCard({ title, value, subtitle, icon: Icon, highlight = false, badge = null }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4 transition hover:border-slate-700">
+    <div className="rounded-xl border border-slate-200 bg-white p-4 transition hover:border-slate-300">
       <div className="flex items-center justify-between">
-        <p className="text-xs font-medium text-slate-400">{title}</p>
+        <p className="text-xs font-medium text-slate-600">{title}</p>
         <div className="flex items-center gap-1.5">
           {badge && (
-            <span className="rounded bg-slate-800 px-1.5 py-0.5 text-[10px] font-mono text-slate-300">
+            <span className="rounded bg-slate-100 px-1.5 py-0.5 text-[10px] font-mono text-slate-700">
               {badge}
             </span>
           )}
-          <Icon size={18} className={highlight ? "text-emerald-400" : "text-slate-400"} />
+          <Icon size={18} className={highlight ? "text-emerald-600" : "text-slate-600"} />
         </div>
       </div>
-      <h2 className="mt-3 text-2xl font-bold text-white font-mono">{value}</h2>
+      <h2 className="mt-3 text-2xl font-bold text-slate-900 font-mono">{value}</h2>
       <p className="mt-1 text-xs text-slate-500">{subtitle}</p>
     </div>
   );
@@ -338,20 +338,20 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       {/* SECTION A: Header & System Status Bar */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-slate-800 pb-5">
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between border-b border-slate-200 pb-5">
         <div>
           <div className="flex items-center gap-3">
-            <div className="rounded-lg bg-emerald-500/10 p-2 text-emerald-400 border border-emerald-500/20">
+            <div className="rounded-lg bg-emerald-500/10 p-2 text-emerald-600 border border-emerald-500/20">
               <Activity size={22} />
             </div>
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2">
+              <h1 className="text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
                 Traffic Command Center
-                <span className="rounded bg-slate-800 px-2 py-0.5 text-[11px] font-mono text-slate-400 border border-slate-700">
+                <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-mono text-slate-600 border border-slate-300">
                   Phase 8.4
                 </span>
               </h1>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-600 mt-0.5">
                 Centralized Macroscopic Intersection Control, Regional ML Prediction & Common Random Numbers Simulation
               </p>
             </div>
@@ -365,23 +365,23 @@ export default function Dashboard() {
             onRefresh={checkHealth}
           />
 
-          <div className="flex items-center gap-1.5 text-xs font-mono text-slate-400 bg-slate-900 px-3 py-1 rounded-full border border-slate-800">
+          <div className="flex items-center gap-1.5 text-xs font-mono text-slate-600 bg-white px-3 py-1 rounded-full border border-slate-200">
             <Clock size={12} className="text-slate-500" />
             <span>Last Run:</span>
-            <span className="text-slate-200 font-semibold">{lastExecuted || "Pending"}</span>
+            <span className="text-slate-800 font-semibold">{lastExecuted || "Pending"}</span>
           </div>
         </div>
       </div>
 
       {/* SECTION B: Scenario Presets & Configuration Bar */}
-      <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/80 pb-3">
+      <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-3">
           <div>
-            <h2 className="text-sm font-bold text-white flex items-center gap-2">
-              <Sliders size={16} className="text-emerald-400" />
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Sliders size={16} className="text-emerald-600" />
               Scenario Presets & Intersection Geometry
             </h2>
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-slate-600 mt-0.5">
               Select an illustrative scenario preset or fine-tune directional parameters. Shared across all pages.
             </p>
           </div>
@@ -389,7 +389,7 @@ export default function Dashboard() {
           <button
             type="button"
             onClick={() => setShowConfigDrawer((prev) => !prev)}
-            className="flex items-center gap-1 text-xs font-medium text-slate-300 hover:text-white bg-slate-800/80 hover:bg-slate-800 px-2.5 py-1.5 rounded-lg border border-slate-700 transition"
+            className="flex items-center gap-1 text-xs font-medium text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-100 px-2.5 py-1.5 rounded-lg border border-slate-300 transition"
           >
             <span>{showConfigDrawer ? "Hide Controls" : "Fine-Tune Parameters"}</span>
             {showConfigDrawer ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
@@ -407,8 +407,8 @@ export default function Dashboard() {
                 onClick={() => applyScenarioPreset(p.id)}
                 className={`px-3 py-1.5 rounded-lg text-xs font-medium transition ${
                   isActive
-                    ? "bg-emerald-500 text-slate-950 font-bold shadow-[0_0_12px_rgba(16,185,129,0.3)] ring-1 ring-emerald-400"
-                    : "bg-slate-950 text-slate-300 hover:bg-slate-800 hover:text-white border border-slate-800"
+                    ? "bg-emerald-600 text-white font-bold shadow-[0_0_12px_rgba(16,185,129,0.3)] ring-1 ring-emerald-400"
+                    : "bg-slate-50 text-slate-700 hover:bg-slate-100 hover:text-slate-900 border border-slate-200"
                 }`}
                 title={p.description}
               >
@@ -420,7 +420,7 @@ export default function Dashboard() {
           <button
             type="button"
             onClick={resetTrafficConfig}
-            className="ml-auto flex items-center gap-1 text-xs text-slate-400 hover:text-white px-2 py-1.5 rounded bg-slate-950 hover:bg-slate-800 border border-slate-800"
+            className="ml-auto flex items-center gap-1 text-xs text-slate-600 hover:text-slate-900 px-2 py-1.5 rounded bg-slate-50 hover:bg-slate-100 border border-slate-200"
             title="Reset to default configuration"
           >
             <RotateCcw size={12} />
@@ -429,31 +429,31 @@ export default function Dashboard() {
         </div>
 
         {/* Active Scenario Info Box */}
-        <div className="rounded-lg bg-slate-950/70 border border-slate-800/80 p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="rounded-lg bg-slate-50 border border-slate-200 p-3 flex flex-wrap items-center justify-between gap-3 text-xs">
           <div>
-            <span className="text-slate-400 font-mono">Active Scenario:</span>{" "}
-            <span className="font-bold text-white">{scenario.name}</span>
+            <span className="text-slate-600 font-mono">Active Scenario:</span>{" "}
+            <span className="font-bold text-slate-900">{scenario.name}</span>
             <p className="text-[11px] text-slate-500 mt-0.5">{scenario.description}</p>
           </div>
-          <span className="text-[10px] font-mono text-emerald-400/90 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+          <span className="text-[10px] font-mono text-emerald-600/90 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
             Synchronized with TrafficContext
           </span>
         </div>
 
         {/* Fine-Tuning Drawer */}
         {showConfigDrawer && (
-          <div className="mt-4 pt-4 border-t border-slate-800 space-y-4 text-xs">
+          <div className="mt-4 pt-4 border-t border-slate-200 space-y-4 text-xs">
             {/* Directional Matrix: Queues, Arrival Rates, Lanes */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
               {DIRECTIONS.map((d) => (
-                <div key={d} className="rounded-lg bg-slate-950 p-3 border border-slate-800 space-y-2">
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-1">
-                    <span className="capitalize font-bold text-white text-xs">{d} Bound</span>
+                <div key={d} className="rounded-lg bg-slate-50 p-3 border border-slate-200 space-y-2">
+                  <div className="flex items-center justify-between border-b border-slate-200 pb-1">
+                    <span className="capitalize font-bold text-slate-900 text-xs">{d} Bound</span>
                     <span className="text-[10px] font-mono text-slate-500">Approach</span>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="flex items-center justify-between text-[11px] text-slate-400">
+                    <label className="flex items-center justify-between text-[11px] text-slate-600">
                       <span>Queue (veh):</span>
                       <input
                         type="number"
@@ -461,11 +461,11 @@ export default function Dashboard() {
                         max="200"
                         value={initialQueues[d]}
                         onChange={(e) => updateDirectionalQueues(d, Math.max(0, parseInt(e.target.value, 10) || 0))}
-                        className="w-16 rounded bg-slate-900 border border-slate-700 px-1.5 py-0.5 text-right font-mono text-white outline-none focus:border-emerald-500"
+                        className="w-16 rounded bg-white border border-slate-300 px-1.5 py-0.5 text-right font-mono text-slate-900 outline-none focus:border-emerald-500"
                       />
                     </label>
 
-                    <label className="flex items-center justify-between text-[11px] text-slate-400">
+                    <label className="flex items-center justify-between text-[11px] text-slate-600">
                       <span>Rate (veh/min):</span>
                       <input
                         type="number"
@@ -474,11 +474,11 @@ export default function Dashboard() {
                         step="0.5"
                         value={arrivalRates[d]}
                         onChange={(e) => updateArrivalRates(d, Math.max(0, parseFloat(e.target.value) || 0))}
-                        className="w-16 rounded bg-slate-900 border border-slate-700 px-1.5 py-0.5 text-right font-mono text-white outline-none focus:border-emerald-500"
+                        className="w-16 rounded bg-white border border-slate-300 px-1.5 py-0.5 text-right font-mono text-slate-900 outline-none focus:border-emerald-500"
                       />
                     </label>
 
-                    <label className="flex items-center justify-between text-[11px] text-slate-400">
+                    <label className="flex items-center justify-between text-[11px] text-slate-600">
                       <span>Lanes:</span>
                       <input
                         type="number"
@@ -486,7 +486,7 @@ export default function Dashboard() {
                         max="4"
                         value={lanes[d]}
                         onChange={(e) => updateLanes(d, Math.max(1, parseInt(e.target.value, 10) || 1))}
-                        className="w-16 rounded bg-slate-900 border border-slate-700 px-1.5 py-0.5 text-right font-mono text-white outline-none focus:border-emerald-500"
+                        className="w-16 rounded bg-white border border-slate-300 px-1.5 py-0.5 text-right font-mono text-slate-900 outline-none focus:border-emerald-500"
                       />
                     </label>
                   </div>
@@ -497,7 +497,7 @@ export default function Dashboard() {
             {/* Simulation Parameters & Capacity Row */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-2">
               <label htmlFor={cyclesInputId} className="space-y-1">
-                <span className="text-[11px] text-slate-400 block">Cycles (1-50):</span>
+                <span className="text-[11px] text-slate-600 block">Cycles (1-50):</span>
                 <input
                   id={cyclesInputId}
                   type="number"
@@ -505,12 +505,12 @@ export default function Dashboard() {
                   max="50"
                   value={simulation.cycles}
                   onChange={(e) => updateSimulationSettings("cycles", Math.max(1, parseInt(e.target.value, 10) || 1))}
-                  className="w-full rounded bg-slate-950 border border-slate-700 px-2 py-1 font-mono text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded bg-slate-50 border border-slate-300 px-2 py-1 font-mono text-slate-900 outline-none focus:border-emerald-500"
                 />
               </label>
 
               <label htmlFor={runsInputId} className="space-y-1">
-                <span className="text-[11px] text-slate-400 block">MC Runs (1-50):</span>
+                <span className="text-[11px] text-slate-600 block">MC Runs (1-50):</span>
                 <input
                   id={runsInputId}
                   type="number"
@@ -518,12 +518,12 @@ export default function Dashboard() {
                   max="50"
                   value={simulation.runs}
                   onChange={(e) => updateSimulationSettings("runs", Math.max(1, parseInt(e.target.value, 10) || 1))}
-                  className="w-full rounded bg-slate-950 border border-slate-700 px-2 py-1 font-mono text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded bg-slate-50 border border-slate-300 px-2 py-1 font-mono text-slate-900 outline-none focus:border-emerald-500"
                 />
               </label>
 
               <label htmlFor={seedInputId} className="space-y-1">
-                <span className="text-[11px] text-slate-400 block">Random Seed:</span>
+                <span className="text-[11px] text-slate-600 block">Random Seed:</span>
                 <input
                   id={seedInputId}
                   type="number"
@@ -531,12 +531,12 @@ export default function Dashboard() {
                   placeholder="Random"
                   value={simulation.randomSeed ?? ""}
                   onChange={(e) => updateSimulationSettings("randomSeed", e.target.value)}
-                  className="w-full rounded bg-slate-950 border border-slate-700 px-2 py-1 font-mono text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded bg-slate-50 border border-slate-300 px-2 py-1 font-mono text-slate-900 outline-none focus:border-emerald-500"
                 />
               </label>
 
               <label htmlFor={satFlowInputId} className="space-y-1">
-                <span className="text-[11px] text-slate-400 block">Sat Flow (veh/h/ln):</span>
+                <span className="text-[11px] text-slate-600 block">Sat Flow (veh/h/ln):</span>
                 <input
                   id={satFlowInputId}
                   type="number"
@@ -545,12 +545,12 @@ export default function Dashboard() {
                   step="50"
                   value={saturationFlowRates.north}
                   onChange={(e) => updateSaturationFlowRates(parseFloat(e.target.value) || 1800)}
-                  className="w-full rounded bg-slate-950 border border-slate-700 px-2 py-1 font-mono text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded bg-slate-50 border border-slate-300 px-2 py-1 font-mono text-slate-900 outline-none focus:border-emerald-500"
                 />
               </label>
 
               <label htmlFor={lostTimeInputId} className="space-y-1">
-                <span className="text-[11px] text-slate-400 block">Startup Lost (s):</span>
+                <span className="text-[11px] text-slate-600 block">Startup Lost (s):</span>
                 <input
                   id={lostTimeInputId}
                   type="number"
@@ -559,16 +559,16 @@ export default function Dashboard() {
                   step="0.5"
                   value={startupLostTimes.north}
                   onChange={(e) => updateStartupLostTimes(parseFloat(e.target.value) || 2.0)}
-                  className="w-full rounded bg-slate-950 border border-slate-700 px-2 py-1 font-mono text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded bg-slate-50 border border-slate-300 px-2 py-1 font-mono text-slate-900 outline-none focus:border-emerald-500"
                 />
               </label>
 
               <div className="space-y-1">
-                <span className="text-[11px] text-slate-400 block">Discharge Policy:</span>
+                <span className="text-[11px] text-slate-600 block">Discharge Policy:</span>
                 <select
                   value={dischargePolicy}
                   onChange={(e) => updateIntersectionGeometry({ dischargePolicy: e.target.value })}
-                  className="w-full rounded bg-slate-950 border border-slate-700 px-2 py-1 font-mono text-white text-xs outline-none focus:border-emerald-500"
+                  className="w-full rounded bg-slate-50 border border-slate-300 px-2 py-1 font-mono text-slate-900 text-xs outline-none focus:border-emerald-500"
                 >
                   <option value="fractional_carryover">Fractional Carryover</option>
                   <option value="independent_floor">Independent Floor</option>
@@ -584,7 +584,7 @@ export default function Dashboard() {
                 onChange={(e) => updateSimulationSettings("applyScaling", e.target.checked)}
                 className="accent-emerald-500 rounded"
               />
-              <label htmlFor={scalingInputId} className="text-slate-300 text-xs cursor-pointer select-none">
+              <label htmlFor={scalingInputId} className="text-slate-700 text-xs cursor-pointer select-none">
                 Enable illustrative ML scenario multiplier scaling on arrival rates (Low: 0.85x, Medium: 1.0x, High: 1.25x)
               </label>
             </div>
@@ -599,8 +599,8 @@ export default function Dashboard() {
             disabled={loading}
             className={`w-full sm:w-auto flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-bold transition shadow-lg ${
               loading
-                ? "bg-slate-800 text-slate-400 cursor-wait"
-                : "bg-emerald-500 text-slate-950 hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-[0.98]"
+                ? "bg-slate-100 text-slate-600 cursor-wait"
+                : "bg-emerald-600 text-white hover:bg-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)] active:scale-[0.98]"
             }`}
           >
             {loading ? (
@@ -616,7 +616,7 @@ export default function Dashboard() {
             )}
           </button>
 
-          <div className="text-xs font-mono text-slate-400 flex flex-wrap items-center gap-2">
+          <div className="text-xs font-mono text-slate-600 flex flex-wrap items-center gap-2">
             <span>Payload: {simulation.cycles} cycles</span>
             <span>•</span>
             <span>{simulation.runs} MC runs</span>
@@ -639,10 +639,10 @@ export default function Dashboard() {
       {isConfigStale && workflowResult && (
         <div className="rounded-xl border border-amber-500/40 bg-amber-500/10 p-4 text-xs text-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-lg">
           <div className="flex items-center gap-2.5">
-            <AlertCircle className="text-amber-400 shrink-0" size={18} />
+            <AlertCircle className="text-amber-600 shrink-0" size={18} />
             <div>
-              <span className="font-bold text-white block">Configuration Changed — Results Outdated</span>
-              <span className="text-amber-300/90">
+              <span className="font-bold text-slate-900 block">Configuration Changed — Results Outdated</span>
+              <span className="text-amber-700/90">
                 You modified scenario parameters after the last run. The visualizer and performance metrics below reflect the previous execution. Click &quot;Rerun Analysis&quot; to compute updated results.
               </span>
             </div>
@@ -661,23 +661,23 @@ export default function Dashboard() {
 
       {/* SECTION D: Regional ML Traffic Prediction Card */}
       {workflowResult?.ml_prediction && (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800 pb-3">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-200 pb-3">
             <div className="flex items-center gap-2">
-              <BrainCircuit className="text-emerald-400" size={18} />
-              <h2 className="text-sm font-bold text-white">Regional Freeway Volume Prediction</h2>
-              <span className="rounded bg-slate-800 px-2 py-0.5 text-[10px] font-mono text-slate-300 border border-slate-700">
+              <BrainCircuit className="text-emerald-600" size={18} />
+              <h2 className="text-sm font-bold text-slate-900">Regional Freeway Volume Prediction</h2>
+              <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-mono text-slate-700 border border-slate-300">
                 Random Forest
               </span>
               {isConfigStale && (
-                <span className="rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono">
+                <span className="rounded bg-amber-500/20 text-amber-700 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono">
                   Outdated Result
                 </span>
               )}
             </div>
 
             {workflowResult.directional_inputs?.scenario_scaling?.applied && (
-              <span className="rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 text-[11px] font-mono">
+              <span className="rounded bg-amber-500/10 text-amber-600 border border-amber-500/30 px-2 py-0.5 text-[11px] font-mono">
                 Scenario Multiplier: {workflowResult.directional_inputs.scenario_scaling.multiplier}x Applied
               </span>
             )}
@@ -685,7 +685,7 @@ export default function Dashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Left: Category Badge & Thresholds */}
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 flex flex-col justify-between">
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 flex flex-col justify-between">
               <div>
                 <span className="text-[11px] font-mono text-slate-500 block uppercase">Corridor Volume Level</span>
                 <span
@@ -693,22 +693,22 @@ export default function Dashboard() {
                     workflowResult.ml_prediction.predicted_traffic_level === "High"
                       ? "bg-rose-500/20 text-rose-400 border-rose-500/40"
                       : workflowResult.ml_prediction.predicted_traffic_level === "Medium"
-                      ? "bg-amber-500/20 text-amber-400 border-amber-500/40"
-                      : "bg-emerald-500/20 text-emerald-400 border-emerald-500/40"
+                      ? "bg-amber-500/20 text-amber-600 border-amber-500/40"
+                      : "bg-emerald-500/20 text-emerald-600 border-emerald-500/40"
                   }`}
                 >
                   {workflowResult.ml_prediction.predicted_traffic_level} Traffic
                 </span>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-slate-400 space-y-1">
+              <div className="mt-4 pt-3 border-t border-slate-200 text-[11px] font-mono text-slate-600 space-y-1">
                 <div>Low Max: &le; {workflowResult.ml_prediction.classification_thresholds?.low_max ?? 2000} veh/hr</div>
                 <div>Medium Max: &le; {workflowResult.ml_prediction.classification_thresholds?.medium_max ?? 4500} veh/hr</div>
               </div>
             </div>
 
             {/* Center: Class Probabilities */}
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-2">
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-2">
               <span className="text-[11px] font-mono text-slate-500 block uppercase">Tree Voting Fractions</span>
               <div className="space-y-2">
                 {Object.entries(workflowResult.ml_prediction.class_probabilities || {}).map(([cls, prob]) => {
@@ -716,10 +716,10 @@ export default function Dashboard() {
                   return (
                     <div key={cls} className="space-y-1">
                       <div className="flex justify-between text-xs font-mono">
-                        <span className="text-slate-300">{cls}</span>
-                        <span className="font-bold text-white">{pct}% ({prob})</span>
+                        <span className="text-slate-700">{cls}</span>
+                        <span className="font-bold text-slate-900">{pct}% ({prob})</span>
                       </div>
-                      <div className="h-1.5 w-full bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                      <div className="h-1.5 w-full bg-white rounded-full overflow-hidden border border-slate-200">
                         <div
                           className={`h-full rounded-full ${
                             cls === "High" ? "bg-rose-500" : cls === "Medium" ? "bg-amber-500" : "bg-emerald-500"
@@ -734,14 +734,14 @@ export default function Dashboard() {
             </div>
 
             {/* Right: Model Scope and Disclaimers */}
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 flex flex-col justify-between text-[11px] text-slate-400 space-y-2">
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 flex flex-col justify-between text-[11px] text-slate-600 space-y-2">
               <div>
-                <span className="font-semibold text-slate-300 block mb-1">Scope & Independence Notice:</span>
+                <span className="font-semibold text-slate-700 block mb-1">Scope & Independence Notice:</span>
                 <p className="leading-relaxed">
                   Trained on UCI Interstate-94 freeway volume telemetry. Directional intersection queues and arrival rates are independently configured by the user.
                 </p>
               </div>
-              <p className="text-[10px] text-slate-500 italic pt-2 border-t border-slate-800/80">
+              <p className="text-[10px] text-slate-500 italic pt-2 border-t border-slate-200">
                 {workflowResult.ml_prediction.confidence_interpretation}
               </p>
             </div>
@@ -761,31 +761,31 @@ export default function Dashboard() {
 
       {/* SECTION F: Baseline Signal Timing Allocation */}
       {workflowResult?.signal_allocation && (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-800 pb-3">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-200 pb-3">
             <div>
-              <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                <Clock size={16} className="text-emerald-400" />
+              <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <Clock size={16} className="text-emerald-600" />
                 Baseline Split-Phase Signal Allocation (Cycle 0 Baseline)
                 {isConfigStale && (
-                  <span className="rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono">
+                  <span className="rounded bg-amber-500/20 text-amber-700 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono">
                     Outdated Allocation
                   </span>
                 )}
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-600 mt-0.5">
                 Initial green times derived from configured initial queues. Subsequent simulation cycles dynamically re-optimize green times based on queue accumulation.
               </p>
             </div>
 
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
-              <span className="bg-slate-950 px-2 py-1 rounded border border-slate-800">
+            <div className="flex items-center gap-2 text-xs font-mono text-slate-700">
+              <span className="bg-slate-50 px-2 py-1 rounded border border-slate-200">
                 Cycle: {workflowResult.signal_allocation.cycle_time}s
               </span>
-              <span className="bg-slate-950 px-2 py-1 rounded border border-slate-800 text-amber-400">
+              <span className="bg-slate-50 px-2 py-1 rounded border border-slate-200 text-amber-600">
                 Clearance: {workflowResult.signal_allocation.clearance_time}s
               </span>
-              <span className="bg-slate-950 px-2 py-1 rounded border border-slate-800 text-emerald-400">
+              <span className="bg-slate-50 px-2 py-1 rounded border border-slate-200 text-emerald-600">
                 Green Budget: {workflowResult.signal_allocation.total_green_time}s
               </span>
             </div>
@@ -796,14 +796,14 @@ export default function Dashboard() {
               const gTime = workflowResult.signal_allocation.green_times?.[d] ?? 25;
               const relDemand = workflowResult.signal_allocation.relative_demands?.[d] ?? 0.25;
               return (
-                <div key={d} className="rounded-lg bg-slate-950 p-3.5 border border-slate-800 space-y-1.5">
+                <div key={d} className="rounded-lg bg-slate-50 p-3.5 border border-slate-200 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="capitalize font-bold text-white text-xs">{d}</span>
-                    <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded">
+                    <span className="capitalize font-bold text-slate-900 text-xs">{d}</span>
+                    <span className="text-[10px] font-mono text-emerald-600 bg-emerald-500/10 px-1.5 py-0.5 rounded">
                       {Math.round(relDemand * 100)}% Demand
                     </span>
                   </div>
-                  <div className="text-xl font-bold font-mono text-white">{gTime}s <span className="text-xs font-normal text-slate-400">Green</span></div>
+                  <div className="text-xl font-bold font-mono text-slate-900">{gTime}s <span className="text-xs font-normal text-slate-600">Green</span></div>
                   <div className="text-[10px] text-slate-500 font-mono">Bound: 10s min &bull; 40s max</div>
                 </div>
               );
@@ -852,11 +852,11 @@ export default function Dashboard() {
           {/* Conservation Law Verification Pill */}
           {workflowResult.simulation_results.vehicle_conservation && (
             <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 px-4 py-2.5 text-xs">
-              <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
+              <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
                 <CheckCircle size={14} />
                 Vehicle Conservation Law Verified (Error: 0)
               </span>
-              <span className="text-slate-400 font-mono">
+              <span className="text-slate-600 font-mono">
                 {workflowResult.simulation_results.vehicle_conservation.total_initial_queue} init +{" "}
                 {workflowResult.simulation_results.vehicle_conservation.total_arrivals} arr -{" "}
                 {workflowResult.simulation_results.vehicle_conservation.total_discharged} disc ={" "}
@@ -869,32 +869,32 @@ export default function Dashboard() {
 
       {/* SECTION H: Fixed-Time vs Adaptive Monte Carlo Strategy Comparison */}
       {workflowResult?.strategy_comparison && (
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-5">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-base font-bold text-white flex items-center gap-2">
-                  <TrendingUp className="text-emerald-400" size={18} />
+                <h2 className="text-base font-bold text-slate-900 flex items-center gap-2">
+                  <TrendingUp className="text-emerald-600" size={18} />
                   Fixed-Time vs Adaptive Monte Carlo Comparison
                 </h2>
-                <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-mono text-emerald-400 border border-emerald-500/30">
+                <span className="rounded-full bg-emerald-500/10 px-2.5 py-0.5 text-[10px] font-mono text-emerald-600 border border-emerald-500/30">
                   Common Random Numbers (CRN)
                 </span>
                 {isConfigStale && (
-                  <span className="rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono">
+                  <span className="rounded bg-amber-500/20 text-amber-700 border border-amber-500/40 px-2 py-0.5 text-[10px] font-mono">
                     Previous Run Comparison
                   </span>
                 )}
               </div>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-600 mt-0.5">
                 Evaluated over {workflowResult.strategy_comparison.monte_carlo_runs} paired trials with synchronized Poisson arrival streams.
               </p>
             </div>
 
             <div className="flex items-center gap-3">
-              <div className="rounded-lg bg-slate-950 px-3 py-1.5 border border-slate-800 text-xs font-mono">
-                <span className="text-slate-400">Win Rate: </span>
-                <span className="text-emerald-400 font-bold">
+              <div className="rounded-lg bg-slate-50 px-3 py-1.5 border border-slate-200 text-xs font-mono">
+                <span className="text-slate-600">Win Rate: </span>
+                <span className="text-emerald-600 font-bold">
                   {workflowResult.strategy_comparison.win_tie_statistics?.win_rate_adaptive_percentage}% Adaptive
                 </span>
                 <span className="text-slate-500"> ({workflowResult.strategy_comparison.win_tie_statistics?.adaptive_wins}W / {workflowResult.strategy_comparison.win_tie_statistics?.fixed_wins}L / {workflowResult.strategy_comparison.win_tie_statistics?.ties}T)</span>
@@ -905,78 +905,78 @@ export default function Dashboard() {
           {/* Comparison Cards: Key Metrics */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Final Waiting Queue Comparison */}
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-3">
-              <div className="flex justify-between items-center border-b border-slate-800 pb-2">
-                <span className="text-xs font-semibold text-white">Final Waiting Queue</span>
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-3">
+              <div className="flex justify-between items-center border-b border-slate-200 pb-2">
+                <span className="text-xs font-semibold text-slate-900">Final Waiting Queue</span>
                 <span className="text-[10px] font-mono text-slate-500">Lower is better</span>
               </div>
               <div className="flex items-baseline justify-between text-sm font-mono">
-                <span className="text-slate-400">Fixed-Time:</span>
+                <span className="text-slate-600">Fixed-Time:</span>
                 <span className="text-rose-400 font-bold">
                   {workflowResult.strategy_comparison.fixed_strategy?.total_waiting} veh
                 </span>
               </div>
               <div className="flex items-baseline justify-between text-sm font-mono">
-                <span className="text-slate-400">Adaptive:</span>
-                <span className="text-emerald-400 font-bold">
+                <span className="text-slate-600">Adaptive:</span>
+                <span className="text-emerald-600 font-bold">
                   {workflowResult.strategy_comparison.adaptive_strategy?.total_waiting} veh
                 </span>
               </div>
-              <div className="pt-2 border-t border-slate-800/80 flex justify-between items-center text-xs font-mono">
-                <span className="text-slate-400">Queue Reduction:</span>
-                <span className="text-emerald-400 font-bold">
+              <div className="pt-2 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
+                <span className="text-slate-600">Queue Reduction:</span>
+                <span className="text-emerald-600 font-bold">
                   {workflowResult.strategy_comparison.comparison_summary?.vehicles_saved} veh ({workflowResult.strategy_comparison.comparison_summary?.improvement_percentage}%)
                 </span>
               </div>
             </div>
 
             {/* Waiting Time Delay Comparison */}
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-3">
-              <div className="flex justify-between items-center border-b border-slate-800 pb-2">
-                <span className="text-xs font-semibold text-white">Average Waiting Delay</span>
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-3">
+              <div className="flex justify-between items-center border-b border-slate-200 pb-2">
+                <span className="text-xs font-semibold text-slate-900">Average Waiting Delay</span>
                 <span className="text-[10px] font-mono text-slate-500">Lower is better</span>
               </div>
               <div className="flex items-baseline justify-between text-sm font-mono">
-                <span className="text-slate-400">Fixed-Time:</span>
+                <span className="text-slate-600">Fixed-Time:</span>
                 <span className="text-rose-400 font-bold">
                   {workflowResult.strategy_comparison.fixed_strategy?.average_waiting_time}s
                 </span>
               </div>
               <div className="flex items-baseline justify-between text-sm font-mono">
-                <span className="text-slate-400">Adaptive:</span>
-                <span className="text-emerald-400 font-bold">
+                <span className="text-slate-600">Adaptive:</span>
+                <span className="text-emerald-600 font-bold">
                   {workflowResult.strategy_comparison.adaptive_strategy?.average_waiting_time}s
                 </span>
               </div>
-              <div className="pt-2 border-t border-slate-800/80 flex justify-between items-center text-xs font-mono">
-                <span className="text-slate-400">Delay Saved:</span>
-                <span className="text-emerald-400 font-bold">
+              <div className="pt-2 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
+                <span className="text-slate-600">Delay Saved:</span>
+                <span className="text-emerald-600 font-bold">
                   {workflowResult.strategy_comparison.comparison_summary?.metrics?.waiting_time?.abs_difference}s ({workflowResult.strategy_comparison.comparison_summary?.metrics?.waiting_time?.percentage_improvement}%)
                 </span>
               </div>
             </div>
 
             {/* Total Discharged Throughput */}
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-3">
-              <div className="flex justify-between items-center border-b border-slate-800 pb-2">
-                <span className="text-xs font-semibold text-white">Mean Discharged Vehicles</span>
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-3">
+              <div className="flex justify-between items-center border-b border-slate-200 pb-2">
+                <span className="text-xs font-semibold text-slate-900">Mean Discharged Vehicles</span>
                 <span className="text-[10px] font-mono text-slate-500">Higher is better</span>
               </div>
               <div className="flex items-baseline justify-between text-sm font-mono">
-                <span className="text-slate-400">Fixed-Time:</span>
-                <span className="text-slate-300 font-bold">
+                <span className="text-slate-600">Fixed-Time:</span>
+                <span className="text-slate-700 font-bold">
                   {workflowResult.strategy_comparison.fixed_strategy?.average_discharged} veh
                 </span>
               </div>
               <div className="flex items-baseline justify-between text-sm font-mono">
-                <span className="text-slate-400">Adaptive:</span>
-                <span className="text-emerald-400 font-bold">
+                <span className="text-slate-600">Adaptive:</span>
+                <span className="text-emerald-600 font-bold">
                   {workflowResult.strategy_comparison.adaptive_strategy?.average_discharged} veh
                 </span>
               </div>
-              <div className="pt-2 border-t border-slate-800/80 flex justify-between items-center text-xs font-mono">
-                <span className="text-slate-400">Throughput Gain:</span>
-                <span className="text-emerald-400 font-bold">
+              <div className="pt-2 border-t border-slate-200 flex justify-between items-center text-xs font-mono">
+                <span className="text-slate-600">Throughput Gain:</span>
+                <span className="text-emerald-600 font-bold">
                   +{workflowResult.strategy_comparison.comparison_summary?.metrics?.total_discharged?.abs_difference ?? 0} veh
                 </span>
               </div>
@@ -985,10 +985,10 @@ export default function Dashboard() {
 
           {/* Statistical Rigor & Pointwise 95% Confidence Interval */}
           {workflowResult.strategy_comparison.paired_difference_statistics && (
-            <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-3">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                <span className="text-xs font-bold text-white flex items-center gap-1.5">
-                  <CheckCircle size={14} className="text-emerald-400" />
+            <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-3">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                <span className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+                  <CheckCircle size={14} className="text-emerald-600" />
                   Statistical Inference & Pointwise 95% Student&apos;s t Confidence Interval
                 </span>
                 <span className="text-[10px] font-mono text-slate-500">
@@ -999,25 +999,25 @@ export default function Dashboard() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
                 <div>
                   <span className="text-slate-500 block text-[10px]">Mean Paired Diff:</span>
-                  <span className="text-white font-bold text-sm">
+                  <span className="text-slate-900 font-bold text-sm">
                     {workflowResult.strategy_comparison.paired_difference_statistics.mean_paired_difference} veh
                   </span>
                 </div>
                 <div>
                   <span className="text-slate-500 block text-[10px]">Sample Std Dev (s_D):</span>
-                  <span className="text-slate-300 font-bold text-sm">
+                  <span className="text-slate-700 font-bold text-sm">
                     {workflowResult.strategy_comparison.paired_difference_statistics.sample_std_paired_difference}
                   </span>
                 </div>
                 <div>
                   <span className="text-slate-500 block text-[10px]">Standard Error (SE):</span>
-                  <span className="text-slate-300 font-bold text-sm">
+                  <span className="text-slate-700 font-bold text-sm">
                     {workflowResult.strategy_comparison.paired_difference_statistics.standard_error}
                   </span>
                 </div>
                 <div>
                   <span className="text-slate-500 block text-[10px]">95% CI (Pointwise):</span>
-                  <span className="text-emerald-400 font-bold text-sm">
+                  <span className="text-emerald-600 font-bold text-sm">
                     {workflowResult.strategy_comparison.paired_difference_statistics?.confidence_interval_95
                       ? `[${workflowResult.strategy_comparison.paired_difference_statistics.confidence_interval_95.lower}, ${workflowResult.strategy_comparison.paired_difference_statistics.confidence_interval_95.upper}]`
                       : "Unavailable (Requires ≥ 2 runs)"}

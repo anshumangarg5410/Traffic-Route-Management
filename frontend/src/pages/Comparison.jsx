@@ -23,7 +23,7 @@ function NumberField({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-xs text-slate-400">{label}</span>
+      <span className="mb-2 block text-xs text-slate-600">{label}</span>
       <input
         type="number"
         min={min}
@@ -32,7 +32,7 @@ function NumberField({
         value={value}
         placeholder={placeholder}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2.5 text-sm text-white placeholder-slate-600 outline-none transition focus:border-emerald-500"
+        className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-emerald-500"
       />
     </label>
   );
@@ -40,11 +40,11 @@ function NumberField({
 
 function MetricCard({ title, value, subtitle, highlight = false }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-      <p className="text-xs text-slate-400">{title}</p>
+    <div className="rounded-xl border border-slate-200 bg-white p-4">
+      <p className="text-xs text-slate-600">{title}</p>
       <p
         className={`mt-2 text-2xl font-bold ${
-          highlight ? "text-emerald-400" : "text-white"
+          highlight ? "text-emerald-600" : "text-slate-900"
         }`}
       >
         {value}
@@ -61,11 +61,11 @@ function QueueBar({ label, value, maximum, color }) {
   return (
     <div>
       <div className="mb-2 flex items-center justify-between text-xs">
-        <span className="text-slate-400">{label}</span>
-        <span className="text-slate-300">{value} vehicles</span>
+        <span className="text-slate-600">{label}</span>
+        <span className="text-slate-700">{value} vehicles</span>
       </div>
 
-      <div className="h-2 overflow-hidden rounded-full bg-slate-800">
+      <div className="h-2 overflow-hidden rounded-full bg-slate-100">
         <div
           className={`h-full rounded-full transition-all duration-500 ${color}`}
           style={{ width: `${percentage}%` }}
@@ -78,8 +78,8 @@ function QueueBar({ label, value, maximum, color }) {
 function CustomTooltip({ active, payload, label }) {
   if (active && payload && payload.length) {
     return (
-      <div className="rounded-lg border border-slate-800 bg-slate-950 p-3 text-xs shadow-xl">
-        <p className="font-semibold text-white mb-2">{label}</p>
+      <div className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-xs shadow-xl">
+        <p className="font-semibold text-slate-900 mb-2">{label}</p>
         {payload.map((entry, index) => (
           <p key={`item-${index}`} style={{ color: entry.color }} className="mb-1">
             {entry.name}: <span className="font-bold">{entry.value}</span> vehicles
@@ -254,10 +254,10 @@ export default function Comparison() {
     <div className="space-y-6">
       {/* Page heading */}
       <div>
-        <h1 className="text-2xl font-bold text-white">
+        <h1 className="text-2xl font-bold text-slate-900">
           Statistical Strategy Comparison
         </h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <p className="mt-2 text-sm text-slate-600">
           Monte Carlo evaluation comparing Fixed-Time vs. Adaptive Signal
           Optimization using paired stochastic arrival streams.
         </p>
@@ -266,19 +266,19 @@ export default function Comparison() {
       {/* Configuration Form */}
       <form
         onSubmit={handleCompare}
-        className="rounded-xl border border-slate-800 bg-slate-900 p-5"
+        className="rounded-xl border border-slate-200 bg-white p-5"
       >
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="font-semibold text-white">
+            <h2 className="font-semibold text-slate-900">
               Monte Carlo Simulation Configuration
             </h2>
-            <p className="mt-1 text-xs text-slate-400">
+            <p className="mt-1 text-xs text-slate-600">
               Both strategies run under identical initial conditions and paired Poisson seeds per run.
             </p>
           </div>
           {result && (
-            <span className="rounded-full bg-slate-800 px-3 py-1 text-xs font-mono text-emerald-400 border border-slate-700">
+            <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-mono text-emerald-600 border border-slate-300">
               Base Seed: {result.comparison.random_seed}
             </span>
           )}
@@ -287,7 +287,7 @@ export default function Comparison() {
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
           {/* Initial queues */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold text-white">
+            <h3 className="mb-4 text-xs font-semibold text-slate-900">
               Initial Vehicle Queues
             </h3>
 
@@ -305,7 +305,7 @@ export default function Comparison() {
 
           {/* Arrival rates */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold text-white">
+            <h3 className="mb-4 text-xs font-semibold text-slate-900">
               Vehicle Arrival Rates (per minute)
             </h3>
 
@@ -324,7 +324,7 @@ export default function Comparison() {
         </div>
 
         {/* Multi-Run & Seed Parameters */}
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-slate-800 pt-6">
+        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3 border-t border-slate-200 pt-6">
           <NumberField
             label="Simulation Cycles"
             value={cycles}
@@ -351,24 +351,24 @@ export default function Comparison() {
         </div>
 
         {/* Optional Capacity Configuration */}
-        <div className="mt-4 border-t border-slate-800 pt-4">
+        <div className="mt-4 border-t border-slate-200 pt-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">
+            <span className="text-xs text-slate-600">
               Lane & Capacity Parameters (identical across strategies)
             </span>
             <button
               type="button"
               onClick={() => setShowCapacity(!showCapacity)}
-              className="text-xs text-emerald-400 hover:text-emerald-300 underline"
+              className="text-xs text-emerald-600 hover:text-emerald-700 underline"
             >
               {showCapacity ? "Hide Capacity Settings" : "Configure Lanes & Saturation"}
             </button>
           </div>
 
           {showCapacity && (
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 bg-slate-950/60 p-4 rounded-lg border border-slate-800">
+            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3 bg-slate-50 p-4 rounded-lg border border-slate-200">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Lanes (N / S / E / W)</label>
+                <label className="block text-xs text-slate-600 mb-1">Lanes (N / S / E / W)</label>
                 <div className="grid grid-cols-4 gap-1">
                   {DIRECTIONS.map((d) => (
                     <input
@@ -378,7 +378,7 @@ export default function Comparison() {
                       max="6"
                       value={lanes[d]}
                       onChange={(e) => updateLanes(d, e.target.value)}
-                      className="w-full rounded border border-slate-800 bg-slate-900 p-1 text-center text-xs text-white"
+                      className="w-full rounded border border-slate-200 bg-white p-1 text-center text-xs text-slate-900"
                       title={`${d} lanes`}
                     />
                   ))}
@@ -386,7 +386,7 @@ export default function Comparison() {
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Saturation Flow (veh/hr/lane)</label>
+                <label className="block text-xs text-slate-600 mb-1">Saturation Flow (veh/hr/lane)</label>
                 <input
                   type="number"
                   min="500"
@@ -394,12 +394,12 @@ export default function Comparison() {
                   step="50"
                   value={satRate}
                   onChange={(e) => updateSaturationFlowRates(e.target.value)}
-                  className="w-full rounded border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs text-white"
+                  className="w-full rounded border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Startup Lost Time (s)</label>
+                <label className="block text-xs text-slate-600 mb-1">Startup Lost Time (s)</label>
                 <input
                   type="number"
                   min="0"
@@ -407,7 +407,7 @@ export default function Comparison() {
                   step="0.5"
                   value={lostTime}
                   onChange={(e) => updateStartupLostTimes(e.target.value)}
-                  className="w-full rounded border border-slate-800 bg-slate-900 px-3 py-1.5 text-xs text-white"
+                  className="w-full rounded border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900"
                 />
               </div>
             </div>
@@ -415,7 +415,7 @@ export default function Comparison() {
         </div>
 
         {error && (
-          <div className="mt-5 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          <div className="mt-5 rounded-lg border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-600">
             {error}
           </div>
         )}
@@ -425,7 +425,7 @@ export default function Comparison() {
           <button
             type="submit"
             disabled={loading}
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-emerald-500 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {loading ? "Simulating Multi-Run Monte Carlo..." : "Run Statistical Comparison"}
           </button>
@@ -435,7 +435,7 @@ export default function Comparison() {
             onClick={resetForm}
             disabled={loading}
             title="Reset configuration"
-            className="rounded-lg border border-slate-700 px-4 text-slate-300 transition hover:bg-slate-800 disabled:opacity-50"
+            className="rounded-lg border border-slate-300 px-4 text-slate-700 transition hover:bg-slate-100 disabled:opacity-50"
           >
             ↻
           </button>
@@ -482,12 +482,12 @@ export default function Comparison() {
 
           {/* Monte Carlo Run Breakdown Chart */}
           {chartData.length > 0 && (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 bg-white p-5">
               <div className="mb-4">
-                <h2 className="font-semibold text-white">
+                <h2 className="font-semibold text-slate-900">
                   Per-Run Waiting Vehicles Comparison
                 </h2>
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-1 text-xs text-slate-600">
                   Total waiting vehicles at the end of each simulation run under identical paired arrivals.
                 </p>
               </div>
@@ -495,7 +495,7 @@ export default function Comparison() {
               <div className="h-72 w-full pt-4">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                     <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 12 }} />
                     <YAxis stroke="#64748b" tick={{ fontSize: 12 }} />
                     <Tooltip content={<CustomTooltip />} />
@@ -523,44 +523,44 @@ export default function Comparison() {
           {/* Statistical Variability & Direction-Wise Comparison */}
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
             {/* Variability metrics */}
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-              <h2 className="font-semibold text-white">
+            <div className="rounded-xl border border-slate-200 bg-white p-5">
+              <h2 className="font-semibold text-slate-900">
                 Variance & Statistical Dispersion
               </h2>
-              <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs text-slate-600">
                 Performance spread across {reliability?.total_runs} Monte Carlo trials.
               </p>
 
               <div className="mt-5 space-y-4 text-xs">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Final Queue Std. Deviation (σ)</span>
-                  <span className="font-mono text-white">
-                    Fixed: <span className="text-blue-400">{reliability?.standard_deviations?.fixed_final_waiting ?? "--"}</span> | Adaptive: <span className="text-emerald-400">{reliability?.standard_deviations?.adaptive_final_waiting ?? "--"}</span>
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-600">Final Queue Std. Deviation (σ)</span>
+                  <span className="font-mono text-slate-900">
+                    Fixed: <span className="text-blue-400">{reliability?.standard_deviations?.fixed_final_waiting ?? "--"}</span> | Adaptive: <span className="text-emerald-600">{reliability?.standard_deviations?.adaptive_final_waiting ?? "--"}</span>
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Waiting Time Std. Deviation (σ)</span>
-                  <span className="font-mono text-white">
-                    Fixed: <span className="text-blue-400">{reliability?.standard_deviations?.fixed_waiting_time ?? "--"}s</span> | Adaptive: <span className="text-emerald-400">{reliability?.standard_deviations?.adaptive_waiting_time ?? "--"}s</span>
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-600">Waiting Time Std. Deviation (σ)</span>
+                  <span className="font-mono text-slate-900">
+                    Fixed: <span className="text-blue-400">{reliability?.standard_deviations?.fixed_waiting_time ?? "--"}s</span> | Adaptive: <span className="text-emerald-600">{reliability?.standard_deviations?.adaptive_waiting_time ?? "--"}s</span>
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Observed Final Queue Range</span>
-                  <span className="font-mono text-white">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-600">Observed Final Queue Range</span>
+                  <span className="font-mono text-slate-900">
                     Fixed: [{reliability?.ranges?.fixed_final_waiting?.min}, {reliability?.ranges?.fixed_final_waiting?.max}] | Adaptive: [{reliability?.ranges?.adaptive_final_waiting?.min}, {reliability?.ranges?.adaptive_final_waiting?.max}]
                   </span>
                 </div>
 
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="text-slate-400">Win / Loss / Tie Record</span>
-                  <span className="font-mono text-white">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                  <span className="text-slate-600">Win / Loss / Tie Record</span>
+                  <span className="font-mono text-slate-900">
                     Adaptive {reliability?.adaptive_wins}W - {reliability?.fixed_wins}L - {reliability?.ties}T
                   </span>
                 </div>
 
-                <div className="rounded-lg bg-slate-950 p-3 text-slate-400">
+                <div className="rounded-lg bg-slate-50 p-3 text-slate-600">
                   <p className="text-[11px] leading-relaxed">
                     {reliability?.note}
                   </p>
@@ -569,12 +569,12 @@ export default function Comparison() {
             </div>
 
             {/* Direction-wise queue comparison */}
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+            <div className="rounded-xl border border-slate-200 bg-white p-5">
               <div className="mb-6">
-                <h2 className="font-semibold text-white">
+                <h2 className="font-semibold text-slate-900">
                   Direction-Wise Average Final Queues
                 </h2>
-                <p className="mt-1 text-xs text-slate-400">
+                <p className="mt-1 text-xs text-slate-600">
                   Average waiting vehicles in each direction after {cycles} cycles.
                 </p>
               </div>
@@ -582,7 +582,7 @@ export default function Comparison() {
               <div className="space-y-6">
                 {DIRECTIONS.map((direction) => (
                   <div key={direction}>
-                    <h3 className="mb-3 text-xs font-semibold capitalize text-white">
+                    <h3 className="mb-3 text-xs font-semibold capitalize text-slate-900">
                       {direction}
                     </h3>
 
@@ -606,13 +606,13 @@ export default function Comparison() {
               </div>
 
               {/* Legend */}
-              <div className="mt-7 flex flex-wrap gap-5 border-t border-slate-800 pt-5">
-                <div className="flex items-center gap-2 text-xs text-slate-400">
+              <div className="mt-7 flex flex-wrap gap-5 border-t border-slate-200 pt-5">
+                <div className="flex items-center gap-2 text-xs text-slate-600">
                   <span className="h-2.5 w-2.5 rounded-sm bg-blue-500" />
                   Fixed Strategy
                 </div>
 
-                <div className="flex items-center gap-2 text-xs text-slate-400">
+                <div className="flex items-center gap-2 text-xs text-slate-600">
                   <span className="h-2.5 w-2.5 rounded-sm bg-emerald-500" />
                   Adaptive Strategy
                 </div>
@@ -624,8 +624,8 @@ export default function Comparison() {
 
       {/* Empty state */}
       {!result && !loading && !error && (
-        <div className="rounded-xl border border-dashed border-slate-800 bg-slate-900/50 px-5 py-10 text-center">
-          <h3 className="font-medium text-slate-300">
+        <div className="rounded-xl border border-dashed border-slate-200 bg-white px-5 py-10 text-center">
+          <h3 className="font-medium text-slate-700">
             Ready for statistical strategy comparison?
           </h3>
           <p className="mt-2 text-sm text-slate-500">

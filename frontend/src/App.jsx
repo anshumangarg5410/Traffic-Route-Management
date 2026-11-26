@@ -46,7 +46,7 @@ const AdminAuditLogs = lazy(() => import("./pages/admin/AdminAuditLogs"));
 
 function PageLoader() {
   return (
-    <div className="flex min-h-[40vh] items-center justify-center text-emerald-400">
+    <div className="flex min-h-[40vh] items-center justify-center text-emerald-600">
       <Loader2 className="animate-spin" size={28} />
     </div>
   );
@@ -61,7 +61,7 @@ function AppContent() {
 
   if (isAuthPage) {
     return (
-      <div className="min-h-screen bg-slate-950">
+      <div className="min-h-screen bg-slate-50">
         <Routes>
           <Route
             path="/login"
@@ -132,7 +132,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-slate-50 text-slate-900">
       <Sidebar
         isOpen={isMobileSidebarOpen}
         onClose={() => setIsMobileSidebarOpen(false)}

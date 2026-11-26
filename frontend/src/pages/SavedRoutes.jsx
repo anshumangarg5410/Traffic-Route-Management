@@ -139,7 +139,7 @@ export default function SavedRoutes() {
 
   if (isLoading) {
     return (
-      <div className="flex h-96 items-center justify-center text-emerald-400">
+      <div className="flex h-96 items-center justify-center text-emerald-600">
         <Loader2 className="animate-spin" size={32} />
       </div>
     );
@@ -150,15 +150,15 @@ export default function SavedRoutes() {
       {/* Header bar */}
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-center">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">Saved Corridors</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900">Saved Corridors</h1>
+          <p className="mt-1 text-sm text-slate-600">
             Bookmarked navigation corridors with cached delay, distance, and scoring telemetry.
           </p>
         </div>
 
         <Link
           to="/routes"
-          className="flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 self-start md:self-auto"
+          className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-400 self-start md:self-auto"
         >
           <Navigation size={16} />
           <span>Plan New Route</span>
@@ -168,7 +168,7 @@ export default function SavedRoutes() {
       {statusMessage && (
         <div
           role="status"
-          className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-400"
+          className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4 text-sm text-emerald-600"
         >
           <CheckCircle2 size={18} className="shrink-0" />
           <span>{statusMessage}</span>
@@ -178,7 +178,7 @@ export default function SavedRoutes() {
       {error && (
         <div
           role="alert"
-          className="flex items-center justify-between gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400"
+          className="flex items-center justify-between gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-600"
         >
           <div className="flex items-center gap-3">
             <AlertCircle size={18} className="shrink-0" />
@@ -187,7 +187,7 @@ export default function SavedRoutes() {
           <button
             type="button"
             onClick={handleRetryLoad}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-200 hover:bg-red-500/20"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-500/20"
           >
             <RefreshCw size={12} />
             <span>Retry</span>
@@ -206,7 +206,7 @@ export default function SavedRoutes() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search saved corridors by title or location..."
-            className="w-full rounded-xl border border-slate-800 bg-slate-900/60 py-2.5 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm text-slate-900 placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
         </div>
       )}
@@ -217,7 +217,7 @@ export default function SavedRoutes() {
           {filteredRoutes.map((route) => (
             <div
               key={route.id}
-              className="flex flex-col justify-between rounded-2xl border border-slate-800 bg-slate-900/40 p-5 shadow-lg backdrop-blur transition hover:border-slate-700"
+              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-5 shadow-lg backdrop-blur transition hover:border-slate-300"
             >
               <div>
                 {/* Title & Criteria Badge */}
@@ -236,13 +236,13 @@ export default function SavedRoutes() {
                       onChange={(e) => setEditingTitle(e.target.value)}
                       maxLength={100}
                       autoFocus
-                      className="min-w-0 flex-1 rounded-lg border border-emerald-500/50 bg-slate-950 px-2.5 py-1 text-sm text-white focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="min-w-0 flex-1 rounded-lg border border-emerald-500/50 bg-slate-50 px-2.5 py-1 text-sm text-slate-900 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     />
                     <button
                       type="submit"
                       disabled={isSavingRename}
                       aria-label="Save corridor title"
-                      className="rounded-lg bg-emerald-500 p-1.5 text-slate-950 hover:bg-emerald-400 disabled:opacity-50"
+                      className="rounded-lg bg-emerald-600 p-1.5 text-white hover:bg-emerald-400 disabled:opacity-50"
                     >
                       {isSavingRename ? <Loader2 size={14} className="animate-spin" /> : <Check size={14} />}
                     </button>
@@ -254,17 +254,17 @@ export default function SavedRoutes() {
                       }}
                       disabled={isSavingRename}
                       aria-label="Cancel rename"
-                      className="rounded-lg border border-slate-700 bg-slate-800 p-1.5 text-slate-300 hover:bg-slate-700"
+                      className="rounded-lg border border-slate-300 bg-slate-100 p-1.5 text-slate-700 hover:bg-slate-200"
                     >
                       <X size={14} />
                     </button>
                   </form>
                 ) : (
                   <div className="flex items-start justify-between gap-3">
-                    <h3 className="font-bold text-white text-base truncate">
+                    <h3 className="font-bold text-slate-900 text-base truncate">
                       {route.title}
                     </h3>
-                    <span className="shrink-0 rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-semibold text-slate-300 uppercase tracking-wider">
+                    <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-0.5 text-[10px] font-semibold text-slate-700 uppercase tracking-wider">
                       {route.preferred_criteria || "balanced"}
                     </span>
                   </div>
@@ -272,47 +272,47 @@ export default function SavedRoutes() {
 
                 {/* Waypoints */}
                 <div className="mt-4 space-y-2 text-xs">
-                  <div className="flex items-start gap-2 text-slate-300">
+                  <div className="flex items-start gap-2 text-slate-700">
                     <span className="h-2 w-2 rounded-full bg-emerald-400 shrink-0 mt-1" />
                     <span className="font-medium line-clamp-1">{route.origin_name}</span>
                   </div>
-                  <div className="flex items-start gap-2 text-slate-300">
+                  <div className="flex items-start gap-2 text-slate-700">
                     <span className="h-2 w-2 rounded-full bg-sky-400 shrink-0 mt-1" />
                     <span className="font-medium line-clamp-1">{route.destination_name}</span>
                   </div>
                 </div>
 
                 {/* Telemetry Metrics */}
-                <div className="mt-5 grid grid-cols-3 gap-2 rounded-xl border border-slate-800/80 bg-slate-950/60 p-3 text-center text-xs">
+                <div className="mt-5 grid grid-cols-3 gap-2 rounded-xl border border-slate-200 bg-slate-50 p-3 text-center text-xs">
                   <div>
                     <span className="text-[10px] text-slate-500 block uppercase">Distance</span>
-                    <span className="font-bold text-white">
+                    <span className="font-bold text-slate-900">
                       {route.distance_km ? `${route.distance_km.toFixed(1)} km` : "--"}
                     </span>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-500 block uppercase">Duration</span>
-                    <span className="font-bold text-white">
+                    <span className="font-bold text-slate-900">
                       {route.estimated_duration_min ? `${route.estimated_duration_min.toFixed(0)} min` : "--"}
                     </span>
                   </div>
                   <div>
                     <span className="text-[10px] text-slate-500 block uppercase">Score</span>
-                    <span className="font-bold text-emerald-400">
+                    <span className="font-bold text-emerald-600">
                       {route.route_score ? route.route_score.toFixed(0) : "--"}
                     </span>
                   </div>
                 </div>
 
                 {route.recommendation_reason && (
-                  <p className="mt-3 text-[11px] text-slate-400 italic line-clamp-2">
+                  <p className="mt-3 text-[11px] text-slate-600 italic line-clamp-2">
                     "{route.recommendation_reason}"
                   </p>
                 )}
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-5 flex items-center justify-between border-t border-slate-800/80 pt-4">
+              <div className="mt-5 flex items-center justify-between border-t border-slate-200 pt-4">
                 <span className="text-[11px] text-slate-500">
                   {new Date(route.created_at).toLocaleDateString()}
                 </span>
@@ -324,7 +324,7 @@ export default function SavedRoutes() {
                     disabled={deletingId === route.id}
                     aria-label={`Rename ${route.title}`}
                     title="Rename corridor"
-                    className="rounded-lg p-2 text-slate-400 transition hover:bg-slate-800 hover:text-white disabled:opacity-50"
+                    className="rounded-lg p-2 text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 disabled:opacity-50"
                   >
                     <Pencil size={15} />
                   </button>
@@ -335,14 +335,14 @@ export default function SavedRoutes() {
                     disabled={deletingId === route.id}
                     aria-label={`Delete ${route.title}`}
                     title="Delete route"
-                    className="rounded-lg p-2 text-slate-500 transition hover:bg-red-500/10 hover:text-red-400 disabled:opacity-50"
+                    className="rounded-lg p-2 text-slate-500 transition hover:bg-red-500/10 hover:text-red-600 disabled:opacity-50"
                   >
                     <Trash2 size={16} />
                   </button>
 
                   <button
                     onClick={() => handleOpenInPlanner(route)}
-                    className="flex items-center gap-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-emerald-400 transition hover:bg-emerald-500 hover:text-slate-950"
+                    className="flex items-center gap-1.5 rounded-lg bg-emerald-600/10 border border-emerald-500/20 px-3 py-1.5 text-xs font-semibold text-emerald-600 transition hover:bg-emerald-600 hover:text-slate-900"
                   >
                     <span>Open</span>
                     <ArrowRight size={14} />
@@ -353,12 +353,12 @@ export default function SavedRoutes() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-800 bg-slate-900/20 p-12 text-center">
-          <div className="rounded-2xl bg-slate-800/60 p-4 text-slate-500">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-12 text-center">
+          <div className="rounded-2xl bg-slate-100 p-4 text-slate-500">
             <Bookmark size={36} />
           </div>
-          <h3 className="mt-4 text-lg font-semibold text-white">No saved routes found</h3>
-          <p className="mt-1 max-w-sm text-sm text-slate-400">
+          <h3 className="mt-4 text-lg font-semibold text-slate-900">No saved routes found</h3>
+          <p className="mt-1 max-w-sm text-sm text-slate-600">
             {searchQuery
               ? "No saved corridors match your query. Try clearing the filter."
               : "You haven't saved any routes yet. Calculate routes in the Smart Route Planner and save them for instant access."}
@@ -367,14 +367,14 @@ export default function SavedRoutes() {
             {searchQuery ? (
               <button
                 onClick={() => setSearchQuery("")}
-                className="rounded-xl border border-slate-700 bg-slate-800 px-4 py-2 text-xs font-medium text-white hover:bg-slate-700"
+                className="rounded-xl border border-slate-300 bg-slate-100 px-4 py-2 text-xs font-medium text-slate-900 hover:bg-slate-200"
               >
                 Clear Search Filter
               </button>
             ) : (
               <Link
                 to="/routes"
-                className="flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-semibold text-slate-950 hover:bg-emerald-400"
+                className="flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-semibold text-white hover:bg-emerald-400"
               >
                 <Navigation size={14} />
                 <span>Open Smart Route Planner</span>

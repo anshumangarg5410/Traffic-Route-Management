@@ -45,29 +45,29 @@ export default function RecommendationExplanationPanel({
   const normalizedScores = recommendedRoute?.score_details?.metric_normalized_scores || null;
 
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-sm">
+    <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-xl backdrop-blur-sm">
       {/* Panel Header */}
-      <div className="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
+      <div className="flex items-start justify-between gap-3 border-b border-slate-200 pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-400 border border-emerald-500/20">
+          <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-600 border border-emerald-500/20">
             <Scale size={18} />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white">
+            <h3 className="text-sm font-semibold text-slate-900">
               Recommendation Engine Analysis
             </h3>
-            <p className="text-[11px] text-slate-400">
-              Method: <span className="font-mono text-slate-300">{rankingMethod}</span>
+            <p className="text-[11px] text-slate-600">
+              Method: <span className="font-mono text-slate-700">{rankingMethod}</span>
             </p>
           </div>
         </div>
 
         {compositeScore != null && (
           <div className="flex flex-col items-end">
-            <span className="text-[10px] text-slate-400 uppercase font-semibold">
+            <span className="text-[10px] text-slate-600 uppercase font-semibold">
               Top Score
             </span>
-            <span className="text-base font-bold font-mono text-emerald-400">
+            <span className="text-base font-bold font-mono text-emerald-600">
               {(compositeScore * 100).toFixed(1)} / 100
             </span>
           </div>
@@ -76,8 +76,8 @@ export default function RecommendationExplanationPanel({
 
       {/* Summary Narrative */}
       {summaryNarrative && (
-        <div className="rounded-xl bg-slate-950/70 p-3 border border-slate-800/80">
-          <p className="text-xs font-medium text-slate-200 leading-relaxed">
+        <div className="rounded-xl bg-slate-50 p-3 border border-slate-200">
+          <p className="text-xs font-medium text-slate-800 leading-relaxed">
             {summaryNarrative}
           </p>
         </div>
@@ -98,18 +98,18 @@ export default function RecommendationExplanationPanel({
 
       {/* ML Departure Traffic Context & Provenance */}
       {mlPrediction && (
-        <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3 space-y-1.5 text-xs">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 space-y-1.5 text-xs">
           <div className="flex items-center justify-between">
-            <span className="font-semibold text-slate-200">
+            <span className="font-semibold text-slate-800">
               ML Temporal Traffic Context
             </span>
-            <span className="font-mono text-[10px] text-slate-400">
+            <span className="font-mono text-[10px] text-slate-600">
               {mlPrediction.status === "available"
                 ? `${mlPrediction.predicted_traffic_level} (${mlPrediction.departure_time_iso})`
                 : "Unavailable"}
             </span>
           </div>
-          <p className="text-[11px] text-slate-400 leading-relaxed">
+          <p className="text-[11px] text-slate-600 leading-relaxed">
             {mlPrediction.status === "available"
               ? mlPrediction.limitation_note
               : mlPrediction.error_message}
@@ -119,7 +119,7 @@ export default function RecommendationExplanationPanel({
 
       {/* Configurable Evaluation Weights */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs font-semibold text-slate-300">
+        <div className="flex items-center justify-between text-xs font-semibold text-slate-700">
           <div className="flex items-center gap-1.5">
             <Sliders size={13} className="text-purple-400" />
             <span>Evaluation Criteria & Weights</span>
@@ -129,20 +129,20 @@ export default function RecommendationExplanationPanel({
 
         <div className="grid grid-cols-2 gap-2 text-xs">
           {/* Estimated Duration Weight */}
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-2.5">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-slate-400 flex items-center gap-1">
+              <span className="text-[11px] text-slate-600 flex items-center gap-1">
                 <Clock size={11} className="text-blue-400" />
                 <span>Est. Duration</span>
               </span>
-              <span className="font-mono font-bold text-white text-xs">
+              <span className="font-mono font-bold text-slate-900 text-xs">
                 {(weights.estimated_duration * 100).toFixed(0)}%
               </span>
             </div>
             {normalizedScores?.estimated_duration != null && (
               <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-mono">
                 <span>Norm Score:</span>
-                <span className="text-emerald-400 font-semibold">
+                <span className="text-emerald-600 font-semibold">
                   {(normalizedScores.estimated_duration * 100).toFixed(0)}%
                 </span>
               </div>
@@ -150,20 +150,20 @@ export default function RecommendationExplanationPanel({
           </div>
 
           {/* Route Distance Weight */}
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-2.5">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-slate-400 flex items-center gap-1">
+              <span className="text-[11px] text-slate-600 flex items-center gap-1">
                 <MapPin size={11} className="text-purple-400" />
                 <span>Distance</span>
               </span>
-              <span className="font-mono font-bold text-white text-xs">
+              <span className="font-mono font-bold text-slate-900 text-xs">
                 {(weights.distance * 100).toFixed(0)}%
               </span>
             </div>
             {normalizedScores?.distance != null && (
               <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-mono">
                 <span>Norm Score:</span>
-                <span className="text-emerald-400 font-semibold">
+                <span className="text-emerald-600 font-semibold">
                   {(normalizedScores.distance * 100).toFixed(0)}%
                 </span>
               </div>
@@ -171,20 +171,20 @@ export default function RecommendationExplanationPanel({
           </div>
 
           {/* Signal Count Weight */}
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-2.5">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-slate-400 flex items-center gap-1">
+              <span className="text-[11px] text-slate-600 flex items-center gap-1">
                 <span className="text-xs">🚦</span>
                 <span>Signal Count</span>
               </span>
-              <span className="font-mono font-bold text-white text-xs">
+              <span className="font-mono font-bold text-slate-900 text-xs">
                 {(weights.signal_count * 100).toFixed(0)}%
               </span>
             </div>
             {normalizedScores?.signal_count != null && (
               <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-mono">
                 <span>Norm Score:</span>
-                <span className="text-emerald-400 font-semibold">
+                <span className="text-emerald-600 font-semibold">
                   {(normalizedScores.signal_count * 100).toFixed(0)}%
                 </span>
               </div>
@@ -192,20 +192,20 @@ export default function RecommendationExplanationPanel({
           </div>
 
           {/* Intersection Density Weight */}
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-2.5">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-slate-400 flex items-center gap-1">
-                <Compass size={11} className="text-amber-400" />
+              <span className="text-[11px] text-slate-600 flex items-center gap-1">
+                <Compass size={11} className="text-amber-600" />
                 <span>Density</span>
               </span>
-              <span className="font-mono font-bold text-white text-xs">
+              <span className="font-mono font-bold text-slate-900 text-xs">
                 {(weights.intersection_density * 100).toFixed(0)}%
               </span>
             </div>
             {normalizedScores?.intersection_density != null && (
               <div className="mt-1 flex items-center justify-between text-[10px] text-slate-500 font-mono">
                 <span>Norm Score:</span>
-                <span className="text-emerald-400 font-semibold">
+                <span className="text-emerald-600 font-semibold">
                   {(normalizedScores.intersection_density * 100).toFixed(0)}%
                 </span>
               </div>
@@ -216,15 +216,15 @@ export default function RecommendationExplanationPanel({
 
       {/* Recommendation Reasons */}
       {reasons.length > 0 && (
-        <div className="space-y-1.5 pt-2 border-t border-slate-800">
-          <p className="text-xs font-semibold text-white flex items-center gap-1.5">
-            <Sparkles size={13} className="text-emerald-400" />
+        <div className="space-y-1.5 pt-2 border-t border-slate-200">
+          <p className="text-xs font-semibold text-slate-900 flex items-center gap-1.5">
+            <Sparkles size={13} className="text-emerald-600" />
             <span>Why This Route is Recommended:</span>
           </p>
-          <ul className="space-y-1.5 text-xs text-slate-300">
+          <ul className="space-y-1.5 text-xs text-slate-700">
             {reasons.map((reason, idx) => (
-              <li key={idx} className="flex items-start gap-2 bg-slate-950/40 p-2 rounded-lg">
-                <CheckCircle2 size={13} className="shrink-0 mt-0.5 text-emerald-400" />
+              <li key={idx} className="flex items-start gap-2 bg-slate-50/40 p-2 rounded-lg">
+                <CheckCircle2 size={13} className="shrink-0 mt-0.5 text-emerald-600" />
                 <span className="leading-relaxed">{reason}</span>
               </li>
             ))}
@@ -233,14 +233,14 @@ export default function RecommendationExplanationPanel({
       )}
 
       {/* Collapsible Model Assumptions & Engineering Limitations */}
-      <div className="pt-2 border-t border-slate-800">
+      <div className="pt-2 border-t border-slate-200">
         <button
           type="button"
           onClick={() => setIsLimitationsExpanded(!isLimitationsExpanded)}
-          className="flex w-full items-center justify-between rounded-xl bg-slate-950/60 p-2.5 text-left text-xs font-semibold text-slate-300 transition hover:bg-slate-800/60"
+          className="flex w-full items-center justify-between rounded-xl bg-slate-50 p-2.5 text-left text-xs font-semibold text-slate-700 transition hover:bg-slate-100"
         >
           <div className="flex items-center gap-2">
-            <AlertTriangle size={14} className="text-amber-400" />
+            <AlertTriangle size={14} className="text-amber-600" />
             <span>Signal Modeling Assumptions & Limitations</span>
           </div>
           <span className="text-slate-500">
@@ -249,21 +249,21 @@ export default function RecommendationExplanationPanel({
         </button>
 
         {isLimitationsExpanded && (
-          <div className="mt-2 space-y-2 rounded-xl bg-slate-950/80 p-3 text-[11px] text-slate-400 border border-slate-800">
-            <p className="font-semibold text-slate-200">
+          <div className="mt-2 space-y-2 rounded-xl bg-slate-50 p-3 text-[11px] text-slate-600 border border-slate-200">
+            <p className="font-semibold text-slate-800">
               Delay Modeling Formulation:
             </p>
             <p className="leading-relaxed">
               Signal delays are estimated using a uniform-random-arrival delay approximation (the first term of traffic queueing delay formulations):
               <br />
-              <code className="text-emerald-400 font-mono">d = R² / (2 · C)</code>
+              <code className="text-emerald-600 font-mono">d = R² / (2 · C)</code>
               <br />
-              Standard uncalibrated regional baseline assumes Cycle length <code className="text-slate-300">C = 90.0s</code> and Effective red time <code className="text-slate-300">R = 60.0s</code>, yielding <code className="text-emerald-400">~20.0s</code> uniform delay per signalized encounter. Configurable regional profiles support major arterials (<code className="text-slate-300">C=120s, R=75s &rarr; ~23.4s</code>) and minor collectors (<code className="text-slate-300">C=60s, R=35s &rarr; ~10.2s</code>).
+              Standard uncalibrated regional baseline assumes Cycle length <code className="text-slate-700">C = 90.0s</code> and Effective red time <code className="text-slate-700">R = 60.0s</code>, yielding <code className="text-emerald-600">~20.0s</code> uniform delay per signalized encounter. Configurable regional profiles support major arterials (<code className="text-slate-700">C=120s, R=75s &rarr; ~23.4s</code>) and minor collectors (<code className="text-slate-700">C=60s, R=35s &rarr; ~10.2s</code>).
             </p>
-            <p className="font-semibold text-slate-200 pt-1">
+            <p className="font-semibold text-slate-800 pt-1">
               Methodological Disclaimers:
             </p>
-            <ul className="list-disc list-inside space-y-1 text-slate-400 leading-relaxed">
+            <ul className="list-disc list-inside space-y-1 text-slate-600 leading-relaxed">
               <li>
                 <strong>OSM Signal Completeness:</strong> OpenStreetMap mapping is incomplete. The 26 mapped traffic signals in the road graph represent tagged signals, not the entirety of physical signal controllers in Chandigarh Tricity.
               </li>
@@ -271,7 +271,7 @@ export default function RecommendationExplanationPanel({
                 <strong>Fixed Timing Assumptions:</strong> Signal timings reflect nominal engineering baseline profiles, not verified real-time adaptive controller SCADA telemetry.
               </li>
               <li>
-                <strong>Absence of OSM Signal Tags:</strong> OpenStreetMap mapping is incomplete. Absence of a <code className="text-amber-300">highway=traffic_signals</code> tag does not establish the absence of an operational physical traffic signal. Individual delay is not modeled for intersections without mapped signal data.
+                <strong>Absence of OSM Signal Tags:</strong> OpenStreetMap mapping is incomplete. Absence of a <code className="text-amber-700">highway=traffic_signals</code> tag does not establish the absence of an operational physical traffic signal. Individual delay is not modeled for intersections without mapped signal data.
               </li>
               <li>
                 <strong>Live Traffic Conditions:</strong> Estimates reflect free-flow baseline travel times plus uniform signal exposure; they do not incorporate live GPS probe speeds or incident reports.

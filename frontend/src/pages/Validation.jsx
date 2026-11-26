@@ -37,8 +37,8 @@ function CustomTooltip({ active, payload, label, selectedParam }) {
     const data = payload[0].payload;
     const paramUnit = PARAMETER_OPTIONS.find((p) => p.value === selectedParam)?.unit || "";
     return (
-      <div className="rounded-lg border border-slate-700 bg-slate-900/95 p-3 text-xs shadow-xl backdrop-blur space-y-2">
-        <div className="font-bold text-white border-b border-slate-800 pb-1">
+      <div className="rounded-lg border border-slate-300 bg-white/95 p-3 text-xs shadow-xl backdrop-blur space-y-2">
+        <div className="font-bold text-slate-900 border-b border-slate-200 pb-1">
           Parameter Value: {label} {paramUnit}
         </div>
         {payload.map((entry, idx) => (
@@ -48,22 +48,22 @@ function CustomTooltip({ active, payload, label, selectedParam }) {
               <span>{entry.value}</span>
             </div>
             {entry.dataKey === "AdaptiveQueue" && data.adQueueCI && (
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600">
                 SD: ±{data.adQueueStd} veh | Pointwise 95% CI: [{data.adQueueCI[0]}, {data.adQueueCI[1]}] veh
               </span>
             )}
             {entry.dataKey === "FixedQueue" && data.fxQueueCI && (
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600">
                 SD: ±{data.fxQueueStd} veh | Pointwise 95% CI: [{data.fxQueueCI[0]}, {data.fxQueueCI[1]}] veh
               </span>
             )}
             {entry.dataKey === "AdaptiveWaitTime" && data.adWaitCI && (
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600">
                 SD: ±{data.adWaitStd}s | Pointwise 95% CI: [{data.adWaitCI[0]}, {data.adWaitCI[1]}]s
               </span>
             )}
             {entry.dataKey === "FixedWaitTime" && data.fxWaitCI && (
-              <span className="text-[10px] text-slate-400">
+              <span className="text-[10px] text-slate-600">
                 SD: ±{data.fxWaitStd}s | Pointwise 95% CI: [{data.fxWaitCI[0]}, {data.fxWaitCI[1]}]s
               </span>
             )}
@@ -199,20 +199,20 @@ export default function Validation() {
     <div className="space-y-7">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">Validation & Sensitivity Analysis</h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <h1 className="text-2xl font-bold text-slate-900">Validation & Sensitivity Analysis</h1>
+        <p className="mt-2 text-sm text-slate-600">
           Controlled deterministic verification scenarios, fractional capacity audit, and Monte Carlo parametric sensitivity sweeps with paired Common Random Numbers (CRN).
         </p>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-800 gap-4">
+      <div className="flex border-b border-slate-200 gap-4">
         <button
           onClick={() => setActiveTab("validation")}
           className={`flex items-center gap-2 pb-3 text-sm font-semibold transition ${
             activeTab === "validation"
-              ? "border-b-2 border-emerald-400 text-emerald-400"
-              : "text-slate-400 hover:text-white"
+              ? "border-b-2 border-emerald-400 text-emerald-600"
+              : "text-slate-600 hover:text-slate-900"
           }`}
         >
           <ShieldCheck size={18} />
@@ -223,8 +223,8 @@ export default function Validation() {
           onClick={() => setActiveTab("sensitivity")}
           className={`flex items-center gap-2 pb-3 text-sm font-semibold transition ${
             activeTab === "sensitivity"
-              ? "border-b-2 border-emerald-400 text-emerald-400"
-              : "text-slate-400 hover:text-white"
+              ? "border-b-2 border-emerald-400 text-emerald-600"
+              : "text-slate-600 hover:text-slate-900"
           }`}
         >
           <Sliders size={18} />
@@ -236,11 +236,11 @@ export default function Validation() {
       {activeTab === "validation" && (
         <div className="space-y-6">
           {/* Action Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-800 bg-slate-900 p-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white p-4">
             <div>
-              <span className="text-xs text-slate-400">Overall Validation Status: </span>
+              <span className="text-xs text-slate-600">Overall Validation Status: </span>
               {validationReport ? (
-                <span className="font-bold text-emerald-400">
+                <span className="font-bold text-emerald-600">
                   {validationReport.passed_scenarios} / {validationReport.total_scenarios} SCENARIOS PASSED
                 </span>
               ) : (
@@ -251,7 +251,7 @@ export default function Validation() {
             <button
               onClick={fetchValidation}
               disabled={valLoading}
-              className="flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2 text-xs font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:opacity-50"
+              className="flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-emerald-400 disabled:opacity-50"
             >
               <Play size={14} />
               {valLoading ? "Running Test Scenarios..." : "Re-Run All Scenarios"}
@@ -259,7 +259,7 @@ export default function Validation() {
           </div>
 
           {valError && (
-            <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
+            <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-600">
               {valError}
             </div>
           )}
@@ -270,39 +270,39 @@ export default function Validation() {
               {validationReport.scenarios.map((sc) => (
                 <div
                   key={sc.scenario_id}
-                  className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3"
+                  className="rounded-xl border border-slate-200 bg-white p-5 space-y-3"
                 >
-                  <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                    <span className="font-semibold text-white text-sm flex items-center gap-2">
+                  <div className="flex items-center justify-between border-b border-slate-200 pb-2">
+                    <span className="font-semibold text-slate-900 text-sm flex items-center gap-2">
                       {sc.passed ? (
-                        <CheckCircle size={16} className="text-emerald-400" />
+                        <CheckCircle size={16} className="text-emerald-600" />
                       ) : (
-                        <XCircle size={16} className="text-red-400" />
+                        <XCircle size={16} className="text-red-600" />
                       )}
                       {sc.title}
                     </span>
                     <span
                       className={`text-[10px] font-bold uppercase rounded px-2 py-0.5 ${
                         sc.passed
-                          ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-                          : "bg-red-500/10 text-red-400 border border-red-500/20"
+                          ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                          : "bg-red-500/10 text-red-600 border border-red-500/20"
                       }`}
                     >
                       {sc.passed ? "VERIFIED" : "FAILED"}
                     </span>
                   </div>
 
-                  <p className="text-xs text-slate-400 leading-relaxed">{sc.description}</p>
+                  <p className="text-xs text-slate-600 leading-relaxed">{sc.description}</p>
 
-                  <div className="rounded bg-slate-950 p-2.5 text-xs space-y-1">
+                  <div className="rounded bg-slate-50 p-2.5 text-xs space-y-1">
                     <p className="text-[11px] text-slate-500">
-                      <strong className="text-slate-400">Expected:</strong> {sc.expected}
+                      <strong className="text-slate-600">Expected:</strong> {sc.expected}
                     </p>
-                    <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-slate-300 font-mono">
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-slate-700 font-mono">
                       {Object.entries(sc.observed).map(([k, v]) => (
                         <div key={k} className="overflow-hidden text-ellipsis">
                           <span className="text-slate-500">{k}: </span>
-                          <span className="text-emerald-400">{String(v)}</span>
+                          <span className="text-emerald-600">{String(v)}</span>
                         </div>
                       ))}
                     </div>
@@ -314,55 +314,55 @@ export default function Validation() {
 
           {/* Discharge Policy Audit Card */}
           {validationReport?.discharge_policy_audit && (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-6 space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-sm font-semibold text-white flex items-center gap-2">
-                  <Layers size={18} className="text-emerald-400" />
+            <div className="rounded-xl border border-slate-200 bg-white p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+                <h3 className="text-sm font-semibold text-slate-900 flex items-center gap-2">
+                  <Layers size={18} className="text-emerald-600" />
                   {validationReport.discharge_policy_audit.title}
                 </h3>
-                <span className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-mono">
+                <span className="text-xs bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 px-2 py-0.5 rounded font-mono">
                   Conservation Preserved
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
                 {/* Approach A */}
-                <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-2">
+                <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-white">Approach A: Independent Floor</span>
-                    <span className="text-sky-400 font-mono font-bold">
+                    <span className="font-semibold text-slate-900">Approach A: Independent Floor</span>
+                    <span className="text-sky-600 font-mono font-bold">
                       {validationReport.discharge_policy_audit.approach_a_independent_floor.total_discharged} veh discharged
                     </span>
                   </div>
-                  <p className="text-slate-400 text-[11px]">
+                  <p className="text-slate-600 text-[11px]">
                     {validationReport.discharge_policy_audit.approach_a_independent_floor.policy}
                   </p>
-                  <p className="text-amber-400 text-[11px]">
+                  <p className="text-amber-600 text-[11px]">
                     Fractional Service Discarded:{" "}
                     <strong>{validationReport.discharge_policy_audit.approach_a_independent_floor.fractional_service_discarded} veh</strong>
                   </p>
                 </div>
 
                 {/* Approach B */}
-                <div className="rounded-lg bg-slate-950 p-4 border border-slate-800 space-y-2">
+                <div className="rounded-lg bg-slate-50 p-4 border border-slate-200 space-y-2">
                   <div className="flex justify-between items-center">
-                    <span className="font-semibold text-white">Approach B: Fractional Carryover</span>
-                    <span className="text-emerald-400 font-mono font-bold">
+                    <span className="font-semibold text-slate-900">Approach B: Fractional Carryover</span>
+                    <span className="text-emerald-600 font-mono font-bold">
                       {validationReport.discharge_policy_audit.approach_b_fractional_carryover.total_discharged} veh discharged
                     </span>
                   </div>
-                  <p className="text-slate-400 text-[11px]">
+                  <p className="text-slate-600 text-[11px]">
                     {validationReport.discharge_policy_audit.approach_b_fractional_carryover.policy}
                   </p>
-                  <p className="text-emerald-400 text-[11px]">
+                  <p className="text-emerald-600 text-[11px]">
                     Fractional Service Discarded:{" "}
                     <strong>{validationReport.discharge_policy_audit.approach_b_fractional_carryover.fractional_service_discarded} veh</strong>
                   </p>
                 </div>
               </div>
 
-              <div className="rounded-lg bg-slate-950 p-3.5 text-xs text-slate-300 leading-relaxed border border-slate-800/80">
-                <span className="font-semibold text-emerald-400">Engineering Trade-Off Analysis: </span>
+              <div className="rounded-lg bg-slate-50 p-3.5 text-xs text-slate-700 leading-relaxed border border-slate-200">
+                <span className="font-semibold text-emerald-600">Engineering Trade-Off Analysis: </span>
                 {validationReport.discharge_policy_audit.analysis}
               </div>
             </div>
@@ -374,13 +374,13 @@ export default function Validation() {
       {activeTab === "sensitivity" && (
         <div className="space-y-6">
           {/* Controls */}
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
+          <div className="rounded-xl border border-slate-200 bg-white p-5">
             <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-              <h2 className="font-semibold text-white text-sm">
+              <h2 className="font-semibold text-slate-900 text-sm">
                 Monte Carlo One-At-A-Time (OAT) Sensitivity Sweep
               </h2>
               {sensitivityReport && (
-                <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[11px] font-mono text-emerald-400">
+                <span className="rounded-full bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 text-[11px] font-mono text-emerald-600">
                   {sensitivityReport.runs} Replicates / Point (CRN Paired)
                 </span>
               )}
@@ -388,11 +388,11 @@ export default function Validation() {
 
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Parameter to Vary</label>
+                <label className="block text-xs text-slate-600 mb-1">Parameter to Vary</label>
                 <select
                   value={selectedParam}
                   onChange={(e) => setSelectedParam(e.target.value)}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 outline-none focus:border-emerald-500"
                 >
                   {PARAMETER_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value}>
@@ -403,11 +403,11 @@ export default function Validation() {
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Approach Scope</label>
+                <label className="block text-xs text-slate-600 mb-1">Approach Scope</label>
                 <select
                   value={targetDir}
                   onChange={(e) => setTargetDir(e.target.value)}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 outline-none focus:border-emerald-500"
                 >
                   <option value="all_directions">All Directions Simultaneously</option>
                   <option value="north">North Approach Only</option>
@@ -418,11 +418,11 @@ export default function Validation() {
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Monte Carlo Replicates (Runs)</label>
+                <label className="block text-xs text-slate-600 mb-1">Monte Carlo Replicates (Runs)</label>
                 <select
                   value={mcRuns}
                   onChange={(e) => setMcRuns(Number(e.target.value))}
-                  className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-xs text-white outline-none focus:border-emerald-500"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 outline-none focus:border-emerald-500"
                 >
                   <option value={10}>10 Runs (Fast Exploration)</option>
                   <option value={30}>30 Runs (Default Standard)</option>
@@ -435,7 +435,7 @@ export default function Validation() {
                 <button
                   onClick={handleRunSensitivity}
                   disabled={sensLoading}
-                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-500 py-2.5 text-xs font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:opacity-50"
+                  className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 py-2.5 text-xs font-semibold text-white transition hover:bg-emerald-400 disabled:opacity-50"
                 >
                   <Play size={14} />
                   {sensLoading ? "Executing Monte Carlo..." : "Run Monte Carlo Sweep"}
@@ -445,7 +445,7 @@ export default function Validation() {
           </div>
 
           {sensError && (
-            <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
+            <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-600">
               {sensError}
             </div>
           )}
@@ -454,17 +454,17 @@ export default function Validation() {
           {sensitivityReport && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Chart 1: Final Waiting Queue (Adaptive vs Fixed) */}
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3">
-                <h3 className="text-sm font-semibold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Mean Remaining Queue vs. {PARAMETER_OPTIONS.find((p) => p.value === selectedParam)?.label}
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600">
                   Mean vehicles remaining across {sensitivityReport.runs} Monte Carlo replicates with pointwise 95% Student's t CI.
                 </p>
                 <div className="h-64 w-full pt-2">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 11 }} />
                       <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
                       <RechartsTooltip content={<CustomTooltip selectedParam={selectedParam} />} />
@@ -477,17 +477,17 @@ export default function Validation() {
               </div>
 
               {/* Chart 2: Average Waiting Time */}
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3">
-                <h3 className="text-sm font-semibold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Mean Waiting Time (s) vs. {PARAMETER_OPTIONS.find((p) => p.value === selectedParam)?.label}
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600">
                   Mean delay per vehicle across {sensitivityReport.runs} replicates with pointwise 95% Student's t CI.
                 </p>
                 <div className="h-64 w-full pt-2">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 11 }} />
                       <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
                       <RechartsTooltip content={<CustomTooltip selectedParam={selectedParam} />} />
@@ -500,20 +500,20 @@ export default function Validation() {
               </div>
 
               {/* Chart 3: Throughput (Total Discharged) */}
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3">
-                <h3 className="text-sm font-semibold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Mean Throughput (Vehicles Discharged)
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600">
                   Mean vehicles served through the intersection during {sensitivityReport.runs} simulation runs.
                 </p>
                 <div className="h-64 w-full pt-2">
                   <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={chartData} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 11 }} />
                       <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
-                      <RechartsTooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155" }} />
+                      <RechartsTooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#334155" }} />
                       <Legend />
                       <Bar dataKey="AdaptiveDischarged" name="Adaptive Throughput (Mean)" fill="#10b981" radius={[4, 4, 0, 0]} />
                       <Bar dataKey="FixedDischarged" name="Fixed Throughput (Mean)" fill="#3b82f6" radius={[4, 4, 0, 0]} />
@@ -523,20 +523,20 @@ export default function Validation() {
               </div>
 
               {/* Chart 4: Capacity Utilization */}
-              <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3">
-                <h3 className="text-sm font-semibold text-white">
+              <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
+                <h3 className="text-sm font-semibold text-slate-900">
                   Mean Capacity Utilization (%)
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-600">
                   Mean percentage of theoretical discharge capacity utilized across {sensitivityReport.runs} runs.
                 </p>
                 <div className="h-64 w-full pt-2">
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={chartData} margin={{ top: 10, right: 20, left: -10, bottom: 0 }}>
-                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                      <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                       <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 11 }} />
                       <YAxis stroke="#64748b" tick={{ fontSize: 11 }} />
-                      <RechartsTooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#334155" }} />
+                      <RechartsTooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#334155" }} />
                       <Legend />
                       <Line type="monotone" dataKey="AdaptiveUtil" name="Adaptive Util % (Mean)" stroke="#10b981" strokeWidth={2} dot={{ r: 4 }} />
                       <Line type="monotone" dataKey="FixedUtil" name="Fixed Util % (Mean)" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4 }} />
@@ -549,21 +549,21 @@ export default function Validation() {
 
           {/* Sweep Results Table */}
           {sensitivityReport && (
-            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-3">
+            <div className="rounded-xl border border-slate-200 bg-white p-5 space-y-3">
               <div className="flex flex-wrap justify-between items-center gap-2">
                 <div>
-                  <h3 className="text-sm font-semibold text-white">Monte Carlo Parameter Sweep Statistics</h3>
-                  <p className="text-[11px] text-slate-400">
-                    Sign convention: <span className="font-mono text-emerald-400">Fixed - Adaptive</span> (positive values indicate Adaptive strategy reduction / improvement).
+                  <h3 className="text-sm font-semibold text-slate-900">Monte Carlo Parameter Sweep Statistics</h3>
+                  <p className="text-[11px] text-slate-600">
+                    Sign convention: <span className="font-mono text-emerald-600">Fixed - Adaptive</span> (positive values indicate Adaptive strategy reduction / improvement).
                   </p>
                 </div>
-                <span className="text-xs text-slate-400 font-mono rounded bg-slate-950 px-2.5 py-1 border border-slate-800">
+                <span className="text-xs text-slate-600 font-mono rounded bg-slate-50 px-2.5 py-1 border border-slate-200">
                   Sample Size: N = {sensitivityReport.runs} replicates/point
                 </span>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950 text-slate-400 uppercase font-mono text-[10px]">
+                  <thead className="bg-slate-50 text-slate-600 uppercase font-mono text-[10px]">
                     <tr>
                       <th className="p-3">Param Value</th>
                       <th className="p-3">Adaptive Queue (Mean ± SD)</th>
@@ -576,23 +576,23 @@ export default function Validation() {
                       <th className="p-3">Fixed Util</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800 text-slate-300 font-mono">
+                  <tbody className="divide-y divide-slate-200 text-slate-700 font-mono">
                     {sensitivityReport.results.map((r, i) => (
-                      <tr key={i} className="hover:bg-slate-800/40">
-                        <td className="p-3 text-white font-bold">{r.parameter_value}</td>
-                        <td className="p-3 text-emerald-400">
+                      <tr key={i} className="hover:bg-slate-100">
+                        <td className="p-3 text-slate-900 font-bold">{r.parameter_value}</td>
+                        <td className="p-3 text-emerald-600">
                           {r.adaptive.final_queue_mean ?? r.adaptive.final_queue}
                           {r.adaptive.final_queue_std !== undefined && (
-                            <span className="text-[10px] text-slate-400"> ± {r.adaptive.final_queue_std}</span>
+                            <span className="text-[10px] text-slate-600"> ± {r.adaptive.final_queue_std}</span>
                           )}
                         </td>
                         <td className="p-3 text-blue-400">
                           {r.fixed?.final_queue_mean ?? r.fixed?.final_queue}
                           {r.fixed?.final_queue_std !== undefined && (
-                            <span className="text-[10px] text-slate-400"> ± {r.fixed?.final_queue_std}</span>
+                            <span className="text-[10px] text-slate-600"> ± {r.fixed?.final_queue_std}</span>
                           )}
                         </td>
-                        <td className="p-3 font-semibold text-emerald-400">
+                        <td className="p-3 font-semibold text-emerald-600">
                           <div>
                             {r.paired_differences?.final_queue ? (
                               <>
@@ -600,7 +600,7 @@ export default function Validation() {
                                   {r.paired_differences.final_queue.mean_difference >= 0 ? "+" : ""}
                                   {r.paired_differences.final_queue.mean_difference} veh
                                 </span>
-                                <div className="text-[10px] text-slate-400 font-normal">
+                                <div className="text-[10px] text-slate-600 font-normal">
                                   CI: [{r.paired_differences.final_queue.ci_95[0]}, {r.paired_differences.final_queue.ci_95[1]}]
                                 </div>
                               </>
@@ -612,16 +612,16 @@ export default function Validation() {
                         <td className="p-3">
                           {r.adaptive.average_waiting_time_mean ?? r.adaptive.average_waiting_time}s
                           {r.adaptive.average_waiting_time_std !== undefined && (
-                            <span className="text-[10px] text-slate-400"> ± {r.adaptive.average_waiting_time_std}s</span>
+                            <span className="text-[10px] text-slate-600"> ± {r.adaptive.average_waiting_time_std}s</span>
                           )}
                         </td>
                         <td className="p-3">
                           {r.fixed?.average_waiting_time_mean ?? r.fixed?.average_waiting_time}s
                           {r.fixed?.average_waiting_time_std !== undefined && (
-                            <span className="text-[10px] text-slate-400"> ± {r.fixed?.average_waiting_time_std}s</span>
+                            <span className="text-[10px] text-slate-600"> ± {r.fixed?.average_waiting_time_std}s</span>
                           )}
                         </td>
-                        <td className="p-3 font-semibold text-emerald-400">
+                        <td className="p-3 font-semibold text-emerald-600">
                           <div>
                             {r.paired_differences?.average_waiting_time ? (
                               <>
@@ -629,7 +629,7 @@ export default function Validation() {
                                   {r.paired_differences.average_waiting_time.mean_difference >= 0 ? "+" : ""}
                                   {r.paired_differences.average_waiting_time.mean_difference}s
                                 </span>
-                                <div className="text-[10px] text-slate-400 font-normal">
+                                <div className="text-[10px] text-slate-600 font-normal">
                                   CI: [{r.paired_differences.average_waiting_time.ci_95[0]}, {r.paired_differences.average_waiting_time.ci_95[1]}]s
                                 </div>
                               </>
@@ -653,16 +653,16 @@ export default function Validation() {
           )}
 
           {/* Sensitivity Methodology Note */}
-          <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 text-xs text-slate-400 space-y-2">
-            <div className="flex items-center gap-1.5 text-slate-300 font-semibold">
-              <Info size={15} className="text-emerald-400" />
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-600 space-y-2">
+            <div className="flex items-center gap-1.5 text-slate-700 font-semibold">
+              <Info size={15} className="text-emerald-600" />
               Monte Carlo Methodology & Common Random Numbers (CRN)
             </div>
             <p>
               Each point in the sensitivity sweep is evaluated across {sensitivityReport?.runs || mcRuns} stochastic Monte Carlo replicates using paired Common Random Numbers (CRN).
               For each replicate, identical Poisson arrival seeds are provided to both Fixed and Adaptive strategies, isolating structural algorithmic performance differences from stochastic sampling fluctuations.
             </p>
-            <div className="rounded border border-amber-500/20 bg-amber-500/10 p-3 text-[11px] text-amber-300 space-y-1.5">
+            <div className="rounded border border-amber-500/20 bg-amber-500/10 p-3 text-[11px] text-amber-700 space-y-1.5">
               <div className="font-semibold text-amber-200">
                 Pointwise 95% Student&apos;s t Confidence Interval Interpretation:
               </div>

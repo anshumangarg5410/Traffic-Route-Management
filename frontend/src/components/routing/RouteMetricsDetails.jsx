@@ -82,9 +82,9 @@ export default function RouteMetricsDetails({ route }) {
     : null;
 
   return (
-    <div className="space-y-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-xl backdrop-blur-sm">
+    <div className="space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-xl backdrop-blur-sm">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div className="flex items-center justify-between border-b border-slate-200 pb-3">
         <div>
           <div className="flex items-center gap-2">
             <span
@@ -96,44 +96,44 @@ export default function RouteMetricsDetails({ route }) {
             >
               {route.rank || "#"}
             </span>
-            <h4 className="text-sm font-semibold text-white truncate">
+            <h4 className="text-sm font-semibold text-slate-900 truncate">
               {summary} (Selected Telemetry)
             </h4>
           </div>
-          <p className="text-[11px] text-slate-400 mt-0.5">
+          <p className="text-[11px] text-slate-600 mt-0.5">
             Detailed intersection & signal delay breakdown
           </p>
         </div>
 
         <div className="text-right">
-          <span className="text-[10px] text-slate-400 uppercase font-semibold">
+          <span className="text-[10px] text-slate-600 uppercase font-semibold">
             Distance
           </span>
-          <p className="text-sm font-bold text-white font-mono">
+          <p className="text-sm font-bold text-slate-900 font-mono">
             {route.distance_km != null ? `${route.distance_km} km` : "N/A"}
           </p>
         </div>
       </div>
 
       {/* Duration Comparison Card */}
-      <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3.5 space-y-2">
-        <p className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-3.5 space-y-2">
+        <p className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
           <Clock size={13} className="text-blue-400" />
           <span>Travel Time Breakdown</span>
         </p>
 
         <div className="grid grid-cols-2 gap-3 text-xs">
           <div className="space-y-1">
-            <span className="text-[10px] text-slate-400">Baseline (OSRM Free-Flow)</span>
-            <p className="text-sm font-bold text-slate-200 font-mono">
+            <span className="text-[10px] text-slate-600">Baseline (OSRM Free-Flow)</span>
+            <p className="text-sm font-bold text-slate-800 font-mono">
               {baselineDurationMin != null ? `${baselineDurationMin.toFixed(1)} min` : "Unavailable"}
             </p>
             <p className="text-[10px] text-slate-500">Nominal speed, zero delay</p>
           </div>
 
           <div className="space-y-1">
-            <span className="text-[10px] text-slate-400">Estimated (with Signals)</span>
-            <p className="text-base font-bold text-emerald-400 font-mono">
+            <span className="text-[10px] text-slate-600">Estimated (with Signals)</span>
+            <p className="text-base font-bold text-emerald-600 font-mono">
               {estimatedDurationMin != null ? `${estimatedDurationMin.toFixed(1)} min` : "Unavailable"}
             </p>
             <p className="text-[10px] text-slate-500">
@@ -145,12 +145,12 @@ export default function RouteMetricsDetails({ route }) {
 
       {/* Intersection Telemetry Grid */}
       <div className="grid grid-cols-2 gap-2 text-xs">
-        <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-          <div className="flex items-center justify-between text-slate-400 mb-1">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <div className="flex items-center justify-between text-slate-600 mb-1">
             <span className="text-[11px]">Mapped Signals</span>
             <span className="text-xs">🚦</span>
           </div>
-          <p className="text-lg font-bold text-white font-mono">
+          <p className="text-lg font-bold text-slate-900 font-mono">
             {signalCount != null ? signalCount : "Unavailable"}
           </p>
           <p className="text-[10px] text-slate-500 mt-0.5">
@@ -158,12 +158,12 @@ export default function RouteMetricsDetails({ route }) {
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-          <div className="flex items-center justify-between text-slate-400 mb-1">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <div className="flex items-center justify-between text-slate-600 mb-1">
             <span className="text-[11px]">Signal Delay</span>
             <Clock size={12} className="text-blue-400" />
           </div>
-          <p className="text-lg font-bold text-white font-mono">
+          <p className="text-lg font-bold text-slate-900 font-mono">
             {signalDelayS != null ? `${Math.round(signalDelayS)}s` : "Unavailable"}
           </p>
           <p className="text-[10px] text-slate-500 mt-0.5">
@@ -171,12 +171,12 @@ export default function RouteMetricsDetails({ route }) {
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-          <div className="flex items-center justify-between text-slate-400 mb-1">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <div className="flex items-center justify-between text-slate-600 mb-1">
             <span className="text-[11px]">Total Intersections</span>
             <MapPin size={12} className="text-purple-400" />
           </div>
-          <p className="text-lg font-bold text-white font-mono">
+          <p className="text-lg font-bold text-slate-900 font-mono">
             {totalIntersections != null ? totalIntersections : "Unavailable"}
           </p>
           <p className="text-[10px] text-slate-500 mt-0.5">
@@ -184,12 +184,12 @@ export default function RouteMetricsDetails({ route }) {
           </p>
         </div>
 
-        <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-3">
-          <div className="flex items-center justify-between text-slate-400 mb-1">
+        <div className="rounded-xl border border-slate-200 bg-slate-50 p-3">
+          <div className="flex items-center justify-between text-slate-600 mb-1">
             <span className="text-[11px]">Intersection Density</span>
-            <Compass size={12} className="text-amber-400" />
+            <Compass size={12} className="text-amber-600" />
           </div>
-          <p className="text-lg font-bold text-white font-mono">
+          <p className="text-lg font-bold text-slate-900 font-mono">
             {intersectionDensity != null ? `${intersectionDensity.toFixed(2)}` : "Unavailable"}
           </p>
           <p className="text-[10px] text-slate-500 mt-0.5">
@@ -200,16 +200,16 @@ export default function RouteMetricsDetails({ route }) {
 
       {/* Non-Signal-Tagged Intersections Notice */}
       {unsignalizedIntersections != null && (
-        <div className="flex items-center justify-between rounded-xl bg-slate-950/40 p-2.5 text-xs border border-slate-800/60 text-slate-400">
+        <div className="flex items-center justify-between rounded-xl bg-slate-50/40 p-2.5 text-xs border border-slate-200/60 text-slate-600">
           <span>Topological Intersections (No Mapped Signal Tag):</span>
-          <span className="font-mono font-semibold text-slate-200">
+          <span className="font-mono font-semibold text-slate-800">
             {unsignalizedIntersections} nodes
           </span>
         </div>
       )}
 
       {/* Engineering Disclaimer */}
-      <div className="flex items-start gap-2 rounded-xl bg-slate-950/50 p-2.5 text-[10px] text-slate-400 border border-slate-800/60 leading-relaxed">
+      <div className="flex items-start gap-2 rounded-xl bg-slate-50 p-2.5 text-[10px] text-slate-600 border border-slate-200/60 leading-relaxed">
         <AlertCircle size={13} className="shrink-0 mt-0.5 text-slate-500" />
         <span>
           Signal delays are modeled using uniform-random-arrival formulation (d = R² / 2C) with baseline uncalibrated cycle C = 90.0s and effective red R = 60.0s (~20.0s delay per signal). Absence of an OSM signal tag does not establish the absence of a physical signal; individual delay is not modeled for intersections without mapped signal data.

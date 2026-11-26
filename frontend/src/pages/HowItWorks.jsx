@@ -80,16 +80,16 @@ const SCORING_WEIGHTS = [
 
 export default function HowItWorks() {
   return (
-    <div className="bg-slate-950 text-slate-100 py-14 md:py-20">
+    <div className="bg-slate-50 text-slate-900 py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-14">
         <div className="max-w-3xl space-y-4">
           <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
             System Pipeline
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
             How ITMS Evaluates &amp; Recommends Routes
           </h1>
-          <p className="text-base text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed">
             An end-to-end look at the eight-stage pipeline connecting geocoding,
             OSRM routing, OSMnx graph analysis, ML temporal inference, and
             multi-criteria route scoring.
@@ -103,20 +103,20 @@ export default function HowItWorks() {
             return (
               <div
                 key={item.step}
-                className="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 space-y-3"
+                className="rounded-2xl border border-slate-200 bg-white p-5 space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-emerald-400">
+                  <span className="font-mono text-xs font-bold text-emerald-600">
                     STAGE {item.step}
                   </span>
-                  <div className="rounded-lg bg-slate-950 border border-slate-800 p-2 text-cyan-400">
+                  <div className="rounded-lg bg-slate-50 border border-slate-200 p-2 text-cyan-400">
                     <Icon size={16} />
                   </div>
                 </div>
-                <h2 className="text-sm font-semibold text-white leading-snug">
+                <h2 className="text-sm font-semibold text-slate-900 leading-snug">
                   {item.title}
                 </h2>
-                <p className="text-xs text-slate-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -129,11 +129,11 @@ export default function HowItWorks() {
           id="ml-transparency"
           className="grid grid-cols-1 gap-8 lg:grid-cols-12"
         >
-          <div className="lg:col-span-6 rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-8 space-y-5">
-            <h2 className="text-xl font-bold text-white">
+          <div className="lg:col-span-6 rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 space-y-5">
+            <h2 className="text-xl font-bold text-slate-900">
               Multi-Criteria Route Scoring Weights
             </h2>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               Candidate routes are ranked deterministically using min-max
               normalization across four measurable route criteria. Missing
               metrics are conservatively imputed rather than assumed zero.
@@ -142,10 +142,10 @@ export default function HowItWorks() {
               {SCORING_WEIGHTS.map((row) => (
                 <div
                   key={row.label}
-                  className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950/70 px-4 py-3 text-sm"
+                  className="flex items-center justify-between rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm"
                 >
-                  <span className="text-slate-300">{row.label}</span>
-                  <span className="font-mono font-bold text-emerald-400">
+                  <span className="text-slate-700">{row.label}</span>
+                  <span className="font-mono font-bold text-emerald-600">
                     {row.weight}
                   </span>
                 </div>
@@ -158,22 +158,22 @@ export default function HowItWorks() {
               <Info size={15} />
               <span>ML Scope &amp; Scientific Limitations</span>
             </div>
-            <h2 className="text-xl font-bold text-white">
+            <h2 className="text-xl font-bold text-slate-900">
               Role of the ML Model in Route Selection
             </h2>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm text-slate-700 leading-relaxed">
               The Random Forest model is trained on the{" "}
-              <strong className="text-white">
+              <strong className="text-slate-900">
                 UCI Minnesota Metro Interstate Traffic Volume
               </strong>{" "}
               dataset using 11 temporal and weather features. It{" "}
-              <strong className="text-white">
+              <strong className="text-slate-900">
                 does not directly determine the winning route
               </strong>{" "}
               and does not predict traffic on individual Chandigarh road
               segments.
             </p>
-            <p className="text-sm text-slate-300 leading-relaxed">
+            <p className="text-sm text-slate-700 leading-relaxed">
               Instead, it provides shared departure-time congestion context
               (Low, Medium, or High), while the multi-criteria route scorer
               selects the optimal route from OSRM baseline times, mapped OSM

@@ -8,10 +8,10 @@ export default function ProtectedRoute({ children }) {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-slate-950 text-emerald-400">
+      <div className="flex h-screen items-center justify-center bg-slate-50 text-emerald-600">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="animate-spin" size={32} />
-          <p className="text-sm font-medium text-slate-400">Verifying session...</p>
+          <p className="text-sm font-medium text-slate-600">Verifying session...</p>
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ export default function PublicRoute({ children }) {
 
   if (isLoading) {
     return (
-      <div className="flex h-screen items-center justify-center bg-slate-950 text-emerald-400">
+      <div className="flex h-screen items-center justify-center bg-slate-50 text-emerald-600">
         <Loader2 className="animate-spin" size={32} />
       </div>
     );

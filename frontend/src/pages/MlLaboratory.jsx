@@ -52,9 +52,9 @@ const LEVEL_COLORS = { Low: "#10b981", Medium: "#f59e0b", High: "#ef4444" };
 
 function MetricCard({ label, value, subtext }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-4">
-      <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">{label}</p>
-      <p className="mt-1.5 text-xl font-bold text-white">{value}</p>
+    <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+      <p className="text-[11px] font-semibold uppercase tracking-wider text-slate-600">{label}</p>
+      <p className="mt-1.5 text-xl font-bold text-slate-900">{value}</p>
       {subtext && <p className="mt-0.5 text-[11px] text-slate-500">{subtext}</p>}
     </div>
   );
@@ -63,8 +63,8 @@ function MetricCard({ label, value, subtext }) {
 function ExplanationBox({ text }) {
   if (!text) return null;
   return (
-    <div className="flex items-start gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-xs leading-relaxed text-slate-300">
-      <Info size={16} className="mt-0.5 shrink-0 text-emerald-400" />
+    <div className="flex items-start gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-xs leading-relaxed text-slate-700">
+      <Info size={16} className="mt-0.5 shrink-0 text-emerald-600" />
       <p>{text}</p>
     </div>
   );
@@ -176,23 +176,23 @@ export default function MlLaboratory() {
       {/* Header */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <div className="flex items-center gap-2 text-emerald-400">
+          <div className="flex items-center gap-2 text-emerald-600">
             <FlaskConical size={20} />
             <span className="text-xs font-semibold uppercase tracking-wider">
               Interactive ML Syllabus Lab
             </span>
           </div>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-white">
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-900">
             Machine Learning Laboratory
           </h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-slate-600">
             Live scikit-learn, association-rule, PCA, recommender, and Q-learning experiments on the UCI traffic dataset.
           </p>
         </div>
       </div>
 
       {/* Module Tabs */}
-      <div className="flex flex-wrap gap-2 rounded-2xl border border-slate-800 bg-slate-900/50 p-2">
+      <div className="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-white p-2">
         {LAB_TABS.map((tab) => (
           <button
             key={tab.id}
@@ -203,8 +203,8 @@ export default function MlLaboratory() {
             }}
             className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition ${
               activeTab === tab.id
-                ? "bg-emerald-500 text-slate-950 shadow-sm"
-                : "text-slate-300 hover:bg-slate-800 hover:text-white"
+                ? "bg-emerald-600 text-white shadow-sm"
+                : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
             }`}
           >
             {tab.label}
@@ -214,16 +214,16 @@ export default function MlLaboratory() {
 
       {/* Controls Bar */}
       {activeTab !== "ethics" && (
-        <div className="flex flex-wrap items-end justify-between gap-4 rounded-2xl border border-slate-800 bg-slate-900/60 p-5">
+        <div className="flex flex-wrap items-end justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5">
           <div className="flex flex-wrap items-end gap-4">
             {activeTab === "regression" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Algorithm</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Algorithm</span>
                   <select
                     value={regAlg}
                     onChange={(e) => setRegAlg(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="linear">Linear Regression (Hour)</option>
                     <option value="multiple">Multiple Linear Regression</option>
@@ -232,14 +232,14 @@ export default function MlLaboratory() {
                 </label>
                 {regAlg === "polynomial" && (
                   <label className="block">
-                    <span className="mb-1.5 block text-xs text-slate-400">Degree (2-5)</span>
+                    <span className="mb-1.5 block text-xs text-slate-600">Degree (2-5)</span>
                     <input
                       type="number"
                       min={2}
                       max={5}
                       value={regDegree}
                       onChange={(e) => setRegDegree(e.target.value)}
-                      className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                      className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     />
                   </label>
                 )}
@@ -249,11 +249,11 @@ export default function MlLaboratory() {
             {activeTab === "classification" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Classifier</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Classifier</span>
                   <select
                     value={clfAlg}
                     onChange={(e) => setClfAlg(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="logistic_regression">Logistic Regression</option>
                     <option value="knn">K-Nearest Neighbors (KNN)</option>
@@ -265,27 +265,27 @@ export default function MlLaboratory() {
                 </label>
                 {clfAlg === "knn" && (
                   <label className="block">
-                    <span className="mb-1.5 block text-xs text-slate-400">Neighbors (k)</span>
+                    <span className="mb-1.5 block text-xs text-slate-600">Neighbors (k)</span>
                     <input
                       type="number"
                       min={1}
                       max={25}
                       value={knnK}
                       onChange={(e) => setKnnK(e.target.value)}
-                      className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                      className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     />
                   </label>
                 )}
                 {clfAlg === "decision_tree" && (
                   <label className="block">
-                    <span className="mb-1.5 block text-xs text-slate-400">Max Depth</span>
+                    <span className="mb-1.5 block text-xs text-slate-600">Max Depth</span>
                     <input
                       type="number"
                       min={1}
                       max={30}
                       value={treeDepth}
                       onChange={(e) => setTreeDepth(e.target.value)}
-                      className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                      className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     />
                   </label>
                 )}
@@ -295,11 +295,11 @@ export default function MlLaboratory() {
             {activeTab === "evaluation" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Validation Experiment</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Validation Experiment</span>
                   <select
                     value={evalMode}
                     onChange={(e) => setEvalMode(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="overfitting_underfitting">Overfitting vs Underfitting</option>
                     <option value="bias_variance">Bias-Variance Trade-off</option>
@@ -309,14 +309,14 @@ export default function MlLaboratory() {
                 </label>
                 {evalMode === "cross_validation" && (
                   <label className="block">
-                    <span className="mb-1.5 block text-xs text-slate-400">Folds (k)</span>
+                    <span className="mb-1.5 block text-xs text-slate-600">Folds (k)</span>
                     <input
                       type="number"
                       min={3}
                       max={10}
                       value={evalFolds}
                       onChange={(e) => setEvalFolds(e.target.value)}
-                      className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                      className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     />
                   </label>
                 )}
@@ -326,11 +326,11 @@ export default function MlLaboratory() {
             {activeTab === "clustering" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Clustering Algorithm</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Clustering Algorithm</span>
                   <select
                     value={clusterAlg}
                     onChange={(e) => setClusterAlg(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="kmeans">K-Means Clustering</option>
                     <option value="hierarchical">Hierarchical (Ward)</option>
@@ -339,19 +339,19 @@ export default function MlLaboratory() {
                 </label>
                 {clusterAlg !== "dbscan" ? (
                   <label className="block">
-                    <span className="mb-1.5 block text-xs text-slate-400">Clusters (k)</span>
+                    <span className="mb-1.5 block text-xs text-slate-600">Clusters (k)</span>
                     <input
                       type="number"
                       min={2}
                       max={7}
                       value={nClusters}
                       onChange={(e) => setNClusters(e.target.value)}
-                      className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                      className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     />
                   </label>
                 ) : (
                   <label className="block">
-                    <span className="mb-1.5 block text-xs text-slate-400">Epsilon (eps)</span>
+                    <span className="mb-1.5 block text-xs text-slate-600">Epsilon (eps)</span>
                     <input
                       type="number"
                       min={0.2}
@@ -359,7 +359,7 @@ export default function MlLaboratory() {
                       step={0.05}
                       value={dbscanEps}
                       onChange={(e) => setDbscanEps(e.target.value)}
-                      className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                      className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                     />
                   </label>
                 )}
@@ -369,18 +369,18 @@ export default function MlLaboratory() {
             {activeTab === "association" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Algorithm</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Algorithm</span>
                   <select
                     value={assocAlg}
                     onChange={(e) => setAssocAlg(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="apriori">Apriori Algorithm</option>
                     <option value="fpgrowth">FP-Growth Algorithm</option>
                   </select>
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Min Support</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Min Support</span>
                   <input
                     type="number"
                     min={0.03}
@@ -388,11 +388,11 @@ export default function MlLaboratory() {
                     step={0.01}
                     value={minSupport}
                     onChange={(e) => setMinSupport(e.target.value)}
-                    className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Min Confidence</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Min Confidence</span>
                   <input
                     type="number"
                     min={0.2}
@@ -400,7 +400,7 @@ export default function MlLaboratory() {
                     step={0.05}
                     value={minConfidence}
                     onChange={(e) => setMinConfidence(e.target.value)}
-                    className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   />
                 </label>
               </>
@@ -409,11 +409,11 @@ export default function MlLaboratory() {
             {activeTab === "recommendation" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Preferred Time Slot</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Preferred Time Slot</span>
                   <select
                     value={recSlot}
                     onChange={(e) => setRecSlot(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="morning_rush">Morning Rush (08:00)</option>
                     <option value="midday">Midday (13:00)</option>
@@ -422,11 +422,11 @@ export default function MlLaboratory() {
                   </select>
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Weather Preference</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Weather Preference</span>
                   <select
                     value={recWeather}
                     onChange={(e) => setRecWeather(e.target.value)}
-                    className="rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="Clear">Clear</option>
                     <option value="Clouds">Clouds</option>
@@ -434,12 +434,12 @@ export default function MlLaboratory() {
                     <option value="Mist">Mist</option>
                   </select>
                 </label>
-                <label className="flex items-center gap-2 pb-2 text-xs text-slate-300">
+                <label className="flex items-center gap-2 pb-2 text-xs text-slate-700">
                   <input
                     type="checkbox"
                     checked={recLowCongestion}
                     onChange={(e) => setRecLowCongestion(e.target.checked)}
-                    className="rounded border-slate-700 bg-slate-950"
+                    className="rounded border-slate-300 bg-slate-50"
                   />
                   <span>Prefer Low Congestion</span>
                 </label>
@@ -448,14 +448,14 @@ export default function MlLaboratory() {
 
             {activeTab === "pca" && (
               <label className="block">
-                <span className="mb-1.5 block text-xs text-slate-400">Principal Components</span>
+                <span className="mb-1.5 block text-xs text-slate-600">Principal Components</span>
                 <input
                   type="number"
                   min={2}
                   max={6}
                   value={pcaComponents}
                   onChange={(e) => setPcaComponents(e.target.value)}
-                  className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                  className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                 />
               </label>
             )}
@@ -463,18 +463,18 @@ export default function MlLaboratory() {
             {activeTab === "rl" && (
               <>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Episodes</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Episodes</span>
                   <input
                     type="number"
                     min={10}
                     max={80}
                     value={rlEpisodes}
                     onChange={(e) => setRlEpisodes(e.target.value)}
-                    className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   />
                 </label>
                 <label className="block">
-                  <span className="mb-1.5 block text-xs text-slate-400">Exploration (epsilon)</span>
+                  <span className="mb-1.5 block text-xs text-slate-600">Exploration (epsilon)</span>
                   <input
                     type="number"
                     min={0.05}
@@ -482,7 +482,7 @@ export default function MlLaboratory() {
                     step={0.05}
                     value={rlEpsilon}
                     onChange={(e) => setRlEpsilon(e.target.value)}
-                    className="w-24 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-24 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   />
                 </label>
               </>
@@ -493,7 +493,7 @@ export default function MlLaboratory() {
             type="button"
             onClick={() => executeTab(activeTab)}
             disabled={isLoading}
-            className="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-bold text-slate-950 transition hover:bg-emerald-400 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-emerald-400 disabled:opacity-50"
           >
             {isLoading ? <Loader2 size={15} className="animate-spin" /> : <Play size={15} />}
             <span>{isLoading ? "Running..." : "Run Experiment"}</span>
@@ -502,7 +502,7 @@ export default function MlLaboratory() {
       )}
 
       {error && (
-        <div role="alert" className="flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-400">
+        <div role="alert" className="flex items-center gap-3 rounded-xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-600">
           <AlertCircle size={18} className="shrink-0" />
           <span>{error}</span>
         </div>
@@ -510,19 +510,19 @@ export default function MlLaboratory() {
 
       {/* Empty prompt before first run */}
       {!current && activeTab !== "ethics" && !isLoading && (
-        <div className="rounded-2xl border border-dashed border-slate-800 bg-slate-900/20 p-10 text-center">
-          <Sparkles className="mx-auto text-emerald-400" size={28} />
-          <p className="mt-3 text-sm font-semibold text-white">Ready to run experiment</p>
-          <p className="mt-1 text-xs text-slate-400">
-            Select your algorithm and parameters above, then click <strong className="text-emerald-400">Run Experiment</strong>.
+        <div className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 p-10 text-center">
+          <Sparkles className="mx-auto text-emerald-600" size={28} />
+          <p className="mt-3 text-sm font-semibold text-slate-900">Ready to run experiment</p>
+          <p className="mt-1 text-xs text-slate-600">
+            Select your algorithm and parameters above, then click <strong className="text-emerald-600">Run Experiment</strong>.
           </p>
         </div>
       )}
 
       {/* Results Views */}
       {current && activeTab === "regression" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <MetricCard label="MAE" value={current.metrics.mae} subtext="Mean Absolute Error" />
             <MetricCard label="MSE" value={current.metrics.mse} subtext="Mean Squared Error" />
@@ -532,10 +532,10 @@ export default function MlLaboratory() {
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={current.chart_points}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis dataKey="index" stroke="#94a3b8" fontSize={11} />
-                <YAxis stroke="#94a3b8" fontSize={11} />
-                <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis dataKey="index" stroke="#475569" fontSize={11} />
+                <YAxis stroke="#475569" fontSize={11} />
+                <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                 <Legend />
                 <Line type="monotone" dataKey="actual" name="Actual Volume" stroke="#10b981" strokeWidth={2} />
                 <Line type="monotone" dataKey="predicted" name="Predicted Volume" stroke="#38bdf8" strokeWidth={2} />
@@ -547,8 +547,8 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "classification" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <MetricCard label="Accuracy" value={(current.metrics.accuracy * 100).toFixed(2) + "%"} />
             <MetricCard label="Macro Precision" value={current.metrics.precision} />
@@ -557,11 +557,11 @@ export default function MlLaboratory() {
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Confusion Matrix (Rows: Actual, Cols: Predicted)
               </h3>
-              <table className="w-full rounded-xl border border-slate-800 text-center text-xs">
-                <thead className="bg-slate-950 text-slate-400">
+              <table className="w-full rounded-xl border border-slate-200 text-center text-xs">
+                <thead className="bg-slate-50 text-slate-600">
                   <tr>
                     <th className="p-2.5">Actual \ Pred</th>
                     {current.labels.map((l) => (
@@ -569,14 +569,14 @@ export default function MlLaboratory() {
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-slate-200">
                   {current.confusion_matrix.map((row, rIdx) => (
                     <tr key={current.labels[rIdx]}>
-                      <td className="bg-slate-950/60 p-2.5 font-semibold text-white">{current.labels[rIdx]}</td>
+                      <td className="bg-slate-50 p-2.5 font-semibold text-slate-900">{current.labels[rIdx]}</td>
                       {row.map((val, cIdx) => (
                         <td
                           key={cIdx}
-                          className={`p-2.5 font-mono ${rIdx === cIdx ? "bg-emerald-500/15 font-bold text-emerald-300" : "text-slate-300"}`}
+                          className={`p-2.5 font-mono ${rIdx === cIdx ? "bg-emerald-500/15 font-bold text-emerald-700" : "text-slate-700"}`}
                         >
                           {val}
                         </td>
@@ -587,11 +587,11 @@ export default function MlLaboratory() {
               </table>
             </div>
             <div>
-              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+              <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-600">
                 Per-Class Metrics
               </h3>
-              <table className="w-full rounded-xl border border-slate-800 text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400">
+              <table className="w-full rounded-xl border border-slate-200 text-left text-xs">
+                <thead className="bg-slate-50 text-slate-600">
                   <tr>
                     <th className="p-2.5">Class</th>
                     <th className="p-2.5">Precision</th>
@@ -600,10 +600,10 @@ export default function MlLaboratory() {
                     <th className="p-2.5">Support</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 text-slate-200">
+                <tbody className="divide-y divide-slate-200 text-slate-800">
                   {current.per_class.map((c) => (
                     <tr key={c.label}>
-                      <td className="p-2.5 font-semibold text-white">{c.label}</td>
+                      <td className="p-2.5 font-semibold text-slate-900">{c.label}</td>
                       <td className="p-2.5">{c.precision}</td>
                       <td className="p-2.5">{c.recall}</td>
                       <td className="p-2.5">{c.f1_score}</td>
@@ -619,8 +619,8 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "evaluation" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           {current.mean_accuracy !== undefined && (
             <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
               <MetricCard label="K-Folds" value={current.k_folds} />
@@ -632,24 +632,24 @@ export default function MlLaboratory() {
             <ResponsiveContainer width="100%" height="100%">
               {current.mode === "overfitting_underfitting" ? (
                 <LineChart data={current.series}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis dataKey="depth" stroke="#94a3b8" fontSize={11} />
-                  <YAxis domain={[0.4, 1]} stroke="#94a3b8" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="depth" stroke="#475569" fontSize={11} />
+                  <YAxis domain={[0.4, 1]} stroke="#475569" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                   <Legend />
                   <Line type="monotone" dataKey="train_accuracy" name="Train Accuracy" stroke="#10b981" strokeWidth={2} />
                   <Line type="monotone" dataKey="test_accuracy" name="Test Accuracy" stroke="#f59e0b" strokeWidth={2} />
                 </LineChart>
               ) : (
                 <BarChart data={current.series}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                   <XAxis
                     dataKey={current.mode === "cross_validation" ? "fold" : current.mode === "bias_variance" ? "regime" : "model"}
-                    stroke="#94a3b8"
+                    stroke="#475569"
                     fontSize={11}
                   />
-                  <YAxis domain={[0, 1]} stroke="#94a3b8" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                  <YAxis domain={[0, 1]} stroke="#475569" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                   <Legend />
                   {current.mode === "cross_validation" && (
                     <Bar dataKey="accuracy" name="Fold Accuracy" fill="#10b981" />
@@ -675,8 +675,8 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "clustering" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <MetricCard label="Samples" value={current.sample_count} />
             <MetricCard label="Clusters Found" value={current.cluster_count} />
@@ -690,10 +690,10 @@ export default function MlLaboratory() {
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ScatterChart>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis type="number" dataKey="pc1" name="PC1" stroke="#94a3b8" fontSize={11} />
-                <YAxis type="number" dataKey="pc2" name="PC2" stroke="#94a3b8" fontSize={11} />
-                <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis type="number" dataKey="pc1" name="PC1" stroke="#475569" fontSize={11} />
+                <YAxis type="number" dataKey="pc2" name="PC2" stroke="#475569" fontSize={11} />
+                <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                 <Scatter name="Traffic Observations" data={current.scatter_points}>
                   {current.scatter_points.map((pt, idx) => (
                     <Cell
@@ -705,8 +705,8 @@ export default function MlLaboratory() {
               </ScatterChart>
             </ResponsiveContainer>
           </div>
-          <table className="w-full rounded-xl border border-slate-800 text-left text-xs">
-            <thead className="bg-slate-950 text-slate-400">
+          <table className="w-full rounded-xl border border-slate-200 text-left text-xs">
+            <thead className="bg-slate-50 text-slate-600">
               <tr>
                 <th className="p-2.5">Cluster</th>
                 <th className="p-2.5">Count</th>
@@ -715,10 +715,10 @@ export default function MlLaboratory() {
                 <th className="p-2.5">Avg Clouds %</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 text-slate-200">
+            <tbody className="divide-y divide-slate-200 text-slate-800">
               {current.cluster_profiles.map((c) => (
                 <tr key={c.cluster}>
-                  <td className="p-2.5 font-semibold text-white">{c.cluster}</td>
+                  <td className="p-2.5 font-semibold text-slate-900">{c.cluster}</td>
                   <td className="p-2.5">{c.count}</td>
                   <td className="p-2.5">{c.avg_volume}</td>
                   <td className="p-2.5">{c.avg_hour}</td>
@@ -732,16 +732,16 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "association" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           <div className="grid grid-cols-3 gap-4">
             <MetricCard label="Transactions" value={current.transaction_count} />
             <MetricCard label="Frequent Itemsets" value={current.itemset_count} />
             <MetricCard label="Rules Discovered" value={current.rule_count} />
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full rounded-xl border border-slate-800 text-left text-xs">
-              <thead className="bg-slate-950 text-slate-400">
+            <table className="w-full rounded-xl border border-slate-200 text-left text-xs">
+              <thead className="bg-slate-50 text-slate-600">
                 <tr>
                   <th className="p-2.5">Antecedent (If)</th>
                   <th className="p-2.5">Consequent (Then)</th>
@@ -750,11 +750,11 @@ export default function MlLaboratory() {
                   <th className="p-2.5">Lift</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 text-slate-200">
+              <tbody className="divide-y divide-slate-200 text-slate-800">
                 {current.rules.map((r, i) => (
                   <tr key={i}>
-                    <td className="p-2.5 text-white">{r.antecedent}</td>
-                    <td className="p-2.5 text-emerald-300">{r.consequent}</td>
+                    <td className="p-2.5 text-slate-900">{r.antecedent}</td>
+                    <td className="p-2.5 text-emerald-700">{r.consequent}</td>
                     <td className="p-2.5">{r.support}</td>
                     <td className="p-2.5">{r.confidence}</td>
                     <td className="p-2.5 font-semibold">{r.lift}</td>
@@ -768,11 +768,11 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "recommendation" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           <div className="overflow-x-auto">
-            <table className="w-full rounded-xl border border-slate-800 text-left text-xs">
-              <thead className="bg-slate-950 text-slate-400">
+            <table className="w-full rounded-xl border border-slate-200 text-left text-xs">
+              <thead className="bg-slate-50 text-slate-600">
                 <tr>
                   <th className="p-2.5">Recommended Window</th>
                   <th className="p-2.5">Weather</th>
@@ -781,14 +781,14 @@ export default function MlLaboratory() {
                   <th className="p-2.5">Cosine Similarity</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 text-slate-200">
+              <tbody className="divide-y divide-slate-200 text-slate-800">
                 {current.recommendations.map((rec, idx) => (
                   <tr key={idx}>
-                    <td className="p-2.5 font-semibold text-white">{rec.window}</td>
+                    <td className="p-2.5 font-semibold text-slate-900">{rec.window}</td>
                     <td className="p-2.5">{rec.weather}</td>
                     <td className="p-2.5">{rec.expected_volume}</td>
                     <td className="p-2.5">{rec.congestion_level}</td>
-                    <td className="p-2.5 font-mono text-emerald-400">{rec.similarity_score}</td>
+                    <td className="p-2.5 font-mono text-emerald-600">{rec.similarity_score}</td>
                   </tr>
                 ))}
               </tbody>
@@ -799,8 +799,8 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "pca" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
             <MetricCard
               label="Total Variance Explained"
@@ -818,10 +818,10 @@ export default function MlLaboratory() {
           <div className="h-72 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <ScatterChart>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                <XAxis type="number" dataKey="pc1" name="PC1" stroke="#94a3b8" fontSize={11} />
-                <YAxis type="number" dataKey="pc2" name="PC2" stroke="#94a3b8" fontSize={11} />
-                <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                <XAxis type="number" dataKey="pc1" name="PC1" stroke="#475569" fontSize={11} />
+                <YAxis type="number" dataKey="pc2" name="PC2" stroke="#475569" fontSize={11} />
+                <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                 <Scatter name="2D PCA Projection" data={current.scatter_points}>
                   {current.scatter_points.map((pt, idx) => (
                     <Cell key={idx} fill={LEVEL_COLORS[pt.level] || "#10b981"} />
@@ -835,23 +835,23 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "rl" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <h2 className="text-base font-bold text-white">{current.title}</h2>
-          <div className="grid grid-cols-1 gap-3 rounded-xl border border-slate-800 bg-slate-950/60 p-4 text-xs text-slate-300 md:grid-cols-2">
-            <div><strong className="text-white">Agent:</strong> {current.rl_process.agent}</div>
-            <div><strong className="text-white">Environment:</strong> {current.rl_process.environment}</div>
-            <div><strong className="text-white">State:</strong> {current.rl_process.state}</div>
-            <div><strong className="text-white">Action:</strong> {current.rl_process.action}</div>
-            <div className="md:col-span-2"><strong className="text-white">Reward:</strong> {current.rl_process.reward}</div>
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
+          <div className="grid grid-cols-1 gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs text-slate-700 md:grid-cols-2">
+            <div><strong className="text-slate-900">Agent:</strong> {current.rl_process.agent}</div>
+            <div><strong className="text-slate-900">Environment:</strong> {current.rl_process.environment}</div>
+            <div><strong className="text-slate-900">State:</strong> {current.rl_process.state}</div>
+            <div><strong className="text-slate-900">Action:</strong> {current.rl_process.action}</div>
+            <div className="md:col-span-2"><strong className="text-slate-900">Reward:</strong> {current.rl_process.reward}</div>
           </div>
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={current.learning_curve}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis dataKey="episode" stroke="#94a3b8" fontSize={11} />
-                  <YAxis stroke="#94a3b8" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="episode" stroke="#475569" fontSize={11} />
+                  <YAxis stroke="#475569" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                   <Line type="monotone" dataKey="total_reward" name="Episode Reward" stroke="#10b981" strokeWidth={2} />
                 </LineChart>
               </ResponsiveContainer>
@@ -859,10 +859,10 @@ export default function MlLaboratory() {
             <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={current.strategy_comparison}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                  <XAxis dataKey="strategy" stroke="#94a3b8" fontSize={11} />
-                  <YAxis stroke="#94a3b8" fontSize={11} />
-                  <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderColor: "#1e293b" }} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis dataKey="strategy" stroke="#475569" fontSize={11} />
+                  <YAxis stroke="#475569" fontSize={11} />
+                  <Tooltip contentStyle={{ backgroundColor: "#ffffff", borderColor: "#e2e8f0" }} />
                   <Bar dataKey="avg_queue" name="Avg Total Queue" fill="#38bdf8" />
                 </BarChart>
               </ResponsiveContainer>
@@ -873,22 +873,22 @@ export default function MlLaboratory() {
       )}
 
       {current && activeTab === "ethics" && (
-        <div className="space-y-5 rounded-2xl border border-slate-800 bg-slate-900/50 p-6">
-          <div className="flex items-center gap-2 text-emerald-400">
+        <div className="space-y-5 rounded-2xl border border-slate-200 bg-white p-6">
+          <div className="flex items-center gap-2 text-emerald-600">
             <ShieldCheck size={18} />
-            <h2 className="text-base font-bold text-white">{current.title}</h2>
+            <h2 className="text-base font-bold text-slate-900">{current.title}</h2>
           </div>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {current.pillars.map((p) => (
-              <div key={p.topic} className="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
-                <h3 className="text-sm font-semibold text-white">{p.topic}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-slate-300">{p.summary}</p>
+              <div key={p.topic} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                <h3 className="text-sm font-semibold text-slate-900">{p.topic}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-slate-700">{p.summary}</p>
               </div>
             ))}
           </div>
-          <div className="rounded-xl border border-slate-800 bg-slate-950/60 p-4">
-            <h3 className="text-sm font-semibold text-white">Future Trends in Traffic AI & ML</h3>
-            <ul className="mt-2 list-disc space-y-1.5 pl-5 text-xs text-slate-300">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <h3 className="text-sm font-semibold text-slate-900">Future Trends in Traffic AI & ML</h3>
+            <ul className="mt-2 list-disc space-y-1.5 pl-5 text-xs text-slate-700">
               {current.future_trends.map((trend) => (
                 <li key={trend}>{trend}</li>
               ))}

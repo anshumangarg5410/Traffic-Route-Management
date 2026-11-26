@@ -69,7 +69,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
       {/* Mobile Backdrop Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 bg-slate-950/80 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-white backdrop-blur-sm lg:hidden"
           onClick={onClose}
           aria-hidden="true"
         />
@@ -78,25 +78,25 @@ export default function Sidebar({ isOpen = false, onClose }) {
       {/* Sidebar Drawer */}
       <aside
         aria-label="Workspace navigation"
-        className={`fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-slate-800 bg-slate-950 text-slate-300 transition-transform duration-200 lg:translate-x-0 ${
+        className={`fixed left-0 top-0 z-50 flex h-screen w-64 flex-col border-r border-slate-200 bg-slate-50 text-slate-700 transition-transform duration-200 lg:translate-x-0 ${
           isOpen ? "translate-x-0 shadow-2xl" : "-translate-x-full"
         }`}
       >
         {/* Brand Header */}
-        <div className="flex h-20 items-center justify-between border-b border-slate-800 px-6">
+        <div className="flex h-20 items-center justify-between border-b border-slate-200 px-6">
           <Link
             to="/workspace"
             onClick={handleNavClick}
             className="flex items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
           >
-            <div className="rounded-xl bg-emerald-500 p-2 text-slate-950 shadow-md shadow-emerald-500/20">
+            <div className="rounded-xl bg-emerald-600 p-2 text-white shadow-md shadow-emerald-500/20">
               <Network size={22} />
             </div>
             <div>
-              <h1 className="text-sm font-bold tracking-wide text-white">
+              <h1 className="text-sm font-bold tracking-wide text-slate-900">
                 ITMS
               </h1>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-slate-600">
                 Chandigarh Tricity
               </p>
             </div>
@@ -106,7 +106,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-900 hover:text-white lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+            className="rounded-lg p-1.5 text-slate-600 hover:bg-white hover:text-slate-900 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             aria-label="Close sidebar"
           >
             <X size={18} />
@@ -134,8 +134,8 @@ export default function Sidebar({ isOpen = false, onClose }) {
                       className={({ isActive }) =>
                         `flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${
                           isActive
-                            ? "bg-emerald-500/10 font-semibold text-emerald-400"
-                            : "text-slate-400 hover:bg-slate-900 hover:text-white"
+                            ? "bg-emerald-500/10 font-semibold text-emerald-600"
+                            : "text-slate-600 hover:bg-white hover:text-slate-900"
                         }`
                       }
                     >
@@ -169,25 +169,25 @@ export default function Sidebar({ isOpen = false, onClose }) {
         </nav>
 
         {/* User Footer / Auth Status */}
-        <div className="border-t border-slate-800 p-4">
+        <div className="border-t border-slate-200 p-4">
           {isAuthenticated && user ? (
             <div className="space-y-3">
-              <div className="flex items-center gap-3 rounded-xl bg-slate-900/60 p-2.5 border border-slate-800/80">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500/20 text-sm font-bold text-emerald-400">
+              <div className="flex items-center gap-3 rounded-xl bg-white p-2.5 border border-slate-200">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-emerald-500/20 text-sm font-bold text-emerald-600">
                   {user.full_name ? user.full_name[0].toUpperCase() : user.email[0].toUpperCase()}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-semibold text-white">
+                  <p className="truncate text-xs font-semibold text-slate-900">
                     {user.full_name || "Driver Account"}
                   </p>
-                  <p className="truncate text-[10px] text-slate-400">
+                  <p className="truncate text-[10px] text-slate-600">
                     {user.email}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={logout}
-                  className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-800 hover:text-rose-400 transition"
+                  className="rounded-lg p-1.5 text-slate-600 hover:bg-slate-100 hover:text-rose-400 transition"
                   title="Sign out of current session"
                   aria-label="Sign out"
                 >
@@ -197,10 +197,10 @@ export default function Sidebar({ isOpen = false, onClose }) {
 
               <div className="flex items-center justify-between px-1 text-[11px] text-slate-500">
                 <span className="flex items-center gap-1.5">
-                  <Activity size={12} className="text-emerald-400" />
+                  <Activity size={12} className="text-emerald-600" />
                   <span>Network</span>
                 </span>
-                <span className="font-mono text-emerald-400">Online</span>
+                <span className="font-mono text-emerald-600">Online</span>
               </div>
             </div>
           ) : (
@@ -208,7 +208,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
               <Link
                 to="/login"
                 onClick={handleNavClick}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-500 py-2.5 text-xs font-semibold text-slate-950 transition hover:bg-emerald-400"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-xs font-semibold text-white transition hover:bg-emerald-400"
               >
                 <LogIn size={14} />
                 <span>Sign In</span>
@@ -217,7 +217,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
                 <Link
                   to="/register"
                   onClick={handleNavClick}
-                  className="text-[11px] text-slate-400 hover:text-white transition"
+                  className="text-[11px] text-slate-600 hover:text-slate-900 transition"
                 >
                   Create an account
                 </Link>

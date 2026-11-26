@@ -38,7 +38,7 @@ export default function SignalHead({
   const isGreen = state === "green";
 
   const containerClasses = [
-    "inline-flex items-center justify-center bg-slate-950 border border-slate-800 shadow-xl select-none",
+    "inline-flex items-center justify-center bg-slate-50 border border-slate-200 shadow-xl select-none",
     orientation === "horizontal" ? "flex-row" : "flex-col",
     sizeConfig.casing,
   ].join(" ");

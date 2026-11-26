@@ -24,7 +24,7 @@ const FEATURE_MODULES = [
       "One-click swap and quick regional hubs",
     ],
     icon: Route,
-    accent: "text-emerald-400 bg-emerald-500/10 border-emerald-500/25",
+    accent: "text-emerald-600 bg-emerald-500/10 border-emerald-500/25",
   },
   {
     title: "Alternative Routes",
@@ -63,7 +63,7 @@ const FEATURE_MODULES = [
       "Graceful fallback if ML inference is unavailable",
     ],
     icon: Cpu,
-    accent: "text-amber-400 bg-amber-500/10 border-amber-500/25",
+    accent: "text-amber-600 bg-amber-500/10 border-amber-500/25",
   },
   {
     title: "Intersection Analysis",
@@ -121,16 +121,16 @@ const FEATURE_MODULES = [
 
 export default function Features() {
   return (
-    <div className="bg-slate-950 text-slate-100 py-14 md:py-20">
+    <div className="bg-slate-50 text-slate-900 py-14 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="max-w-3xl space-y-4">
-          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
             Platform Capabilities
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-slate-900">
             Features Built for Transparent Urban Mobility
           </h1>
-          <p className="text-base text-slate-400 leading-relaxed">
+          <p className="text-base text-slate-600 leading-relaxed">
             Explore the implemented routing, road-network analysis, signal
             optimization, simulation, and ML context modules powering ITMS.
           </p>
@@ -142,7 +142,7 @@ export default function Features() {
             return (
               <div
                 key={mod.title}
-                className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-4 hover:border-slate-700 transition"
+                className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4 hover:border-slate-300 transition"
               >
                 <div className="flex items-start gap-4">
                   <div
@@ -151,16 +151,16 @@ export default function Features() {
                     <Icon size={21} />
                   </div>
                   <div>
-                    <h2 className="text-lg font-semibold text-white">
+                    <h2 className="text-lg font-semibold text-slate-900">
                       {mod.title}
                     </h2>
-                    <p className="text-xs font-medium text-slate-400">
+                    <p className="text-xs font-medium text-slate-600">
                       {mod.subtitle}
                     </p>
                   </div>
                 </div>
 
-                <p className="text-sm text-slate-300 leading-relaxed">
+                <p className="text-sm text-slate-700 leading-relaxed">
                   {mod.description}
                 </p>
 
@@ -168,11 +168,11 @@ export default function Features() {
                   {mod.highlights.map((item) => (
                     <li
                       key={item}
-                      className="flex items-start gap-2 text-xs text-slate-400"
+                      className="flex items-start gap-2 text-xs text-slate-600"
                     >
                       <CheckCircle2
                         size={14}
-                        className="shrink-0 mt-0.5 text-emerald-400"
+                        className="shrink-0 mt-0.5 text-emerald-600"
                       />
                       <span>{item}</span>
                     </li>
@@ -183,12 +183,12 @@ export default function Features() {
           })}
         </div>
 
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-6 sm:p-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-white">
+            <h2 className="text-lg font-semibold text-slate-900">
               Ready to test multi-criteria route planning?
             </h2>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-slate-600 mt-1">
               Launch the Chandigarh Tricity route planner directly in your
               browser.
             </p>

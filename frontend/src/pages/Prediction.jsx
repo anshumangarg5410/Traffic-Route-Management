@@ -40,7 +40,7 @@ const initialWeatherForm = {
 function NumberInput({ label, value, onChange, min, max, step = 1, placeholder }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-xs text-slate-400">{label}</span>
+      <span className="mb-2 block text-xs text-slate-600">{label}</span>
       <input
         type="number"
         min={min}
@@ -49,7 +49,7 @@ function NumberInput({ label, value, onChange, min, max, step = 1, placeholder }
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white placeholder-slate-600 outline-none transition focus:border-emerald-500"
+        className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 placeholder-slate-400 outline-none transition focus:border-emerald-500"
       />
     </label>
   );
@@ -57,12 +57,12 @@ function NumberInput({ label, value, onChange, min, max, step = 1, placeholder }
 
 function StatCard({ title, value, subtitle, icon: Icon, highlight = false }) {
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+    <div className="rounded-xl border border-slate-200 bg-white p-4">
       <div className="flex items-center justify-between">
-        <p className="text-xs text-slate-400">{title}</p>
-        {Icon && <Icon size={18} className={highlight ? "text-emerald-400" : "text-slate-500"} />}
+        <p className="text-xs text-slate-600">{title}</p>
+        {Icon && <Icon size={18} className={highlight ? "text-emerald-600" : "text-slate-500"} />}
       </div>
-      <p className={`mt-2 text-2xl font-bold ${highlight ? "text-emerald-400" : "text-white"}`}>
+      <p className={`mt-2 text-2xl font-bold ${highlight ? "text-emerald-600" : "text-slate-900"}`}>
         {value}
       </p>
       {subtitle && <p className="mt-1 text-xs text-slate-500">{subtitle}</p>}
@@ -217,10 +217,10 @@ export default function Prediction() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">
+        <h1 className="text-2xl font-bold text-slate-900">
           ML Traffic Prediction & Signal Optimization Workflow
         </h1>
-        <p className="mt-2 text-sm text-slate-400">
+        <p className="mt-2 text-sm text-slate-600">
           Predict regional traffic volume categories from environmental features and evaluate
           micro-level intersection queue dynamics using stochastic simulation.
         </p>
@@ -230,12 +230,12 @@ export default function Prediction() {
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
         {/* Input Parameters Form */}
         <div className="xl:col-span-2 space-y-6">
-          <form className="rounded-xl border border-slate-800 bg-slate-900 p-6 space-y-6">
+          <form className="rounded-xl border border-slate-200 bg-white p-6 space-y-6">
             {/* Step 1: Weather & Environment */}
             <div>
-              <div className="mb-4 flex items-center gap-2 border-b border-slate-800 pb-3">
-                <BrainCircuit className="text-emerald-400" size={20} />
-                <h2 className="font-semibold text-white">
+              <div className="mb-4 flex items-center gap-2 border-b border-slate-200 pb-3">
+                <BrainCircuit className="text-emerald-600" size={20} />
+                <h2 className="font-semibold text-slate-900">
                   1. Environmental & Temporal Features (ML Context)
                 </h2>
               </div>
@@ -301,12 +301,12 @@ export default function Prediction() {
 
               <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
                 <label className="block">
-                  <span className="mb-2 block text-xs text-slate-400">Weather Condition</span>
+                  <span className="mb-2 block text-xs text-slate-600">Weather Condition</span>
                   <select
                     name="weather_main"
                     value={weatherForm.weather_main}
                     onChange={handleWeatherChange}
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     {["Clear", "Clouds", "Rain", "Drizzle", "Mist", "Snow", "Fog", "Thunderstorm"].map((w) => (
                       <option key={w} value={w}>{w}</option>
@@ -315,23 +315,23 @@ export default function Prediction() {
                 </label>
 
                 <label className="block">
-                  <span className="mb-2 block text-xs text-slate-400">Holiday Status</span>
+                  <span className="mb-2 block text-xs text-slate-600">Holiday Status</span>
                   <input
                     type="text"
                     name="holiday"
                     value={weatherForm.holiday}
                     onChange={handleWeatherChange}
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   />
                 </label>
 
                 <label className="block">
-                  <span className="mb-2 block text-xs text-slate-400">Weekend?</span>
+                  <span className="mb-2 block text-xs text-slate-600">Weekend?</span>
                   <select
                     name="is_weekend"
                     value={weatherForm.is_weekend}
                     onChange={handleWeatherChange}
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value={0}>Weekday (0)</option>
                     <option value={1}>Weekend (1)</option>
@@ -341,10 +341,10 @@ export default function Prediction() {
             </div>
 
             {/* Step 2: Directional Intersection Parameters */}
-            <div className="border-t border-slate-800 pt-6">
-              <div className="mb-4 flex items-center gap-2 border-b border-slate-800 pb-3">
-                <Sliders className="text-emerald-400" size={20} />
-                <h2 className="font-semibold text-white">
+            <div className="border-t border-slate-200 pt-6">
+              <div className="mb-4 flex items-center gap-2 border-b border-slate-200 pb-3">
+                <Sliders className="text-emerald-600" size={20} />
+                <h2 className="font-semibold text-slate-900">
                   2. Directional Intersection Demand (Micro Parameters)
                 </h2>
               </div>
@@ -352,7 +352,7 @@ export default function Prediction() {
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {/* Initial queues */}
                 <div>
-                  <h3 className="mb-3 text-xs font-semibold text-slate-300">
+                  <h3 className="mb-3 text-xs font-semibold text-slate-700">
                     Initial Approach Queues (vehicles)
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -370,7 +370,7 @@ export default function Prediction() {
 
                 {/* Arrival rates */}
                 <div>
-                  <h3 className="mb-3 text-xs font-semibold text-slate-300">
+                  <h3 className="mb-3 text-xs font-semibold text-slate-700">
                     Arrival Rates (vehicles / minute)
                   </h3>
                   <div className="grid grid-cols-2 gap-3">
@@ -399,11 +399,11 @@ export default function Prediction() {
                 />
 
                 <label className="block">
-                  <span className="mb-2 block text-xs text-slate-400">Signal Strategy</span>
+                  <span className="mb-2 block text-xs text-slate-600">Signal Strategy</span>
                   <select
                     value={strategy}
                     onChange={(e) => updateSimulationSettings("strategy", e.target.value)}
-                    className="w-full rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-white"
+                    className="w-full rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900"
                   >
                     <option value="adaptive">Adaptive Optimization</option>
                     <option value="fixed">Fixed-Time (25s each)</option>
@@ -420,16 +420,16 @@ export default function Prediction() {
               </div>
 
               {/* Scenario Scaling Option */}
-              <div className="mt-4 flex items-center gap-3 rounded-lg border border-slate-800 bg-slate-950/60 p-3">
+              <div className="mt-4 flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
                 <input
                   type="checkbox"
                   id="scaling"
                   checked={applyScaling}
                   onChange={(e) => updateSimulationSettings("applyScaling", e.target.checked)}
-                  className="h-4 w-4 rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-emerald-500"
+                  className="h-4 w-4 rounded border-slate-300 bg-white text-emerald-500 focus:ring-emerald-500"
                 />
-                <label htmlFor="scaling" className="text-xs text-slate-300">
-                  <span className="font-semibold text-white">Apply ML Scenario Demand Factor</span> — Scale directional arrival rates based on predicted traffic category (Low: 0.85x, Medium: 1.0x, High: 1.25x).
+                <label htmlFor="scaling" className="text-xs text-slate-700">
+                  <span className="font-semibold text-slate-900">Apply ML Scenario Demand Factor</span> — Scale directional arrival rates based on predicted traffic category (Low: 0.85x, Medium: 1.0x, High: 1.25x).
                   <span className="block text-[11px] text-slate-500 mt-0.5">
                     Optional scenario assumption; not a direct learned directional output of the ML model.
                   </span>
@@ -438,7 +438,7 @@ export default function Prediction() {
             </div>
 
             {error && (
-              <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-400">
+              <div className="rounded-lg border border-red-500/20 bg-red-500/10 p-3 text-sm text-red-600">
                 {error}
               </div>
             )}
@@ -449,7 +449,7 @@ export default function Prediction() {
                 type="button"
                 onClick={handlePredictOnly}
                 disabled={loadingMode !== null}
-                className="flex items-center justify-center gap-2 rounded-lg border border-slate-700 px-4 py-2.5 text-sm font-medium text-slate-200 transition hover:bg-slate-800 disabled:opacity-50"
+                className="flex items-center justify-center gap-2 rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-medium text-slate-800 transition hover:bg-slate-100 disabled:opacity-50"
               >
                 <BrainCircuit size={16} />
                 {loadingMode === "ml" ? "Predicting..." : "Predict Regional Traffic Only"}
@@ -459,7 +459,7 @@ export default function Prediction() {
                 type="button"
                 onClick={handleRunIntegrated}
                 disabled={loadingMode !== null}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400 disabled:opacity-50"
+                className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-emerald-400 disabled:opacity-50"
               >
                 <Play size={16} />
                 {loadingMode === "integrated" ? "Simulating Workflow..." : "Run Integrated Prediction & Simulation"}
@@ -468,7 +468,7 @@ export default function Prediction() {
               <button
                 type="button"
                 onClick={resetAll}
-                className="rounded-lg border border-slate-700 px-4 text-slate-300 transition hover:bg-slate-800"
+                className="rounded-lg border border-slate-300 px-4 text-slate-700 transition hover:bg-slate-100"
                 title="Reset all inputs"
               >
                 <RotateCcw size={16} />
@@ -479,56 +479,56 @@ export default function Prediction() {
 
         {/* ML Prediction Output Card */}
         <div className="space-y-6">
-          <div className="rounded-xl border border-slate-800 bg-slate-900 p-6">
-            <div className="mb-4 flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="rounded-xl border border-slate-200 bg-white p-6">
+            <div className="mb-4 flex items-center justify-between border-b border-slate-200 pb-3">
               <div className="flex items-center gap-2">
-                <BrainCircuit className="text-emerald-400" size={20} />
-                <h2 className="font-semibold text-white">ML Regional Context</h2>
+                <BrainCircuit className="text-emerald-600" size={20} />
+                <h2 className="font-semibold text-slate-900">ML Regional Context</h2>
               </div>
-              <span className="rounded bg-slate-800 px-2 py-0.5 text-[10px] text-slate-400 border border-slate-700">
+              <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-600 border border-slate-300">
                 Random Forest
               </span>
             </div>
 
             {!mlResult ? (
               <div className="py-12 text-center text-slate-500">
-                <BrainCircuit size={40} className="mx-auto mb-3 opacity-30 text-slate-400" />
+                <BrainCircuit size={40} className="mx-auto mb-3 opacity-30 text-slate-600" />
                 <p className="text-sm">Submit environmental conditions to predict macro traffic volume.</p>
               </div>
             ) : (
               <div className="space-y-6">
                 <div>
-                  <p className="text-xs text-slate-400">Predicted Macro Traffic Volume</p>
+                  <p className="text-xs text-slate-600">Predicted Macro Traffic Volume</p>
                   <div className="mt-2 flex items-center gap-3">
                     <span
                       className={`rounded-lg px-3 py-1.5 text-lg font-bold ${
                         mlResult.predicted_traffic_level === "High"
-                          ? "bg-red-500/20 text-red-400 border border-red-500/30"
+                          ? "bg-red-500/20 text-red-600 border border-red-500/30"
                           : mlResult.predicted_traffic_level === "Medium"
-                          ? "bg-amber-500/20 text-amber-400 border border-amber-500/30"
-                          : "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                          ? "bg-amber-500/20 text-amber-600 border border-amber-500/30"
+                          : "bg-emerald-500/20 text-emerald-600 border border-emerald-500/30"
                       }`}
                     >
                       {mlResult.predicted_traffic_level}
                     </span>
-                    <span className="text-xs text-slate-400">
+                    <span className="text-xs text-slate-600">
                       Volume Index: {mlResult.predicted_traffic_level === "High" ? "> 4547 veh/h" : mlResult.predicted_traffic_level === "Low" ? "< 2157 veh/h" : "2157–4547 veh/h"}
                     </span>
                   </div>
                 </div>
 
                 <div>
-                  <p className="mb-3 text-xs font-semibold text-slate-300">
+                  <p className="mb-3 text-xs font-semibold text-slate-700">
                     Classification Probabilities
                   </p>
                   <div className="space-y-3">
                     {Object.entries(mlResult.confidence || {}).map(([label, prob]) => (
                       <div key={label}>
                         <div className="mb-1 flex justify-between text-xs">
-                          <span className="text-slate-400">{label}</span>
-                          <span className="font-mono text-white">{(prob * 100).toFixed(1)}%</span>
+                          <span className="text-slate-600">{label}</span>
+                          <span className="font-mono text-slate-900">{(prob * 100).toFixed(1)}%</span>
                         </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-slate-800">
+                        <div className="h-2 overflow-hidden rounded-full bg-slate-100">
                           <div
                             className={`h-full rounded-full ${
                               label === "High" ? "bg-red-500" : label === "Medium" ? "bg-amber-500" : "bg-emerald-500"
@@ -541,9 +541,9 @@ export default function Prediction() {
                   </div>
                 </div>
 
-                <div className="rounded-lg bg-slate-950 p-3 text-[11px] leading-relaxed text-slate-400 border border-slate-800">
-                  <div className="flex items-center gap-1.5 font-semibold text-slate-300 mb-1">
-                    <Info size={13} className="text-emerald-400" />
+                <div className="rounded-lg bg-slate-50 p-3 text-[11px] leading-relaxed text-slate-600 border border-slate-200">
+                  <div className="flex items-center gap-1.5 font-semibold text-slate-700 mb-1">
+                    <Info size={13} className="text-emerald-600" />
                     Model Scope & Boundaries
                   </div>
                   Trained on UCI Interstate Traffic Volume data. This model classifies macro-level highway corridor traffic volume. It does not predict directional turning movements or queues at specific intersection approaches.
@@ -556,22 +556,22 @@ export default function Prediction() {
 
       {/* Integrated Simulation Results Section */}
       {integratedResult && (
-        <div className="space-y-6 rounded-xl border border-slate-800 bg-slate-900 p-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="space-y-6 rounded-xl border border-slate-200 bg-white p-6">
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4">
             <div>
-              <h2 className="text-lg font-bold text-white">
+              <h2 className="text-lg font-bold text-slate-900">
                 Intersection Simulation Results
               </h2>
-              <p className="mt-1 text-xs text-slate-400">
+              <p className="mt-1 text-xs text-slate-600">
                 Stochastic queue progression across {sim?.cycles_simulated} cycles using {sim?.strategy} strategy.
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="rounded-full bg-slate-800 px-3 py-1 text-xs font-mono text-emerald-400 border border-slate-700">
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-mono text-emerald-600 border border-slate-300">
                 Strategy: {sim?.strategy?.toUpperCase()}
               </span>
               {sim?.random_seed !== null && (
-                <span className="rounded-full bg-slate-800 px-3 py-1 text-xs font-mono text-slate-300 border border-slate-700">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-mono text-slate-700 border border-slate-300">
                   Seed: {sim?.random_seed}
                 </span>
               )}
@@ -608,18 +608,18 @@ export default function Prediction() {
           </div>
 
           {/* Recharts Chart: Initial vs Final vs Green Time */}
-          <div className="rounded-xl border border-slate-800 bg-slate-950 p-5">
-            <h3 className="mb-1 text-sm font-semibold text-white">
+          <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
+            <h3 className="mb-1 text-sm font-semibold text-slate-900">
               Direction-Wise Queues & Signal Allocations
             </h3>
-            <p className="mb-4 text-xs text-slate-400">
+            <p className="mb-4 text-xs text-slate-600">
               Comparing initial approach queues, final queues, and last-cycle green time allocations.
             </p>
 
             <div className="h-64 w-full pt-2">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 5 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                   <XAxis dataKey="direction" stroke="#64748b" tick={{ fontSize: 12 }} />
                   <YAxis stroke="#64748b" tick={{ fontSize: 12 }} />
                   <Tooltip
@@ -639,32 +639,32 @@ export default function Prediction() {
             {DIRECTIONS.map((d) => {
               const dm = byDirMetrics?.[d];
               return (
-                <div key={d} className="rounded-xl border border-slate-800 bg-slate-950 p-4">
-                  <h4 className="text-xs font-bold uppercase text-emerald-400 mb-3">{d} Approach</h4>
+                <div key={d} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <h4 className="text-xs font-bold uppercase text-emerald-600 mb-3">{d} Approach</h4>
                   <div className="space-y-2 text-xs">
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-slate-600">
                       <span>Initial Queue:</span>
-                      <span className="font-mono text-white">{dm?.initial_queue ?? 0}</span>
+                      <span className="font-mono text-slate-900">{dm?.initial_queue ?? 0}</span>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-slate-600">
                       <span>Total Arrivals:</span>
-                      <span className="font-mono text-white">{dm?.total_arrivals ?? 0}</span>
+                      <span className="font-mono text-slate-900">{dm?.total_arrivals ?? 0}</span>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-slate-600">
                       <span>Total Discharged:</span>
-                      <span className="font-mono text-white">{dm?.total_discharged ?? 0}</span>
+                      <span className="font-mono text-slate-900">{dm?.total_discharged ?? 0}</span>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-slate-600">
                       <span>Remaining Queue:</span>
-                      <span className="font-mono font-bold text-white">{dm?.final_queue ?? 0}</span>
+                      <span className="font-mono font-bold text-slate-900">{dm?.final_queue ?? 0}</span>
                     </div>
-                    <div className="flex justify-between text-slate-400 border-t border-slate-800 pt-2">
+                    <div className="flex justify-between text-slate-600 border-t border-slate-200 pt-2">
                       <span>Avg Green Time:</span>
-                      <span className="font-mono text-emerald-400">{dm?.average_green_time_seconds ?? 0}s</span>
+                      <span className="font-mono text-emerald-600">{dm?.average_green_time_seconds ?? 0}s</span>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-slate-600">
                       <span>Avg Waiting Time:</span>
-                      <span className="font-mono text-white">{dm?.estimated_average_waiting_time_seconds ?? 0}s</span>
+                      <span className="font-mono text-slate-900">{dm?.estimated_average_waiting_time_seconds ?? 0}s</span>
                     </div>
                   </div>
                 </div>
@@ -673,8 +673,8 @@ export default function Prediction() {
           </div>
 
           {/* Metadata Disclaimer */}
-          <div className="rounded-lg bg-slate-950 p-4 text-xs text-slate-400 border border-slate-800">
-            <p className="font-semibold text-slate-300 mb-1">Methodology & Scenario Note:</p>
+          <div className="rounded-lg bg-slate-50 p-4 text-xs text-slate-600 border border-slate-200">
+            <p className="font-semibold text-slate-700 mb-1">Methodology & Scenario Note:</p>
             {integratedResult.scenario_metadata?.note}
           </div>
         </div>

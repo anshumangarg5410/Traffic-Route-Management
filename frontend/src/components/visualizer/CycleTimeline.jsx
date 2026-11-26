@@ -24,14 +24,14 @@ export default function CycleTimeline({
       bg: "bg-emerald-500",
       activeBg: "bg-emerald-400",
       border: "border-emerald-400",
-      text: "text-emerald-400",
-      pill: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+      text: "text-emerald-600",
+      pill: "bg-emerald-500/20 text-emerald-700 border-emerald-500/40",
     },
     south: {
       bg: "bg-sky-500",
       activeBg: "bg-sky-400",
       border: "border-sky-400",
-      text: "text-sky-400",
+      text: "text-sky-600",
       pill: "bg-sky-500/20 text-sky-300 border-sky-500/40",
     },
     east: {
@@ -45,8 +45,8 @@ export default function CycleTimeline({
       bg: "bg-amber-500",
       activeBg: "bg-amber-400",
       border: "border-amber-400",
-      text: "text-amber-400",
-      pill: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+      text: "text-amber-600",
+      pill: "bg-amber-500/20 text-amber-700 border-amber-500/40",
     },
   };
 
@@ -93,22 +93,22 @@ export default function CycleTimeline({
   const totalClearance = clearancePerPhase * 4;
 
   return (
-    <div className="rounded-xl border border-slate-800 bg-slate-900/90 p-4 space-y-3">
+    <div className="rounded-xl border border-slate-200 bg-white/95 p-4 space-y-3">
       {/* Header Info */}
       <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
         <div className="flex items-center gap-2">
-          <Clock size={15} className="text-emerald-400" />
-          <span className="font-semibold text-white">
+          <Clock size={15} className="text-emerald-600" />
+          <span className="font-semibold text-slate-900">
             Cycle {cycleNumber} Timing Timeline
           </span>
-          <span className="rounded bg-slate-800 px-2 py-0.5 font-mono text-[11px] text-slate-300 border border-slate-700">
+          <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-[11px] text-slate-700 border border-slate-300">
             {cycleDuration}s Total ({totalGreen}s Green + {totalClearance}s Clearance)
           </span>
         </div>
 
         {/* Phase Pill Buttons */}
         <div className="flex items-center gap-1.5">
-          <span className="text-[11px] text-slate-400 mr-1">Active Phase:</span>
+          <span className="text-[11px] text-slate-600 mr-1">Active Phase:</span>
           {directions.map((d) => {
             const isActive = activePhase === d;
             const colors = phaseColors[d];
@@ -120,7 +120,7 @@ export default function CycleTimeline({
                 className={`rounded px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wider transition border ${
                   isActive
                     ? `${colors.pill} ring-1 ring-white/40 shadow-sm`
-                    : "bg-slate-950 text-slate-400 border-slate-800 hover:text-white hover:bg-slate-800"
+                    : "bg-slate-50 text-slate-600 border-slate-200 hover:text-slate-900 hover:bg-slate-100"
                 }`}
                 title={`Select ${d} phase (${greenTimes[d]}s)`}
               >
@@ -133,7 +133,7 @@ export default function CycleTimeline({
 
       {/* Visual Timeline Track */}
       <div className="space-y-1.5 pt-1">
-        <div className="relative h-7 w-full overflow-hidden rounded-lg bg-slate-950 border border-slate-800 flex">
+        <div className="relative h-7 w-full overflow-hidden rounded-lg bg-slate-50 border border-slate-200 flex">
           {segments.map((seg, i) => {
             if (seg.type === "green") {
               const isActive = activePhase === seg.direction;
@@ -165,7 +165,7 @@ export default function CycleTimeline({
                   className="h-full bg-amber-500/30 border-r border-slate-900 flex items-center justify-center relative cursor-default"
                   title={`Clearance Interval ${seg.phaseIndex}: ${seg.duration}s yellow/all-red transition`}
                 >
-                  <span className="text-[9px] text-amber-300 font-mono font-bold select-none">
+                  <span className="text-[9px] text-amber-700 font-mono font-bold select-none">
                     5s
                   </span>
                 </div>
@@ -175,7 +175,7 @@ export default function CycleTimeline({
         </div>
 
         {/* Time Scale Marks (0s, 30s, 60s, 90s, 120s) */}
-        <div className="relative flex justify-between text-[10px] font-mono text-slate-400 px-0.5">
+        <div className="relative flex justify-between text-[10px] font-mono text-slate-600 px-0.5">
           <span>0s</span>
           <span>30s</span>
           <span>60s</span>
@@ -185,14 +185,14 @@ export default function CycleTimeline({
       </div>
 
       {/* Description & Engineering Note */}
-      <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800/60">
+      <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-600 pt-1 border-t border-slate-200/60">
         <span>
           Sequence:{" "}
-          <strong className="text-slate-300 font-mono">
+          <strong className="text-slate-700 font-mono">
             North (Stage 1) → South (Stage 2) → East (Stage 3) → West (Stage 4)
           </strong>
         </span>
-        <span className="text-slate-400">
+        <span className="text-slate-600">
           Sequential non-conflicting service with 5s inter-stage clearance transitions
         </span>
       </div>

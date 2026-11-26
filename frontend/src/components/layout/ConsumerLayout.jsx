@@ -47,23 +47,23 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-950 text-slate-100">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
       {/* Top Navigation Bar */}
-      <header className="sticky top-0 z-50 border-b border-slate-800/90 bg-slate-950/90 backdrop-blur-md">
+      <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
           {/* Left: Brand Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2.5 text-white hover:opacity-90 transition shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg"
+            className="flex items-center gap-2.5 text-slate-900 hover:opacity-90 transition shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 rounded-lg"
           >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-600">
               <Navigation size={18} />
             </div>
             <div>
-              <span className="text-base font-bold tracking-tight text-white block leading-tight">
+              <span className="text-base font-bold tracking-tight text-slate-900 block leading-tight">
                 ITMS
               </span>
-              <span className="hidden sm:block text-[10px] font-medium text-slate-400 leading-none">
+              <span className="hidden sm:block text-[10px] font-medium text-slate-600 leading-none">
                 Intelligent Traffic Management
               </span>
             </div>
@@ -82,8 +82,8 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                 className={({ isActive }) =>
                   `transition rounded-md px-1 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
                     isActive
-                      ? "text-emerald-400 font-semibold"
-                      : "text-slate-300 hover:text-white"
+                      ? "text-emerald-600 font-semibold"
+                      : "text-slate-700 hover:text-slate-900"
                   }`
                 }
               >
@@ -98,11 +98,11 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               to="/route-planner"
               className={`flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
                 isPlanner
-                  ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-300"
-                  : "border-slate-800 bg-slate-900/70 text-slate-200 hover:border-slate-700 hover:text-white"
+                  ? "border-emerald-500/50 bg-emerald-500/15 text-emerald-700"
+                  : "border-slate-200 bg-white text-slate-800 hover:border-slate-300 hover:text-slate-900"
               }`}
             >
-              <Route size={14} className="text-emerald-400" />
+              <Route size={14} className="text-emerald-600" />
               <span>Plan a Journey</span>
             </Link>
 
@@ -110,9 +110,9 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               <>
                 <Link
                   to="/saved-routes"
-                  className="flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3 py-1.5 text-xs font-medium text-slate-300 hover:border-slate-700 hover:text-white transition"
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 hover:border-slate-300 hover:text-slate-900 transition"
                 >
-                  <Bookmark size={14} className="text-emerald-400" />
+                  <Bookmark size={14} className="text-emerald-600" />
                   <span>Saved Routes</span>
                 </Link>
                 <Link
@@ -125,7 +125,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                 {user.role === "admin" && (
                   <Link
                     to="/admin"
-                    className="flex items-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-300 hover:bg-amber-500/20 transition"
+                    className="flex items-center gap-1.5 rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-xs font-medium text-amber-700 hover:bg-amber-500/20 transition"
                   >
                     <Shield size={14} />
                     <span>Admin</span>
@@ -136,7 +136,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               <>
                 <Link
                   to="/login"
-                  className="flex items-center gap-1.5 rounded-lg border border-slate-800 bg-slate-900/70 px-3.5 py-1.5 text-xs font-medium text-slate-200 hover:border-slate-700 hover:text-white transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                  className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3.5 py-1.5 text-xs font-medium text-slate-800 hover:border-slate-300 hover:text-slate-900 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
                 >
                   <LogIn size={14} />
                   <span>Login</span>
@@ -156,7 +156,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="rounded-lg border border-slate-800 bg-slate-900/80 p-2 text-slate-300 hover:text-white lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+            className="rounded-lg border border-slate-200 bg-white p-2 text-slate-700 hover:text-slate-900 lg:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
             aria-label="Toggle navigation menu"
             aria-expanded={mobileMenuOpen}
           >
@@ -166,7 +166,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
 
         {/* Mobile Dropdown Menu */}
         {mobileMenuOpen && (
-          <div className="border-t border-slate-800 bg-slate-950 px-4 py-4 space-y-3 lg:hidden">
+          <div className="border-t border-slate-200 bg-slate-50 px-4 py-4 space-y-3 lg:hidden">
             <div className="flex flex-col space-y-1 text-sm">
               {PUBLIC_NAV_LINKS.map((item) => (
                 <NavLink
@@ -177,8 +177,8 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                   className={({ isActive }) =>
                     `rounded-lg px-3 py-2 transition ${
                       isActive
-                        ? "bg-emerald-500/10 text-emerald-400 font-semibold"
-                        : "text-slate-300 hover:bg-slate-900 hover:text-white"
+                        ? "bg-emerald-500/10 text-emerald-600 font-semibold"
+                        : "text-slate-700 hover:bg-white hover:text-slate-900"
                     }`
                   }
                 >
@@ -188,14 +188,14 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               <Link
                 to="/route-planner"
                 onClick={() => setMobileMenuOpen(false)}
-                className="rounded-lg px-3 py-2 text-cyan-300 font-medium hover:bg-slate-900 flex items-center gap-2"
+                className="rounded-lg px-3 py-2 text-cyan-300 font-medium hover:bg-white flex items-center gap-2"
               >
                 <Route size={15} />
                 <span>Plan a Journey</span>
               </Link>
             </div>
 
-            <div className="border-t border-slate-800 pt-3 flex flex-wrap gap-2">
+            <div className="border-t border-slate-200 pt-3 flex flex-wrap gap-2">
               {isAuthenticated && user ? (
                 <>
                   <Link
@@ -208,7 +208,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                   <Link
                     to="/saved-routes"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex-1 text-center rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs font-medium text-slate-200"
+                    className="flex-1 text-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-800"
                   >
                     Saved Routes
                   </Link>
@@ -216,7 +216,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                     <Link
                       to="/admin"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex-1 text-center rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-medium text-amber-300"
+                      className="flex-1 text-center rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-xs font-medium text-amber-700"
                     >
                       Admin
                     </Link>
@@ -227,7 +227,7 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                   <Link
                     to="/login"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex-1 text-center rounded-lg border border-slate-800 bg-slate-900 px-3 py-2 text-xs font-medium text-slate-200"
+                    className="flex-1 text-center rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-800"
                   >
                     Login
                   </Link>
@@ -249,22 +249,22 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
       <main className="flex-1">{children}</main>
 
       {/* Consistent Professional Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-950 text-slate-400">
+      <footer className="border-t border-slate-200 bg-slate-50 text-slate-600">
         <div
           className={`mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ${
             compactFooter ? "py-6" : "py-12"
           }`}
         >
           {!compactFooter ? (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-12 pb-8 border-b border-slate-800/80">
+            <div className="grid grid-cols-1 gap-8 md:grid-cols-12 pb-8 border-b border-slate-200">
               <div className="md:col-span-5 space-y-3">
-                <div className="flex items-center gap-2 text-base font-bold text-white">
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
+                <div className="flex items-center gap-2 text-base font-bold text-slate-900">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-600">
                     <Navigation size={14} />
                   </div>
                   <span>ITMS</span>
                 </div>
-                <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+                <p className="text-xs text-slate-600 leading-relaxed max-w-sm">
                   Intelligent Traffic Management System — an urban mobility and
                   multi-criteria route-planning platform built for Chandigarh
                   Tricity.
@@ -273,9 +273,9 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                   {TRICITY_COVERAGE.map((city) => (
                     <span
                       key={city}
-                      className="inline-flex items-center gap-1 rounded-md border border-slate-800 bg-slate-900/70 px-2 py-0.5 text-[11px] text-slate-300"
+                      className="inline-flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2 py-0.5 text-[11px] text-slate-700"
                     >
-                      <MapPin size={10} className="text-emerald-400" />
+                      <MapPin size={10} className="text-emerald-600" />
                       <span>{city}</span>
                     </span>
                   ))}
@@ -283,27 +283,27 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               </div>
 
               <div className="md:col-span-2 space-y-2.5 text-xs">
-                <p className="font-semibold text-white uppercase tracking-wider text-[11px]">
+                <p className="font-semibold text-slate-900 uppercase tracking-wider text-[11px]">
                   Product
                 </p>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/" className="hover:text-white transition">
+                    <Link to="/" className="hover:text-slate-900 transition">
                       Home
                     </Link>
                   </li>
                   <li>
-                    <Link to="/features" className="hover:text-white transition">
+                    <Link to="/features" className="hover:text-slate-900 transition">
                       Features
                     </Link>
                   </li>
                   <li>
-                    <Link to="/how-it-works" className="hover:text-white transition">
+                    <Link to="/how-it-works" className="hover:text-slate-900 transition">
                       How It Works
                     </Link>
                   </li>
                   <li>
-                    <Link to="/route-planner" className="hover:text-white transition">
+                    <Link to="/route-planner" className="hover:text-slate-900 transition">
                       Plan a Journey
                     </Link>
                   </li>
@@ -311,24 +311,24 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               </div>
 
               <div className="md:col-span-2 space-y-2.5 text-xs">
-                <p className="font-semibold text-white uppercase tracking-wider text-[11px]">
+                <p className="font-semibold text-slate-900 uppercase tracking-wider text-[11px]">
                   Platform
                 </p>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/about" className="hover:text-white transition">
+                    <Link to="/about" className="hover:text-slate-900 transition">
                       About ITMS
                     </Link>
                   </li>
                   <li>
-                    <Link to="/contact" className="hover:text-white transition">
+                    <Link to="/contact" className="hover:text-slate-900 transition">
                       Contact
                     </Link>
                   </li>
                   <li>
                     <Link
                       to="/how-it-works#ml-transparency"
-                      className="hover:text-white transition"
+                      className="hover:text-slate-900 transition"
                     >
                       ML Transparency
                     </Link>
@@ -337,24 +337,24 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               </div>
 
               <div className="md:col-span-3 space-y-2.5 text-xs">
-                <p className="font-semibold text-white uppercase tracking-wider text-[11px]">
+                <p className="font-semibold text-slate-900 uppercase tracking-wider text-[11px]">
                   Account
                 </p>
                 <ul className="space-y-2">
                   {isAuthenticated ? (
                     <>
                       <li>
-                        <Link to="/workspace" className="hover:text-white transition">
+                        <Link to="/workspace" className="hover:text-slate-900 transition">
                           User Workspace
                         </Link>
                       </li>
                       <li>
-                        <Link to="/saved-routes" className="hover:text-white transition">
+                        <Link to="/saved-routes" className="hover:text-slate-900 transition">
                           Saved Routes
                         </Link>
                       </li>
                       <li>
-                        <Link to="/route-history" className="hover:text-white transition">
+                        <Link to="/route-history" className="hover:text-slate-900 transition">
                           Route History
                         </Link>
                       </li>
@@ -362,12 +362,12 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
                   ) : (
                     <>
                       <li>
-                        <Link to="/login" className="hover:text-white transition">
+                        <Link to="/login" className="hover:text-slate-900 transition">
                           Sign In
                         </Link>
                       </li>
                       <li>
-                        <Link to="/register" className="hover:text-white transition">
+                        <Link to="/register" className="hover:text-slate-900 transition">
                           Create Account
                         </Link>
                       </li>
@@ -388,13 +388,13 @@ export default function ConsumerLayout({ children, compactFooter = false }) {
               Chandigarh Tricity.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <Link to="/how-it-works#ml-transparency" className="hover:text-slate-300 transition">
+              <Link to="/how-it-works#ml-transparency" className="hover:text-slate-700 transition">
                 Methodology &amp; Disclaimers
               </Link>
-              <Link to="/about" className="hover:text-slate-300 transition">
+              <Link to="/about" className="hover:text-slate-700 transition">
                 About
               </Link>
-              <Link to="/contact" className="hover:text-slate-300 transition">
+              <Link to="/contact" className="hover:text-slate-700 transition">
                 Contact
               </Link>
             </div>

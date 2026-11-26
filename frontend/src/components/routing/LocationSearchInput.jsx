@@ -213,7 +213,7 @@ export default function LocationSearchInput({
   // Badge styles
   const badgeClasses =
     badgeColor === "emerald"
-      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
+      ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-600"
       : badgeColor === "rose"
       ? "border-rose-500/40 bg-rose-500/10 text-rose-400"
       : "border-blue-500/40 bg-blue-500/10 text-blue-400";
@@ -222,7 +222,7 @@ export default function LocationSearchInput({
     <div ref={containerRef} className="relative space-y-1.5">
       {/* Label and Pick-on-Map trigger */}
       <div className="flex items-center justify-between text-xs">
-        <div className="flex items-center gap-1.5 font-semibold text-slate-300">
+        <div className="flex items-center gap-1.5 font-semibold text-slate-700">
           <span
             className={`flex h-4 w-4 items-center justify-center rounded-full border text-[10px] font-bold ${badgeClasses}`}
           >
@@ -230,7 +230,7 @@ export default function LocationSearchInput({
           </span>
           <span>{label}</span>
           {selectedLocation && (
-            <span className="flex items-center gap-1 text-[10px] text-emerald-400">
+            <span className="flex items-center gap-1 text-[10px] text-emerald-600">
               <CheckCircle2 size={11} />
               <span>Selected</span>
             </span>
@@ -246,7 +246,7 @@ export default function LocationSearchInput({
           className={`flex items-center gap-1 rounded-lg px-2 py-0.5 text-[11px] font-medium transition focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:outline-none ${
             isMapPicking
               ? "border border-purple-500/60 bg-purple-500/20 text-purple-300 shadow-sm shadow-purple-500/30 animate-pulse"
-              : "border border-slate-800 bg-slate-900/80 text-slate-400 hover:border-slate-700 hover:text-slate-200"
+              : "border border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:text-slate-800"
           }`}
           title="Click to select this point directly on the map canvas"
         >
@@ -321,12 +321,12 @@ export default function LocationSearchInput({
             setHighlightedIndex(-1);
             setIsOpen(true);
           }}
-          className={`w-full rounded-xl border bg-slate-950/70 py-2.5 pr-16 pl-9 text-xs text-white placeholder-slate-500 transition focus:outline-none focus:ring-1 ${
+          className={`w-full rounded-xl border bg-slate-50 py-2.5 pr-16 pl-9 text-xs text-slate-900 placeholder-slate-400 transition focus:outline-none focus:ring-1 ${
             selectedLocation
               ? badgeColor === "emerald"
                 ? "border-emerald-500/40 focus:border-emerald-500 focus:ring-emerald-500/30"
                 : "border-rose-500/40 focus:border-rose-500 focus:ring-rose-500/30"
-              : "border-slate-800 focus:border-blue-500 focus:ring-blue-500/30"
+              : "border-slate-200 focus:border-blue-500 focus:ring-blue-500/30"
           }`}
         />
 
@@ -341,7 +341,7 @@ export default function LocationSearchInput({
               type="button"
               onClick={handleClear}
               aria-label={`Clear ${label} input`}
-              className="rounded-md p-1 text-slate-500 transition hover:bg-slate-800 hover:text-slate-300 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none"
+              className="rounded-md p-1 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:outline-none"
               title="Clear input"
             >
               <X size={13} />
@@ -352,14 +352,14 @@ export default function LocationSearchInput({
 
       {/* Coordinate & Subtitle Chip if location selected */}
       {selectedLocation?.coordinates && (
-        <div className="flex items-center justify-between px-1 text-[10px] text-slate-400">
+        <div className="flex items-center justify-between px-1 text-[10px] text-slate-600">
           <span className="font-mono text-slate-500">
             {formatCoordinate(
               selectedLocation.coordinates[0],
               selectedLocation.coordinates[1]
             )}
           </span>
-          <span className="text-[10px] text-emerald-400/90 font-medium">
+          <span className="text-[10px] text-emerald-600/90 font-medium">
             Within Tricity bounds
           </span>
         </div>
@@ -370,11 +370,11 @@ export default function LocationSearchInput({
         <div
           role="listbox"
           aria-label={`${label} suggestions`}
-          className="absolute top-full left-0 z-50 mt-1 max-h-72 w-full overflow-y-auto rounded-xl border border-slate-800 bg-slate-900/95 p-1.5 shadow-2xl backdrop-blur-md"
+          className="absolute top-full left-0 z-50 mt-1 max-h-72 w-full overflow-y-auto rounded-xl border border-slate-200 bg-white/95 p-1.5 shadow-2xl backdrop-blur-md"
         >
           {/* Searching Loader State */}
           {isSearching && (
-            <div className="flex items-center gap-2 p-2.5 text-xs text-slate-400">
+            <div className="flex items-center gap-2 p-2.5 text-xs text-slate-600">
               <Loader2 size={14} className="animate-spin text-blue-400 shrink-0" />
               <span>Searching Chandigarh Tricity road network...</span>
             </div>
@@ -382,8 +382,8 @@ export default function LocationSearchInput({
 
           {/* High-Confidence Backend Geocoded Result */}
           {backendResult && (
-            <div className="mb-1 border-b border-slate-800/80 pb-1">
-              <p className="px-2 py-1 text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
+            <div className="mb-1 border-b border-slate-200 pb-1">
+              <p className="px-2 py-1 text-[10px] font-semibold tracking-wider text-slate-600 uppercase">
                 Geocoded Location
               </p>
               <button
@@ -399,14 +399,14 @@ export default function LocationSearchInput({
                 className={`flex w-full items-start gap-2.5 rounded-lg p-2 text-left transition focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none ${
                   highlightedIndex === 0
                     ? "bg-blue-600/30 text-white ring-1 ring-blue-500/50"
-                    : "hover:bg-blue-500/10 hover:text-white"
+                    : "hover:bg-blue-500/10 hover:text-slate-900"
                 }`}
               >
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue-500/20 text-blue-400">
                   <MapPin size={12} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-semibold text-slate-200">
+                  <p className="truncate text-xs font-semibold text-slate-800">
                     {backendResult.display_name}
                   </p>
                   <p className="mt-0.5 font-mono text-[10px] text-slate-500">
@@ -420,7 +420,7 @@ export default function LocationSearchInput({
           {/* Regional Landmarks / Preset Suggestions */}
           {matchingLandmarks.length > 0 && (
             <div>
-              <p className="px-2 py-1 text-[10px] font-semibold tracking-wider text-slate-400 uppercase">
+              <p className="px-2 py-1 text-[10px] font-semibold tracking-wider text-slate-600 uppercase">
                 {query.trim().length >= 2 ? "Matching Regional Hubs" : "Quick Tricity Hubs"}
               </p>
               <div className="space-y-0.5">
@@ -442,7 +442,7 @@ export default function LocationSearchInput({
                       className={`flex w-full items-center justify-between rounded-lg p-2 text-left transition focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-none ${
                         isHighlighted
                           ? "bg-blue-600/30 text-white ring-1 ring-blue-500/50"
-                          : "hover:bg-slate-800/70"
+                          : "hover:bg-slate-100/70"
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -450,7 +450,7 @@ export default function LocationSearchInput({
                           <Compass size={11} />
                         </span>
                         <div>
-                          <p className="text-xs font-medium text-slate-200">
+                          <p className="text-xs font-medium text-slate-800">
                             {landmark.name}
                           </p>
                           <p className="text-[10px] text-slate-500">
@@ -474,8 +474,8 @@ export default function LocationSearchInput({
 
           {/* Empty Result Feedback */}
           {hasEmptyResult && !isSearching && !backendResult && (
-            <div className="p-3 text-center text-xs text-slate-400">
-              <p className="font-medium text-slate-300">No locations found</p>
+            <div className="p-3 text-center text-xs text-slate-600">
+              <p className="font-medium text-slate-700">No locations found</p>
               <p className="mt-0.5 text-[11px] text-slate-500">
                 No matching places in Chandigarh Tricity. Try another landmark or pick directly on the map.
               </p>
@@ -484,8 +484,8 @@ export default function LocationSearchInput({
 
           {/* Error State Feedback */}
           {errorMessage && !isSearching && (
-            <div className="flex items-start gap-2 rounded-lg bg-amber-500/10 p-2.5 text-xs text-amber-400">
-              <AlertCircle size={14} className="mt-0.5 shrink-0 text-amber-400" />
+            <div className="flex items-start gap-2 rounded-lg bg-amber-500/10 p-2.5 text-xs text-amber-600">
+              <AlertCircle size={14} className="mt-0.5 shrink-0 text-amber-600" />
               <div className="flex-1">
                 <p className="font-medium">{errorMessage}</p>
                 <button
