@@ -15,6 +15,7 @@ from backend.services.strategy_comparator import compare_strategies_multi_run
 from backend.services.simulation_validator import run_all_validation_scenarios
 from backend.services.sensitivity_analyzer import run_parameter_sensitivity_sweep, validate_parameter_values_for_type
 from backend.services.workflow_orchestrator import run_unified_workflow
+from backend.ml_lab.router import ml_lab_router
 from backend.routing.road_network import (
     get_network_status,
     get_network_summary,
@@ -96,6 +97,7 @@ app.include_router(user_router, prefix="/api/v1/user", tags=["User Workspace"])
 app.include_router(user_router, prefix="/user", tags=["User Workspace"], include_in_schema=False)
 app.include_router(admin_router, prefix="/api/v1/admin", tags=["Admin Control Center"])
 app.include_router(admin_router, prefix="/admin", tags=["Admin Control Center"], include_in_schema=False)
+app.include_router(ml_lab_router, prefix="/ml-lab", tags=["ML Laboratory"])
 
 
 class TrafficInput(BaseModel):
